@@ -10,7 +10,7 @@
 ##########################################################
 KEYMAP=$1
 # make FW bigger if the columns don't fit on your screen
-FW=350
+FW=300
 LH=$9
 X=$2
 W=$4

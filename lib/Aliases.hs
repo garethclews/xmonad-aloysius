@@ -3,7 +3,7 @@
 module Aliases where
 
 dmenu :: String
-dmenu = "rofi -show run"
+dmenu = "rofi -show combi"
 
 panel :: String
 panel = "dzen2 -ta l -p -w 400 -y 10 -x 10 -h 24 -e ''"

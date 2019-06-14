@@ -93,10 +93,10 @@ gs = Gaps
   }
 
 layout = gaps [(U, u gs), (R, x gs), (L, x gs), (D, d gs)]
+  $   spacing (x gs)
   $   smartBorders
-  $   Column 1
+  $   Mirror tiled
   ||| avoidFloats (tiled)
-  ||| Mirror tiled
   ||| noBorders (fullscreenFull Full)
   where
     tiled = Tall 1 (1/2) (3/10)

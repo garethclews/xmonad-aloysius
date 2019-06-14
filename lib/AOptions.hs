@@ -60,7 +60,7 @@ options = Options
   { term   = "urxvt"
   , ffm    = True
   , mask   = mod4Mask
-  , spaces = click $ map show [1..6]
+  , spaces = map show [1..6]
   , events = ewmhDesktopsEventHook
   , logs   = updatePointer (0.5, 0.5) (0, 0)
            >> takeTopFocus
@@ -68,12 +68,4 @@ options = Options
            >> spawn "xdotool search dunst windowraise >/dev/null 2>&1"
   , starts = ewmhDesktopsStartup >> setWMName "XMonad" -- return ()
   }
-
-
--- supporting functions
-click :: [String] -> [String]
-click xs = [ "^ca(1, xdotool key super+" ++ show (n) ++ ")" ++ ws ++ "^ca()"
-           | (i, ws) <- zip [1..] xs
-           , let n = i
-           ]
 
