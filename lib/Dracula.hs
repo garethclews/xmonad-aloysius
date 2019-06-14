@@ -18,7 +18,7 @@ theme = Theme
   { highlight  = "#bbe9fd"
   , background = "#282a36"
   , foreground = "#dee3e0"
-  , focussed   = "#bbe9fd"
+  , focussed   = "#ff79c6"
   , unfocussed = "#44475a"
   , border     = 1
   }

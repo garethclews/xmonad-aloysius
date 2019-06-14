@@ -5,6 +5,7 @@ module AOptions where
 import XMonad
 import Data.Monoid
 import System.Exit
+import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.ICCCMFocus
@@ -41,13 +42,16 @@ import Data.Maybe (fromMaybe, fromJust)
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 
+
+import Dracula
+
 -- personal preferences for use
 data Options = Options
   { term   :: String
   , ffm    :: Bool
   , mask   :: KeyMask
   , spaces :: [String]
-  , events :: Event -> X All
+  , events :: Event  -> X All
   , logs   :: X ()
   , starts :: X ()
   }
@@ -56,12 +60,20 @@ options = Options
   { term   = "urxvt"
   , ffm    = True
   , mask   = mod4Mask
-  , spaces = map show [1..6]
+  , spaces = click $ map show [1..6]
   , events = ewmhDesktopsEventHook
-  , logs   =  updatePointer (0.5, 0.5) (0, 0)
+  , logs   = updatePointer (0.5, 0.5) (0, 0)
            >> takeTopFocus
-           -- TODO: figure out a better way
+            -- TODO: figure out a better way to do this.
            >> spawn "xdotool search dunst windowraise >/dev/null 2>&1"
   , starts = ewmhDesktopsStartup >> setWMName "XMonad" -- return ()
   }
+
+
+-- supporting functions
+click :: [String] -> [String]
+click xs = [ "^ca(1, xdotool key super+" ++ show (n) ++ ")" ++ ws ++ "^ca()"
+           | (i, ws) <- zip [1..] xs
+           , let n = i
+           ]
 
