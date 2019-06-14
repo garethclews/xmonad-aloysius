@@ -2,8 +2,6 @@
 .DS_Store
 .idea
 xmonad.errors
-xmonad.hi
-xmonad.o
 xmonad-x86_64-linux
 
 # directories
@@ -11,3 +9,5 @@ tmp/
 
 # wildcards
 *.log
+*.o
+*.hi
