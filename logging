@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+conky -c ~/.conky/top.conky | dzen2 -w 2560 -h 24

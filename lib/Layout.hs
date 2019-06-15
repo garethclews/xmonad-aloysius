@@ -87,11 +87,13 @@ data Gaps = Gaps
   }
 
 gs = Gaps
-  { u = 10
+  { u = 24
   , d = 10
   , x = 10
   }
 
+
+{-
 layout = gaps [(U, u gs), (R, x gs), (L, x gs), (D, d gs)]
   $   spacing (x gs)
   $   smartBorders
@@ -100,3 +102,11 @@ layout = gaps [(U, u gs), (R, x gs), (L, x gs), (D, d gs)]
   ||| noBorders (fullscreenFull Full)
   where
     tiled = Tall 1 (1/2) (3/10)
+-}
+
+-- layout --
+layout = (gaps [(U, u gs), (R, x gs), (L, x gs), (D, d gs)] $
+           avoidStruts (spacing (x gs) $ resize)) ||| Circle ||| full
+  where
+    resize = ResizableTall 1 (2/100) (1/2) []
+    full = noBorders (fullscreenFull Full)

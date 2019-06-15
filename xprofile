@@ -1,0 +1,24 @@
+# Keys etc.
+export LANG=en_GB.UTF-8 &
+
+# turn on useful keys
+numlockx &
+
+# check for and load .Xresources
+[[ -f ~/.Xresources ]] && nohup xrdb -merge -I$HOME ~/.Xresources >/dev/null
+
+
+# glitz
+#  -- wallpaper
+~/.fehbg >/dev/null
+
+#  -- cursor
+xsetroot -cursor_name left_ptr &
+
+# compositing
+compton &
+
+
+# services
+# gnome-session &
+dunst &

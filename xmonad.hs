@@ -9,6 +9,7 @@
 import XMonad
 import Data.Monoid
 import System.Exit
+import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.ICCCMFocus
@@ -86,7 +87,7 @@ keyMapDoc name = do
   -- focused screen location/size
   r <- withWindowSet $ return . screenRect . W.screenDetail . W.current
 
-  handle <- spawnPipe $ unwords [ "~/.xmonad/showHintForKeymap.sh"
+  handle <- spawnPipe $ unwords [ "~/.xmonad/hints"
                                 , name
                                 , show (rect_x r)
                                 , show (rect_y r)
@@ -142,8 +143,8 @@ shotKeymap = -- Screen Shot
   , ("w", takeShot currentWindow) -- Current Window
   , ("o", openDirectory)
   ]
-  where setContext = spawn ("~/.xmonad/sshot-context.sh")
-        takeShot a = spawn ("~/.scripts/screenshot")
+  where setContext    = spawn ("~/.xmonad/sshot-context.sh")
+        takeShot a    = spawn ("~/.scripts/screenshot")
         openDirectory = spawn ("xdg-open ~/Pictures/screens/")
         select        = "-s"
         currentWindow = "-u"
@@ -228,8 +229,12 @@ hooks = composeOne
 --
 main = do
     replace
+    profile <- spawn "source ~/.xmonad/xprofile"
+    eyes <-  spawn "redshift -l 51.79665:-3.209315"
+
     config <- withWindowNavigation (xK_k, xK_h, xK_j, xK_l) defaults
-    xmonad $ ewmh config `additionalKeys` ([((m .|. mask options, k), windows $ f i)
+    xmonad
+      $ ewmh config `additionalKeys` ([((m .|. mask options, k), windows $ f i)
                                            | (i, k) <- zip (spaces options) [xK_1 .. xK_9]
                                            , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]])
 
