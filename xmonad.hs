@@ -42,6 +42,7 @@ import XMonad.Layout.LayoutCombinators hiding ( (|||) )
 import XMonad.Layout.AvoidFloats
 import System.IO (hClose, hFlush, Handle)
 import Data.Maybe (fromMaybe, fromJust)
+import Control.Monad (forM_, join)
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
@@ -52,6 +53,7 @@ import AOptions
 import Aliases
 import Dracula
 import Layout
+import Events
 
 -- A structure containing your configuration settings, overriding
 -- fields in the default config. Any you don't override, will
@@ -75,7 +77,8 @@ defaults = def {
         layoutHook         = layout,
         manageHook         = hooks,
         handleEventHook    = events options,
-        logHook            = logs options,
+        --logHook            = logs options,
+        logHook            = eventLogHook,
         startupHook        = starts options
 }
 
@@ -231,6 +234,9 @@ main = do
     replace
     profile <- spawn "source ~/.xmonad/xprofile"
     eyes <-  spawn "redshift -l 51.79665:-3.209315"
+
+    forM_ ["xmonad-workspace-log", "xmonad-title-log"] $ \file -> do
+      safeSpawn "mkfifo" ["/tmp/"++file]
 
     config <- withWindowNavigation (xK_k, xK_h, xK_j, xK_l) defaults
     xmonad
