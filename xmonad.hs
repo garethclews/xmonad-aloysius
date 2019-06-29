@@ -20,14 +20,11 @@ import XMonad.Actions.FloatKeys
 import XMonad.Actions.UpdatePointer
 import XMonad.Actions.WindowNavigation
 
-import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.ICCCMFocus
 import XMonad.Hooks.InsertPosition
 import XMonad.Hooks.ManageHelpers
-import XMonad.Hooks.FadeInactive
-import XMonad.Hooks.FadeWindows
 import XMonad.Hooks.ManageDocks
 
 import XMonad.Util.EZConfig
@@ -69,7 +66,6 @@ defaults = def {
         layoutHook         = layout,
         manageHook         = hooks,
         handleEventHook    = events options,
-        --logHook            = logs options,
         logHook            = eventLogHook,
         startupHook        = starts options
 }
@@ -102,20 +98,18 @@ hooks = composeOne
 
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.
-
--- Run xmonad with the settings you specify. No need to modify this.
---
 main = do
     replace
 
-    forM_ ["xmonad-ws"] $ \file -> do  -- TODO: expand later
-      safeSpawn "mkfifo" ["/tmp/"++file]
+    -- polybar pipes
+    forM_ [ "xmonad-ws"
+          , "xmonad-mode"
+          ]
+          $ \file -> do  -- TODO: expand later
+             safeSpawn "mkfifo" ["/tmp/"++file]
 
-    config <- withWindowNavigation (xK_k, xK_h, xK_j, xK_l) defaults
+    -- set up out ewmh
     xmonad
       . docks
       . ewmh
-      $ config `additionalKeys` ([((m .|. mask options, k), windows $ f i)
-                                 | (i, k) <- zip (spaces options) [xK_1 .. xK_9]
-                                 , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]])
-
+      $ defaults

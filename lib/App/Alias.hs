@@ -6,7 +6,7 @@
 module App.Alias where
 
 dmenu :: String
-dmenu = "rofi -show combi"
+dmenu = "rofi -show run"
 
 panel :: String
 panel = "~/.scripts/polybar/launch"
