@@ -1,6 +1,6 @@
 -- | XMonad-Aloysius dracula colour scheme
 
-module Dracula where
+module Theme.Dracula where
 
 import XMonad
 

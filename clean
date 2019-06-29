@@ -1,3 +1,8 @@
 #!/usr/bin/env zsh
 
-rm {,lib/}*.{hi,o} xmonad.errors
+find . \( -name '*.hi'\
+      -or -name '*.o'\
+      -or -name '*.errors'\
+      \) -type f -delete
+
+echo "All clean :3"

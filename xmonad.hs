@@ -23,6 +23,7 @@ import XMonad.Layout.Spacing
 import XMonad.Layout.Gaps
 import XMonad.Hooks.FadeInactive
 import XMonad.Hooks.FadeWindows
+import XMonad.Hooks.ManageDocks
 import XMonad.Layout.NoBorders
 import XMonad.Actions.FloatKeys
 import XMonad.Util.Replace
@@ -49,11 +50,13 @@ import qualified Data.Map        as M
 
 
 -- personal data structures
-import AOptions
-import Aliases
-import Dracula
-import Layout
-import Events
+import Config.Options
+import App.Alias
+import Theme.Nord -- alternatively Dracula
+import Container.Layout
+import Bus.Events
+
+-- TODO: docksStartupHooks
 
 -- A structure containing your configuration settings, overriding
 -- fields in the default config. Any you don't override, will
@@ -146,7 +149,7 @@ shotKeymap = -- Screen Shot
   , ("w", takeShot currentWindow) -- Current Window
   , ("o", openDirectory)
   ]
-  where setContext    = spawn ("~/.xmonad/sshot-context.sh")
+  where setContext    = spawn ("~/.scripts/screenshot")
         takeShot a    = spawn ("~/.scripts/screenshot")
         openDirectory = spawn ("xdg-open ~/Pictures/screens/")
         select        = "-s"
@@ -221,7 +224,7 @@ hooks = composeOne
   , transience -- I don't actually understand what this does
   , isFullscreen                  -?> doFullFloat
   , pure True                     -?> insertPosition End Newer
-  ]
+  ] <+> manageDocks
   where role = stringProperty "WM_WINDOW_ROLE"
 
 
@@ -232,10 +235,8 @@ hooks = composeOne
 --
 main = do
     replace
-    profile <- spawn "source ~/.xmonad/xprofile"
-    eyes <-  spawn "redshift -l 51.79665:-3.209315"
 
-    forM_ ["xmonad-workspace-log", "xmonad-title-log"] $ \file -> do
+    forM_ ["xmonad-ws"] $ \file -> do  -- TODO: expand later
       safeSpawn "mkfifo" ["/tmp/"++file]
 
     config <- withWindowNavigation (xK_k, xK_h, xK_j, xK_l) defaults

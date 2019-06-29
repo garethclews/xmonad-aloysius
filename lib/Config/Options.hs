@@ -1,6 +1,6 @@
 -- | XMonad-Aloysius setup
 
-module AOptions where
+module Config.Options where
 
 import XMonad
 import Data.Monoid
@@ -19,6 +19,7 @@ import XMonad.Layout.Spacing
 import XMonad.Layout.Gaps
 import XMonad.Hooks.FadeInactive
 import XMonad.Hooks.FadeWindows
+import XMonad.Hooks.ManageDocks
 import XMonad.Layout.NoBorders
 import XMonad.Actions.FloatKeys
 import XMonad.Util.Replace
@@ -34,6 +35,7 @@ import XMonad.Actions.Submap
 import XMonad.Actions.ShowText
 import XMonad.Util.Run
 import XMonad.Util.EZConfig
+import XMonad.Util.SpawnOnce
 import XMonad.Layout.LayoutCombinators hiding ( (|||) )
 import XMonad.Layout.AvoidFloats
 import System.IO (hClose, hFlush, Handle)
@@ -42,8 +44,9 @@ import Data.Maybe (fromMaybe, fromJust)
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 
-
-import Dracula
+-- import Theme.Dracula
+import App.Alias
+import Theme.Nord
 
 -- personal preferences for use
 data Options = Options
@@ -64,8 +67,19 @@ options = Options
   , events = ewmhDesktopsEventHook
   , logs   = updatePointer (0.5, 0.5) (0, 0)
            >> takeTopFocus
-            -- TODO: figure out a better way to do this.
-           >> spawn "xdotool search dunst windowraise >/dev/null 2>&1"
-  , starts = ewmhDesktopsStartup >> setWMName "XMonad" -- return ()
+           -- TODO: figure out a better way to do this.
+           >> spawn logger
+  , starts = ewmhDesktopsStartup
+             >> setWMName "XMonad"
+             -- apps from alias
+             >> spawnOnce panel
+             >> spawnOnce wallpaper
+             >> spawnOnce compositor
+             >> spawnOnce cursor
+             >> spawnOnce lang
+             >> spawnOnce notifications
+             >> spawnOnce xresource
+             <+> docksStartupHook
+             -- return ()
   }
 
