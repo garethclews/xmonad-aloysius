@@ -40,21 +40,11 @@ gs = Gaps'
   , x = 20
   }
 
-
-{-
-layout = gaps [(U, u gs), (R, x gs), (L, x gs), (D, d gs)]
-  $   spacing (x gs)
-  $   smartBorders
-  $   Mirror tiled
-  ||| avoidFloats (tiled)
-  ||| noBorders (fullscreenFull Full)
-  where
-    tiled = Tall 1 (1/2) (3/10)
--}
-
 -- layout --
 layout = (gaps [(U, u gs), (R, x gs), (L, x gs), (D, d gs)]
-          $ avoidStruts (spacing (x gs) resize)) ||| avoidStruts full
+          $  smartBorders
+          $  avoidStruts (spacing (x gs) resize))
+         ||| avoidStruts full
          -- FIXME spacing is deprecated, look into spacingRaw
   where
     resize = ResizableTall 1 (2/100) (1/2) []
