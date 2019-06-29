@@ -241,7 +241,9 @@ main = do
 
     config <- withWindowNavigation (xK_k, xK_h, xK_j, xK_l) defaults
     xmonad
-      $ ewmh config `additionalKeys` ([((m .|. mask options, k), windows $ f i)
-                                           | (i, k) <- zip (spaces options) [xK_1 .. xK_9]
-                                           , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]])
+      . docks
+      . ewmh
+      $ config `additionalKeys` ([((m .|. mask options, k), windows $ f i)
+                                 | (i, k) <- zip (spaces options) [xK_1 .. xK_9]
+                                 , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]])
 

@@ -79,7 +79,6 @@ options = Options
              >> spawnOnce lang
              >> spawnOnce notifications
              >> spawnOnce xresource
-             <+> docksStartupHook
              -- return ()
   }
 
