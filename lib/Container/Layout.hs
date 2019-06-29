@@ -9,7 +9,6 @@ import XMonad.Hooks.ManageDocks
 
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.Fullscreen
-import XMonad.Layout.Circle
 
 import XMonad.Layout.Spacing
 import XMonad.Layout.Gaps
@@ -28,13 +27,14 @@ import XMonad.Layout.NoBorders
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 --
-data Gaps = Gaps
+data Gaps' = Gaps'
   { u :: Int
   , d :: Int
   , x :: Int
   }
 
-gs = Gaps
+gs :: Gaps'
+gs = Gaps'
   { u = 44
   , d = 20
   , x = 20
@@ -53,8 +53,8 @@ layout = gaps [(U, u gs), (R, x gs), (L, x gs), (D, d gs)]
 -}
 
 -- layout --
-layout = (gaps [(U, u gs), (R, x gs), (L, x gs), (D, d gs)] $
-           avoidStruts (spacing (x gs) resize)) ||| Circle ||| full
+layout = (gaps [(U, u gs), (R, x gs), (L, x gs), (D, d gs)]
+          $ avoidStruts (spacing (x gs) resize)) ||| avoidStruts full
          -- FIXME spacing is deprecated, look into spacingRaw
   where
     resize = ResizableTall 1 (2/100) (1/2) []
