@@ -4,6 +4,7 @@
 module Theme.Nord where
 
 import XMonad
+import XMonad.Config
 
 data Theme = Theme
   { foreground :: String
@@ -31,6 +32,12 @@ nord12 = "#D08770"
 nord13 = "#EBCB8B"
 nord14 = "#A3BE8C"
 nord15 = "#B48EAD"
+
+sansserif :: String
+sansserif = "xft:Fira Sans:size=10"
+
+monospace :: String
+monospace = "xft:Fira Mono:size=10"
 
 
 theme :: Theme

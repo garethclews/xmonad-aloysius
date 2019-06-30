@@ -1,38 +1,85 @@
 {-
   yay, xmonad
-
-  inspired by:
-    https://blog.pclewis.com/2016/03/19/xmonad-spacemacs-style.html
-    https://git.sr.ht/~ben/cfg/tree/master/xmonad.hs
 -}
 
+---------------------------------------------------------------------------
+-- Aloysius                                                              --
+-- https://github.com/karetsu                                            --
+---------------------------------------------------------------------------
+-- current as of XMonad 0.15
+
+---------------------------------------------------------------------------
+-- TODO
+---------------------------------------------------------------------------
+{-|
+  GENERAL
+
+  * look into X.A.DynamicProjects
+  * XMonad.Hooks.DynamicBars
+  * make fullscreen logout and a menu which allows keypresses bound for
+  * polybar pimping:
+    - include current layout
+    - better workspace listing
+  * keybindings are currently all over the place
+    - get toggle float all and sink all
+    - helper scripts to throw in ~/.scripts
+    - see how wmctl can help me out
+  * can we swap out rofi for xmonad-extras/contrib functions?
+  * tidy up gaps with polybar
+  * add scratchpads
+  * investigate how to add i3 niceties (maximise on only window)
+  * X.U.Dzen to replicate the kind of bar on the left of:
+    https://i.redd.it/glzrkk83f4621.png
+  * X.U.Themes - see if nord and dracula can be added
+  * Incorporate goodness from:
+    https://github.com/altercation/dotfiles-tilingwm/blob/master/.xmonad/xmonad.hs
+
+
+  NON XMONAD SPECIFIC
+  * sort out xautolock to prevent locking on screen with video playing
+    - see if caffeine is still the go to?
+
+
+  ACTIVE
+
+
+  DEFER
+  * https://github.com/pjones/xmonadrc has some dynamic project helper functions
+  * investigate X.A.Navigation2D
+
+
+  DONE
+
+
+  TESTED/REJECTED/WONTFIX
+
+ -}
+
+
 import Control.Monad (forM_, join)
-
-import Data.Monoid
 import Data.Maybe (fromMaybe, fromJust)
+import Data.Monoid
 import System.Exit
-
 import XMonad
 
-import XMonad.Actions.ShowText
 import XMonad.Actions.CopyWindow
 import XMonad.Actions.FloatKeys
+import XMonad.Actions.ShowText
 import XMonad.Actions.UpdatePointer
 import XMonad.Actions.WindowNavigation
 
 import XMonad.Hooks.EwmhDesktops
-import XMonad.Hooks.SetWMName
-import XMonad.Hooks.ICCCMFocus
 import XMonad.Hooks.InsertPosition
-import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.ManageHelpers
+import XMonad.Hooks.SetWMName
 
 import XMonad.Util.EZConfig
 import XMonad.Util.Replace
 import XMonad.Util.Run
 
-import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
+import qualified XMonad.StackSet as W
 
 
 -- Personal imports (./lib/)
@@ -48,26 +95,26 @@ import Theme.Nord -- alternatively Dracula
 -- fields in the default config. Any you don't override, will
 -- use the defaults defined in xmonad/XMonad/Config.hs
 defaults = def {
-      -- simple stuff
-        terminal           = term options,
-        focusFollowsMouse  = ffm options,
-        modMask            = mask options,
-        workspaces         = spaces options,
+  -- simple stuff
+  terminal           = term options,
+  focusFollowsMouse  = ffm options,
+  modMask            = mask options,
+  workspaces         = spaces options,
 
-        normalBorderColor  = unfocussed theme,
-        focusedBorderColor = focussed theme,
-        borderWidth        = border theme,
+  normalBorderColor  = unfocussed theme,
+  focusedBorderColor = focussed theme,
+  borderWidth        = border theme,
 
-      -- key bindings
-        keys               = mainKeymap,
-        mouseBindings      = mouseBindings',
+  -- key bindings
+  keys               = defaultKeys,
+  mouseBindings      = mouseBindings',
 
-      -- hooks, layouts
-        layoutHook         = layout,
-        manageHook         = hooks,
-        handleEventHook    = events options,
-        logHook            = eventLogHook,
-        startupHook        = starts options
+  -- hooks, layouts
+  layoutHook         = layout,
+  manageHook         = hooks,
+  handleEventHook    = events options,
+  logHook            = logHook',
+  startupHook        = starts options
 }
 
 
@@ -87,7 +134,7 @@ defaults = def {
 -- 'className' and 'resource' are used below.
 --
 hooks = composeOne
-  [ className =? "pinentry-gtk-2" -?> doFloat
+  [ title =? "Openbox Logout"     -?> doCenterFloat
   , isDialog                      -?> doCenterFloat
   , transience -- I don't actually understand what this does
   , isFullscreen                  -?> doFullFloat

@@ -9,7 +9,7 @@ import XMonad.Hooks.ManageDocks
 
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.Fullscreen
-
+import XMonad.Layout.BinarySpacePartition
 import XMonad.Layout.Spacing
 import XMonad.Layout.Gaps
 import XMonad.Layout.NoBorders
@@ -40,13 +40,16 @@ gs = Gaps'
   , x = 20
   }
 
+gapses = gaps [(U, u gs), (R, x gs), (L, x gs), (D, d gs)]
+
 -- layout --
-layout = (gaps [(U, u gs), (R, x gs), (L, x gs), (D, d gs)]
-          $  smartBorders
-          $  avoidStruts (spacing (x gs) resize))
-         ||| avoidStruts full
-         ||| full
-         -- FIXME spacing is deprecated, look into spacingRaw
+layout = avoidStruts
+       $ gapses
+       $ smartBorders
+       $ spacingRaw True (Border 0 10 10 10) True (Border 10 10 10 10) True
+       $ resize
+     ||| emptyBSP
+     ||| full
   where
     resize = ResizableTall 1 (2/100) (1/2) []
     full = noBorders (fullscreenFull Full)
