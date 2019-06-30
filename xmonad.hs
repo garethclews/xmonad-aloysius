@@ -1,12 +1,16 @@
 {-
-  yay, xmonad
--}
+____             _    _                 _
+\ \ \ _____     / \  | | ___  _   _ ___(_)_   _ ___
+ \ \ \_____|   / _ \ | |/ _ \| | | / __| | | | / __|
+ / / /_____|  / ___ \| | (_) | |_| \__ \ | |_| \__ \
+/_/_/        /_/   \_\_|\___/ \__, |___/_|\__,_|___/
+                              |___/
 
 ---------------------------------------------------------------------------
--- Aloysius                                                              --
 -- https://github.com/karetsu                                            --
+-- X. >= 0.15
 ---------------------------------------------------------------------------
--- current as of XMonad 0.15
+-}
 
 ---------------------------------------------------------------------------
 -- TODO
@@ -134,13 +138,10 @@ defaults = def {
 -- 'className' and 'resource' are used below.
 --
 hooks = composeOne
-  [ title =? "Openbox Logout"     -?> doCenterFloat
-  , isDialog                      -?> doCenterFloat
+  [ isDialog                      -?> doCenterFloat
   , transience -- I don't actually understand what this does
-  , isFullscreen                  -?> doFullFloat
   , pure True                     -?> insertPosition End Newer
   ] <+> manageDocks
-  where role = stringProperty "WM_WINDOW_ROLE"
 
 
 ------------------------------------------------------------------------
@@ -151,6 +152,7 @@ main = do
     -- polybar pipes
     forM_ [ "xmonad-ws"
           , "xmonad-mode"
+          , "xmonad-layout"
           ]
           $ \file -> do  -- TODO: expand later
              safeSpawn "mkfifo" ["/tmp/"++file]
