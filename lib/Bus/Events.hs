@@ -41,8 +41,8 @@ logHook' = do
       | currWs == ws = " %{F"++nord00++"}%{T3}[" ++ ws ++ "]%{T-}%{F-} "
       | otherwise    = "  %{F"++nord10++"}%{T4}" ++ ws ++ "%{T-}%{F-}  "
     sort' = sortBy (compare `on` (!! 0))
-    layoutParse s
+    layoutParse s  -- pretty printing
       | s == "Spacing BSP"           = "%{T2}|+%{T-} BSP "
-      | s == "Spacing Full"          = "%{T2}__%{T-} Full"
+      | s == "Full"                  = "%{T2}__%{T-} Full"
       | s == "Spacing ResizableTall" = "%{T2}||%{T-} Tall"
-      | otherwise                    = "Overflow: restart"
+      | otherwise                    = s -- fallback for changes in C.Layout

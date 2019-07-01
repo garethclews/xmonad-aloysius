@@ -68,7 +68,7 @@ options = Options
   { term   = "urxvt"
   , ffm    = True
   , mask   = mod4Mask
-  , spaces = map show [1..4]
+  , spaces = map show [1..6]
   , events = ewmhDesktopsEventHook
   , logs   = updatePointer (0.5, 0.5) (0, 0)
            >> spawn logger

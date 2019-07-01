@@ -1,4 +1,4 @@
--- | XMonad-Aloysius xmonad layouts
+-- XMonad-Aloysius xmonad layouts
 
 module Container.Layout where
 
@@ -28,28 +28,34 @@ import XMonad.Layout.NoBorders
 -- which denotes layout choice.
 --
 data Gaps' = Gaps'
-  { u :: Int
-  , d :: Int
-  , x :: Int
+  { u  :: Int
+  , d  :: Int
+  , x  :: Int
+  , x' :: Integer
   }
 
 gs :: Gaps'
 gs = Gaps'
-  { u = 44
-  , d = 20
-  , x = 20
+  { u  = 44
+  , d  = 20
+  , x  = 20
+  , x' = 20
   }
 
-gapses = gaps [(U, u gs), (R, x gs), (L, x gs), (D, d gs)]
+
+gapses     = gaps [(U, u gs), (R, x gs), (L, x gs), (D, d gs)]
+spacingses = spacingRaw True (Border      0  (x' gs) (x' gs) (x' gs))
+                        True (Border (x' gs) (x' gs) (x' gs) (x' gs))
+                        True
+
+-- customised layouts
+full             = noBorders (fullscreenFull Full)
+spacedPartitions = gapses
+                 $ spacingses
+                 $ (emptyBSP ||| ResizableTall 1 (2/100) (1/2) [])
 
 -- layout --
 layout = avoidStruts
-       $ gapses
        $ smartBorders
-       $ spacingRaw True (Border 0 10 10 10) True (Border 10 10 10 10) True
-       $ resize
-     ||| emptyBSP
-     ||| full
-  where
-    resize = ResizableTall 1 (2/100) (1/2) []
-    full = noBorders (fullscreenFull Full)
+       $ full
+     ||| spacedPartitions

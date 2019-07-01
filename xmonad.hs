@@ -138,9 +138,9 @@ defaults = def {
 -- 'className' and 'resource' are used below.
 --
 hooks = composeOne
-  [ isDialog                      -?> doCenterFloat
+  [ isDialog   -?> doCenterFloat
   , transience -- I don't actually understand what this does
-  , pure True                     -?> insertPosition End Newer
+  , pure True  -?> insertPosition End Newer
   ] <+> manageDocks
 
 
@@ -157,7 +157,7 @@ main = do
           $ \file -> do  -- TODO: expand later
              safeSpawn "mkfifo" ["/tmp/"++file]
 
-    -- set up out ewmh
+    -- set up our ewmh
     xmonad
       . docks
       . ewmh
