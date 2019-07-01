@@ -7,9 +7,7 @@ import System.Exit
 
 import XMonad
 
-import XMonad.Actions.Commands
 import XMonad.Actions.Submap
-import XMonad.Actions.CycleWS
 
 import XMonad.Layout.AvoidFloats
 import XMonad.Layout.LayoutScreens
@@ -30,19 +28,10 @@ import qualified Data.Map        as M
 -- local
 import App.Alias
 import Config.Options
-import Data.Commands
 import Theme.Nord
 
 
 -- Keymaps --
-keyMapDoc :: String -> X Handle
-keyMapDoc name = do
-  -- focused screen location/size
-  r <- withWindowSet $ return . screenRect . W.screenDetail . W.current
-
-  handle <- spawnPipe "echo"
-  return handle
-
 toSubmap :: XConfig l -> String -> [(String, X ())] -> X ()
 toSubmap c name m = do
   io $ appendFile "/tmp/xmonad-mode" name
@@ -61,12 +50,15 @@ toSubmap c name m = do
 --  ]
 
 -- window management
+windowKeys :: [(String, X ())]
 windowKeys =
   [ ("s",        sendMessage Shrink)
   , ("e",        sendMessage Expand)
   -- TODO bind escape to 'leave submap'
   ] -- ++ mediaKeys FIXME
 
+
+layoutKeys :: [(String, X ())]
 layoutKeys =
   [ ("1",        rescreen)
   , ("2",        layoutSplitScreen 2 $ TwoPane (3/100) (1/2))
@@ -76,6 +68,8 @@ layoutKeys =
   -- TODO bind escape to 'leave submap'
   ] -- ++ mediaKeys FIXME
 
+
+resizeKeys :: [(String, X ())]
 resizeKeys =
   [ ("h",        sendMessage Shrink)
   , ("l",        sendMessage Expand)
@@ -86,7 +80,9 @@ resizeKeys =
   where incMaster       = sendMessage (IncMasterN 1)
         decMaster       = sendMessage (IncMasterN (-1))
 
+
 -- default keymap
+defaultKeys :: XConfig l -> M.Map (KeyMask, KeySym) (X ())
 defaultKeys c = mkKeymap c $
   [ ("M-<Return>", spawn (term options))
   , ("M-p"       , spawn dmenu)
@@ -96,7 +92,7 @@ defaultKeys c = mkKeymap c $
   , ("M-t"       , withFocused $ windows . W.sink)
   , ("M-q"       , broadcastMessage ReleaseResources
                    >> restart "xmonad" True)
-  , ("M-S-q"     , io (exitWith ExitSuccess))
+  , ("M-S-q"     , io exitSuccess)
   -- , ("M-S-q"       , spawn "~/.scripts/polybar/xmonad-power")
   , ("M-S-b"     , sendMessage AvoidFloatToggle)
 
@@ -118,7 +114,7 @@ defaultKeys c = mkKeymap c $
 
   -- SESSION --
   , ("M-s l"      , spawn "i3lock-fancy")
-  , ("M-s q"      , io (exitWith ExitSuccess))
+  , ("M-s q"      , io exitSuccess)
   , ("M-s r"      , broadcastMessage ReleaseResources
                     >> restart "xmonad" True)
 
@@ -146,6 +142,7 @@ defaultKeys c = mkKeymap c $
 
 
 -- Non-numeric num pad keys, sorted by number
+numPadKeys :: [KeySym]
 numPadKeys = [ xK_KP_End,  xK_KP_Down,  xK_KP_Page_Down -- 1, 2, 3
              , xK_KP_Left, xK_KP_Begin, xK_KP_Right     -- 4, 5, 6
              , xK_KP_Home, xK_KP_Up,    xK_KP_Page_Up   -- 7, 8, 9
@@ -154,14 +151,15 @@ numPadKeys = [ xK_KP_End,  xK_KP_Down,  xK_KP_Page_Down -- 1, 2, 3
 ------------------------------------------------------------------------
 
 -- Mouse bindings: default actions bound to mouse events
-mouseBindings' (XConfig {XMonad.modMask = modm}) = M.fromList $
+mouseBindings' :: XConfig l -> M.Map (KeyMask, Button) (Window -> X ())
+mouseBindings' XConfig {XMonad.modMask = modm} = M.fromList
     -- mod-button1, Set the window to floating mode and move by dragging
-    [ ((modm, button1), (\w -> focus w >> mouseMoveWindow w
-                                       >> windows W.shiftMaster))
+    [ ((modm, button1), \w -> focus w >> mouseMoveWindow w
+                                       >> windows W.shiftMaster)
     -- mod-button2, Raise the window to the top of the stack
-    , ((modm, button2), (\w -> focus w >> windows W.shiftMaster))
+    , ((modm, button2), \w -> focus w >> windows W.shiftMaster)
     -- mod-button3, Set the window to floating mode and resize by dragging
-    , ((modm, button3), (\w -> focus w >> mouseResizeWindow w
-                                       >> windows W.shiftMaster))
+    , ((modm, button3), \w -> focus w >> mouseResizeWindow w
+                                       >> windows W.shiftMaster)
     -- you may also bind events to the mouse scroll wheel (button4 and button5)
     ]

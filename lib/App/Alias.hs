@@ -24,7 +24,7 @@ lang :: String
 lang = "export LANG=en_GB.UTF-8"
 
 numlock :: String
-numlock = "numlockx"
+numlock = "numlockx &"
 
 notifications :: String
 notifications = "dunst"

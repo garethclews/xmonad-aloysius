@@ -4,14 +4,13 @@
 module Theme.Nord where
 
 import XMonad
-import XMonad.Config
 
 data Theme = Theme
   { foreground :: String
   , background :: String
   , highlight  :: String
-  , focussed   :: String
-  , unfocussed :: String
+  , focused    :: String
+  , unfocused  :: String
   , border     :: Dimension
   }
 
@@ -45,7 +44,7 @@ theme = Theme
   { highlight  = nord03
   , background = nord00
   , foreground = nord04
-  , focussed   = nord02
-  , unfocussed = nord01
+  , focused    = nord02
+  , unfocused  = nord01
   , border     = 1
   }

@@ -8,17 +8,24 @@ data Theme = Theme
   { foreground :: String
   , background :: String
   , highlight  :: String
-  , focussed   :: String
-  , unfocussed :: String
+  , focused    :: String
+  , unfocused  :: String
   , border     :: Dimension
   }
+
+sansserif :: String
+sansserif = "xft:Fira Sans:size=10"
+
+monospace :: String
+monospace = "xft:Fira Mono:size=10"
+
 
 theme :: Theme
 theme = Theme
   { highlight  = "#bbe9fd"
   , background = "#282a36"
   , foreground = "#dee3e0"
-  , focussed   = "#ff79c6"
-  , unfocussed = "#44475a"
+  , focused    = "#ff79c6"
+  , unfocused  = "#44475a"
   , border     = 1
   }

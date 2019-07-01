@@ -13,7 +13,7 @@ import XMonad.Layout.BinarySpacePartition
 import XMonad.Layout.Spacing
 import XMonad.Layout.Gaps
 import XMonad.Layout.NoBorders
-
+import XMonad.Layout.LayoutModifier (ModifiedLayout)
 
 ------------------------------------------------------------------------
 --
@@ -42,17 +42,21 @@ gs = Gaps'
   , x' = 20
   }
 
-
+gapses :: l a -> ModifiedLayout Gaps l a
 gapses     = gaps [(U, u gs), (R, x gs), (L, x gs), (D, d gs)]
+
+spacingses :: l a -> ModifiedLayout Spacing l a
 spacingses = spacingRaw True (Border      0  (x' gs) (x' gs) (x' gs))
                         True (Border (x' gs) (x' gs) (x' gs) (x' gs))
                         True
 
 -- customised layouts
 full             = noBorders (fullscreenFull Full)
+
 spacedPartitions = gapses
                  $ spacingses
-                 $ (emptyBSP ||| ResizableTall 1 (2/100) (1/2) [])
+                 $ emptyBSP
+                 ||| ResizableTall 1 (2/100) (1/2) []
 
 -- layout --
 layout = avoidStruts
