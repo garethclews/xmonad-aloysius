@@ -1,2 +1,1 @@
-(import ./. {}).swh-shell
-
+(import ./. {}).xmonad-shell
