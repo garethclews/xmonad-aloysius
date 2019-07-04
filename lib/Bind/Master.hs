@@ -2,125 +2,65 @@
 
 module Bind.Master where
 
-import System.IO (hClose, hFlush, Handle)
 import System.Exit
 
 import XMonad
 
-import XMonad.Actions.Submap
-
 import XMonad.Layout.AvoidFloats
-import XMonad.Layout.LayoutScreens
-import XMonad.Layout.Grid
-import XMonad.Layout.TwoPane
-import XMonad.Layout.ThreeColumns
 
--- import XMonad.Prompt  -- build custom prompt to help find keys
+-- build custom prompt to help find keys
 -- https://hackage.haskell.org/package/xmonad-contrib-0.15/docs/XMonad-Prompt.html
 
-import XMonad.Util.Dzen
 import XMonad.Util.EZConfig
-import XMonad.Util.Run
+import XMonad.Util.Scratchpad
+import XMonad.Util.Ungrab
 
-import qualified XMonad.StackSet as W
-import qualified Data.Map        as M
+import qualified Data.Map                          as M
+import qualified XMonad.Actions.FlexibleManipulate as F
+import qualified XMonad.Actions.Search             as S
+import qualified XMonad.Prompt                     as P
+import qualified XMonad.StackSet                   as W
+
 
 -- local
 import App.Alias
+import App.Launcher
 import Config.Options
-import Theme.Nord
 
-
--- Keymaps --
-toSubmap :: XConfig l -> String -> [(String, X ())] -> X ()
-toSubmap c name m = do
-  io $ appendFile "/tmp/xmonad-mode" name
-  submap $ mkKeymap c m
-
-
--- media keys
---mediaKeys =
---  [ ("XF86AudioPlay",       spawn "playerctl play-pause")
---  , ("XF86AudioStop",        spawn "playerctl stop")
---  , ("XF86AudioNext",        spawn "playerctl next")
---  , ("XF86AudioPrev",        spawn "playerctl previous")
--- , ("XF86AudioLowerVolume", spawn "pactl set-sink-volume 0 -5%")
---  , ("XF86AudioRaiseVolume", spawn "pactl set-sink-volume 0 +5%")
---  , ("XF86AudioMute",        spawn "pactl")
---  ]
-
--- window management
-windowKeys :: [(String, X ())]
-windowKeys =
-  [ ("s",        sendMessage Shrink)
-  , ("e",        sendMessage Expand)
-  -- TODO bind escape to 'leave submap'
-  ] -- ++ mediaKeys FIXME
-
-
-layoutKeys :: [(String, X ())]
-layoutKeys =
-  [ ("1",        rescreen)
-  , ("2",        layoutSplitScreen 2 $ TwoPane (3/100) (1/2))
-  , ("3",        layoutSplitScreen 3 $ ThreeColMid 1 (3/100) (1/2))
-  , ("4",        layoutSplitScreen 4   Grid)
-  , ("5",        layoutSplitScreen 5 $ ThreeColMid 1 (3/100) (1/2))
-  -- TODO bind escape to 'leave submap'
-  ] -- ++ mediaKeys FIXME
-
-
-resizeKeys :: [(String, X ())]
-resizeKeys =
-  [ ("h",        sendMessage Shrink)
-  , ("l",        sendMessage Expand)
-  , ("k",        incMaster)
-  , ("j",        decMaster)
-  -- TODO bind escape to 'leave submap'
-  ] -- ++ mediaKeys FIXME
-  where incMaster       = sendMessage (IncMasterN 1)
-        decMaster       = sendMessage (IncMasterN (-1))
-
+-- Keymaps ----------------------------------------------------------------------
 
 -- default keymap
 defaultKeys :: XConfig l -> M.Map (KeyMask, KeySym) (X ())
 defaultKeys c = mkKeymap c $
-  [ ("M-<Return>", spawn (term options))
-  , ("M-p"       , spawn dmenu)
-  , ("M-<Space>" , sendMessage NextLayout)
-  , ("M-<Tab>"   , nextWindow)
-  , ("M-S-<Tab>" , prevWindow)
-  , ("M-t"       , withFocused $ windows . W.sink)
-  , ("M-q"       , broadcastMessage ReleaseResources
-                   >> restart "xmonad" True)
-  , ("M-S-q"     , io exitSuccess)
-  -- , ("M-S-q"       , spawn "~/.scripts/polybar/xmonad-power")
-  , ("M-S-b"     , sendMessage AvoidFloatToggle)
+  [ ("M-<Return>"  , spawn (term options))
+  , ("M-p"         , spawn appLauncher)
+  , ("M-<Space>"   , sendMessage NextLayout)
+  , ("M-<Tab>"     , nextWindow)
+  , ("M-S-<Tab>"   , prevWindow)
+  , ("M-h"         , windows $ W.swapUp   . W.focusUp)
+  , ("M-l"         , windows $ W.swapDown . W.focusDown)
+  , ("M-t"         , withFocused $ windows . W.sink)
+  , ("M-q"         , broadcastMessage ReleaseResources
+                     >> restart "xmonad" True)
+  , ("M-S-q"       , io exitSuccess)
+  , ("M-S-b"       , sendMessage AvoidFloatToggle)
 
   -- key combinations
-  -- CONTAINERS --
-  , ("M-w <Space>", toSubmap c "window"        windowKeys)
-  , ("M-w l"      , toSubmap c "window-layout" layoutKeys)
-  , ("M-w r"      , toSubmap c "window-resize" resizeKeys)
-  , ("M-w <Esc>"  , toSubmap c "default" [])
-  , ("M-w ?"      , spawn "echo 'TO DO' | dzen2")
-  , ("M-]"        , dzenConfig (timeout 10
-                                >=> font "Fira Sans:size=14"
-                                >=> onCurr xScreen
-                                >=> onCurr (hCenter 500)
-                                >=> onCurr (vCenter 300)
-                                >=> fgColor nord04
-                                >=> bgColor nord00)
-                                "Hi Aloysius, I'm DZen")
+  , ("M-w p"       , unGrab >> powerMenu)
 
   -- SESSION --
-  , ("M-s l"      , spawn "i3lock-fancy")
-  , ("M-s q"      , io exitSuccess)
-  , ("M-s r"      , broadcastMessage ReleaseResources
-                    >> restart "xmonad" True)
+  , ("M-s l"       , spawn screensaver)
+  , ("M-s q"       , io exitSuccess)
+  , ("M-s r"       , broadcastMessage ReleaseResources
+                     >> restart "xmonad" True)
 
   -- APPLICATIONS --
-  , ("M-x c"      , kill)
+  , ("M-x M-c"     , kill)
 
+
+  -- TEST
+  , ("M-`"  , scratchpadSpawnActionTerminal (term options))
+  -- /TEST
 
   -- media keys
   , ("<XF86AudioPlay>",        spawn "playerctl play-pause")
@@ -135,10 +75,21 @@ defaultKeys c = mkKeymap c $
   [ (m ++ k, windows $ f w)
   | (w, k) <- zip (XMonad.workspaces c) (spaces options)
   , (m, f) <- [("M-", W.greedyView), ("M-S-", W.shift)]
-  ]
-  -- ++ mediaKeys FIXME
+  ] ++
+  -- search engine submap
+  [ ("M-s  " ++ k, S.selectSearch f)       | (k,f) <- searchList ] ++
+  [ ("M-S-s" ++ k, S.promptSearch P.def f) | (k,f) <- searchList ] -- FIXME: not appearing?
+  -- @end keys
   where nextWindow      = windows W.focusDown
         prevWindow      = windows W.focusUp
+        -- select text search submap
+
+
+-- search engine submap, starts with M-s (selected) and M-S-s (prompt)
+searchList :: [(String, S.SearchEngine)]
+searchList = [ ("g", S.duckduckgo)
+             , ("h", S.hoogle)
+             , ("w", S.wikipedia)]
 
 
 -- Non-numeric num pad keys, sorted by number
@@ -153,9 +104,8 @@ numPadKeys = [ xK_KP_End,  xK_KP_Down,  xK_KP_Page_Down -- 1, 2, 3
 -- Mouse bindings: default actions bound to mouse events
 mouseBindings' :: XConfig l -> M.Map (KeyMask, Button) (Window -> X ())
 mouseBindings' XConfig {XMonad.modMask = modm} = M.fromList
-    -- mod-button1, Set the window to floating mode and move by dragging
-    [ ((modm, button1), \w -> focus w >> mouseMoveWindow w
-                                       >> windows W.shiftMaster)
+    -- mod-button1, flexible linear scale
+    [ ((modm, button1), \w -> focus w >> F.mouseWindow F.discrete w)
     -- mod-button2, Raise the window to the top of the stack
     , ((modm, button2), \w -> focus w >> windows W.shiftMaster)
     -- mod-button3, Set the window to floating mode and resize by dragging

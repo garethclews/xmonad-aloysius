@@ -7,7 +7,7 @@ ____             _    _                 _
                               |___/
 
 ---------------------------------------------------------------------------
--- https://github.com/karetsu                                            --
+-- https://gitlab.com/karetsu                                            --
 -- X. >= 0.15
 ---------------------------------------------------------------------------
 -}
@@ -18,44 +18,56 @@ ____             _    _                 _
 {-|
   GENERAL
 
-  * look into X.A.DynamicProjects
-  * XMonad.Hooks.DynamicBars
-  * make fullscreen logout and a menu which allows keypresses bound for
+  * design a menu/toggleable side bar
+    - can scratchpad be used for this?
   * polybar pimping:
-    - include current layout
     - better workspace listing
+      + should I replace with dzen to get a clickable ws list?
   * keybindings are currently all over the place
     - get toggle float all and sink all
     - helper scripts to throw in ~/.scripts
     - see how wmctl can help me out
-  * can we swap out rofi for xmonad-extras/contrib functions?
-  * add scratchpads
   * investigate how to add i3 niceties (maximise on only window)
   * X.U.Dzen to replicate the kind of bar on the left of:
-    https://i.redd.it/glzrkk83f4621.png
-  * X.U.Themes - see if nord and dracula can be added
+    https://i.redd.it/glzrkk83f4621.png ???
+    -- could this be a dzen-based scratchpad?
+    -- consider adding X.H.ScreenCorners to add in mouse activation on left edge
   * Incorporate goodness from:
     https://github.com/altercation/dotfiles-tilingwm/blob/master/.xmonad/xmonad.hs
+  * current dmenu is a bit clumsy on spacing, make it avoidStruts rather than place
+    itself at 40 pixels so make it work on multihead setups
 
 
   NON XMONAD SPECIFIC
-  * sort out xautolock to prevent locking on screen with video playing
-    - see if caffeine is still the go to?
+  * look into using glances to generate JSON for outputting somehow
 
 
   ACTIVE
+  * sort out xautolock to prevent locking on screen with video playing
+    - need to get a toggleable `dset +-dpms` keybind with writes to fifo for polybar integration
+    - xset -dpms seems to not behave as intended, do we need xscreensaver installed?
 
 
   DEFER
   * https://github.com/pjones/xmonadrc has some dynamic project helper functions
-  * investigate X.A.Navigation2D
 
 
   DONE
   * tidy up gaps with polybar
     - pushed gaps over |||, now full screen is as intended
+  * pimped polybar with current layout descriptor (pprint)
+  * make fullscreen logout
+  * swapped out rofi for X.U.Dmenu
+  * implemented dynamic projects
+  * M-M1 now uses flexible manipulate (discrete - window is 9 blocks)
+  * added scratchpads
+
 
   TESTED/REJECTED/WONTFIX
+  * X.U.Themes - see if nord and dracula can be added -- going to just keep my
+    themes in my format, if anybody else ever wants to use it then maybe revisit
+    but just for me there's little to no point
+  * XMonad.Hooks.DynamicBars  -- sticking with one bar
 
  -}
 
@@ -64,6 +76,8 @@ import Control.Monad
 
 import XMonad
 
+import XMonad.Actions.DynamicProjects
+
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.InsertPosition
 import XMonad.Hooks.ManageDocks
@@ -71,12 +85,18 @@ import XMonad.Hooks.ManageHelpers
 
 import XMonad.Util.Replace
 import XMonad.Util.Run
+import XMonad.Util.Scratchpad
+
+import qualified XMonad.StackSet as W
 
 -- Personal imports (./lib/)
+import App.Scratchpad
 import Bind.Master
 import Bus.Events
 import Config.Options
+import Config.Projects
 import Container.Layout
+import Container.Navigation
 import Theme.Nord -- alternatively Dracula
 
 
@@ -84,7 +104,6 @@ import Theme.Nord -- alternatively Dracula
 -- A structure containing your configuration settings, overriding
 -- fields in the default config. Any you don't override, will
 -- use the defaults defined in xmonad/XMonad/Config.hs
-
 defaults = def {
   -- simple stuff
   terminal           = term options,
@@ -125,10 +144,13 @@ defaults = def {
 --
 hooks :: ManageHook
 hooks = composeOne
-  [ isDialog   -?> doCenterFloat
+  [ className =? "Conky" -?> doFloat
+  , isDialog             -?> doCenterFloat
   , transience -- I don't actually understand what this does
-  , pure True  -?> insertPosition End Newer
-  ] <+> manageDocks
+  , pure True            -?> insertPosition End Newer
+  ]
+  <+> manageDocks
+  <+> manageScratchpad
 
 
 -- Main -------------------------------------------------------------------------
@@ -138,7 +160,6 @@ main = do
 
     -- polybar pipes
     forM_ [ "xmonad-ws"
-          , "xmonad-mode"
           , "xmonad-layout"
           ]
           $ \file -> safeSpawn "mkfifo" ["/tmp/"++file]
@@ -147,4 +168,6 @@ main = do
     xmonad
       . docks
       . ewmh
+      . navigate
+      . dynamicProjects projects
       $ defaults

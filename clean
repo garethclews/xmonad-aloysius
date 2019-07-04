@@ -3,8 +3,10 @@
 find . \( -name '*.hi'\
       -or -name '*.o'\
       -or -name '*.errors'\
+      -or -name 'cabal.project.local*'\
       \) -type f -delete
 
-rm -rf dist-newstyle
+rm -rf dist-newstyle/
+rm -rf dist/
 
 echo "All clean :3"

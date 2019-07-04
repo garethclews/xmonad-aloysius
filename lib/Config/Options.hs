@@ -15,8 +15,10 @@ import XMonad.Util.SpawnOnce
 
 -- import Theme.Dracula
 import App.Alias
+import Config.Projects
 
--- personal preferences for use
+
+-- preferences ------------------------------------------------------------------
 data Options = Options
   { term   :: String
   , ffm    :: Bool
@@ -29,10 +31,10 @@ data Options = Options
 
 options :: Options
 options = Options
-  { term   = "urxvt"
+  { term   = tty
   , ffm    = True
   , mask   = mod4Mask
-  , spaces = map show [1..6]
+  , spaces = wsList
   , events = ewmhDesktopsEventHook
   , logs   = updatePointer (0.5, 0.5) (0, 0)
            >> spawn logger
@@ -48,3 +50,4 @@ options = Options
            >> spawnOnce xresource
            -- return ()
   }
+

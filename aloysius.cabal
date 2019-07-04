@@ -4,7 +4,7 @@ cabal-version:       2.4
 -- http://haskell.org/cabal/users-guide/
 
 name:                  aloysius
-version:               0.1.0.0
+version:               0.1.1.0
 synopsis:              xmonad config
 -- description:
 homepage:              https://gitlab.com/karetsu/xmonad-aloysius
@@ -20,19 +20,24 @@ extra-source-files:    CHANGELOG.md
 executable xmonad
   main-is:             xmonad.hs
   other-modules:       App.Alias
+                     , App.Launcher
+                     , App.Scratchpad
                      , Bind.Master
                      , Bus.Events
                      , Config.Options
+                     , Config.Projects
                      , Container.Layout
+                     , Container.Navigation
                      , Data.Commands
                      , Theme.Nord
                      , Theme.Dracula
   -- other-extensions:
-  build-depends:       base ^>=4.12.0.0
+  build-depends:       Cabal >= 2.4.0.1
+                     , X11
+                     , base ^>=4.12.0.0
                      , containers ^>=0.6.0.1
                      , xmonad ^>=0.15
                      , xmonad-contrib ^>=0.15
                      , xmonad-extras ^>=0.15
-                     , X11
   hs-source-dirs:      lib
   default-language:    Haskell2010

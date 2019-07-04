@@ -7,13 +7,18 @@ module Container.Layout where
 import XMonad
 import XMonad.Hooks.ManageDocks
 
-import XMonad.Layout.ResizableTile
-import XMonad.Layout.Fullscreen
 import XMonad.Layout.BinarySpacePartition
-import XMonad.Layout.Spacing
+import XMonad.Layout.Fullscreen
 import XMonad.Layout.Gaps
-import XMonad.Layout.NoBorders
 import XMonad.Layout.LayoutModifier (ModifiedLayout)
+import XMonad.Layout.NoBorders
+import XMonad.Layout.PerWorkspace
+import XMonad.Layout.ResizableTile
+import XMonad.Layout.SimplestFloat
+import XMonad.Layout.Spacing
+import XMonad.Layout.ThreeColumns
+
+import Config.Projects
 
 ------------------------------------------------------------------------
 --
@@ -36,7 +41,7 @@ data Gaps' = Gaps'
 
 gs :: Gaps'
 gs = Gaps'
-  { u  = 44
+  { u  = 20
   , d  = 20
   , x  = 20
   , x' = 20
@@ -54,12 +59,18 @@ spacingses = spacingRaw True (Border      0  (x' gs) (x' gs) (x' gs))
 full             = noBorders (fullscreenFull Full)
 
 spacedPartitions = gapses
-                 $ spacingses
+                 . spacingses
                  $ emptyBSP
                  ||| ResizableTall 1 (2/100) (1/2) []
 
+tcm              = gapses
+                 . spacingses
+                 $ ThreeColMid 1 (1/10) (1/2)
+
 -- layout --
 layout = avoidStruts
-       $ smartBorders
+       . smartBorders
+       . onWorkspace wsScratch simplestFloat
        $ full
      ||| spacedPartitions
+     ||| tcm

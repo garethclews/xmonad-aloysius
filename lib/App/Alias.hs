@@ -5,32 +5,74 @@
 
 module App.Alias where
 
-dmenu :: String
-dmenu = "rofi -show run"
+appLauncher :: String
+-- appLauncher = "rofi -show run"
+appLauncher = " dmenu_run -p 'Launch application:  ' \
+              \ -fn 'Fira Sans-12' \
+              \ -nb '#2e3440' \
+              \ -nf '#d8dee9' \
+              \ -sb '#a3be8c' \
+              \ -sf '#2e3440' \
+              \ -h 40 \
+              \ -o 80 \
+              \ -y 40"  -- playing with offsets to see if it skips the dock
+
 
 panel :: String
 panel = "~/.scripts/polybar/launch"
 
+
 wallpaper :: String
 wallpaper = "~/.fehbg"
+
 
 compositor :: String
 compositor = "compton --config ~/.config/compton/compton.conf"
 
+
 cursor :: String
 cursor = "xsetroot -cursor_name left_ptr"
+
 
 lang :: String
 lang = "export LANG=en_GB.UTF-8"
 
+
 numlock :: String
-numlock = "numlockx &"
+numlock = "numlockx"
+
 
 notifications :: String
 notifications = "dunst"
 
+
+screensaver :: String
+screensaver = "i3lock-fancy -t 'Hi Aloysius'"
+
+
 xresource :: String
 xresource = "[[ -f ~/.Xresources ]] && nohup xrdb -merge -I$HOME ~/.Xresources >/dev/null"
 
+
 logger :: String
 logger = "xdotool search dunst windowraise"
+
+
+tty :: String
+tty = "urxvt"
+
+
+mail :: String
+mail = "geary"
+
+
+music :: String
+music = "spotify"
+
+
+code :: String
+code = "emacs"
+
+
+browser :: String
+browser = "firefox"

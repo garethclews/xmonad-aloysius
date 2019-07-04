@@ -15,22 +15,23 @@ data Theme = Theme
   }
 
 -- whole nord colour palette
-nord00 = "#2E3440"
-nord01 = "#3B4252"
-nord02 = "#434C5E"
-nord03 = "#4C566A"
-nord04 = "#D8DEE9"
-nord05 = "#E5E9F0"
-nord06 = "#ECEFF4"
-nord07 = "#8FBCBB"
-nord08 = "#88C0D0"
-nord09 = "#81A1C1"
-nord10 = "#5E81AC"
-nord11 = "#BF616A"
-nord12 = "#D08770"
-nord13 = "#EBCB8B"
-nord14 = "#A3BE8C"
-nord15 = "#B48EAD"
+-- naming convention for my personal themes, all should have 16 base colours
+base00 = "#2E3440"
+base01 = "#3B4252"
+base02 = "#434C5E"
+base03 = "#4C566A"
+base04 = "#D8DEE9"
+base05 = "#E5E9F0"
+base06 = "#ECEFF4"
+base07 = "#8FBCBB"
+base08 = "#88C0D0"
+base09 = "#81A1C1"
+base10 = "#5E81AC"
+base11 = "#BF616A"
+base12 = "#D08770"
+base13 = "#EBCB8B"
+base14 = "#A3BE8C"
+base15 = "#B48EAD"
 
 sansserif :: String
 sansserif = "xft:Fira Sans:size=10"
@@ -41,10 +42,10 @@ monospace = "xft:Fira Mono:size=10"
 
 theme :: Theme
 theme = Theme
-  { highlight  = nord03
-  , background = nord00
-  , foreground = nord04
-  , focused    = nord02
-  , unfocused  = nord01
+  { highlight  = base03
+  , background = base00
+  , foreground = base04
+  , focused    = base02
+  , unfocused  = base01
   , border     = 1
   }

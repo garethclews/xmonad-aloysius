@@ -1,9 +1,10 @@
 # files
 .DS_Store
 .idea
+.ghc.environment.x86_64-linux-8.6.4
+compile
 xmonad.errors
 xmonad-x86_64-linux
-.ghc.environment.x86_64-linux-8.6.4
 
 # directories
 tmp/

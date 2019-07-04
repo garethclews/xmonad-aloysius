@@ -21,7 +21,8 @@ logHook' = do
 
   -- workspaces
   let currWs = W.currentTag winset
-  let wss = map W.tag $ W.workspaces winset
+  -- blocking named scratchpad appearing
+  let wss = filter (/= "NSP") $ map W.tag $ W.workspaces winset
   let wsStr = join $ map (fmt currWs) $ sort' wss
 
   -- layout
@@ -38,11 +39,20 @@ logHook' = do
       -- %{T-} resets it back to font-0
       -- NOTE: Foreground colours also edited here
       -- this block then depends on +THEME+
-      | currWs == ws = " %{F"++nord00++"}%{T3}[" ++ ws ++ "]%{T-}%{F-} "
-      | otherwise    = "  %{F"++nord10++"}%{T4}" ++ ws ++ "%{T-}%{F-}  "
+      | currWs == ws = " %{F"  ++ base00 ++ "}%{T3}[" ++ ws ++ "]%{T-}%{F-} "
+      | otherwise    = "  %{F" ++ base10 ++ "}%{T4}"  ++ ws ++ "%{T-}%{F-}  "
+
     sort' = sortBy (compare `on` (!! 0))
     layoutParse s  -- pretty printing
-      | s == "Spacing BSP"           = "%{T2}|+%{T-} BSP "
-      | s == "Full"                  = "%{T2}__%{T-} Full"
-      | s == "Spacing ResizableTall" = "%{T2}||%{T-} Tall"
+-- FIXME: polybar needs monospaced symbols for this to be effective, changes the width on change otherwise
+--      | s == "Spacing BSP"           = "%{T2}\xf1bb%{T-} BSP "
+--      | s == "Full"                  = "%{T2}\xf2d0%{T-} Full"
+--      | s == "Spacing ResizableTall" = "%{T2}\xf550%{T-} Tall"
+--      | s == "Spacing ThreeColMid"   = "%{T2}+|+%{T-} TCM "
+--      | s == "SimplestFloat"         = "%{T2}+++%{T-} FLT "
+      | s == "Spacing ThreeCol"      = "%{T2}+|+%{T-} TCM "
+      | s == "Spacing BSP"           = "%{T2}||+%{T-} BSP "
+      | s == "Spacing ResizableTall" = "%{T2}|||%{T-} Tall"
+      | s == "Full"                  = "%{T2}___%{T-} Full"
+      | s == "SimplestFloat"         = "%{T2}+++%{T-} FLT "
       | otherwise                    = s -- fallback for changes in C.Layout
