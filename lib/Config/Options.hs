@@ -50,4 +50,3 @@ options = Options
            >> spawnOnce xresource
            -- return ()
   }
-

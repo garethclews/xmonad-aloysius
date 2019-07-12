@@ -85,9 +85,6 @@ import XMonad.Hooks.ManageHelpers
 
 import XMonad.Util.Replace
 import XMonad.Util.Run
-import XMonad.Util.Scratchpad
-
-import qualified XMonad.StackSet as W
 
 -- Personal imports (./lib/)
 import App.Scratchpad
@@ -144,7 +141,7 @@ defaults = def {
 --
 hooks :: ManageHook
 hooks = composeOne
-  [ className =? "Conky" -?> doFloat
+  [ className =? "Places" -?> doFloat
   , isDialog             -?> doCenterFloat
   , transience -- I don't actually understand what this does
   , pure True            -?> insertPosition End Newer
@@ -161,6 +158,7 @@ main = do
     -- polybar pipes
     forM_ [ "xmonad-ws"
           , "xmonad-layout"
+          , "caffeine"
           ]
           $ \file -> safeSpawn "mkfifo" ["/tmp/"++file]
 

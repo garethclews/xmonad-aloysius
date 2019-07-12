@@ -32,7 +32,7 @@ logHook' = do
   -- fifo
   io $ appendFile "/tmp/xmonad-ws"     (wsStr ++ "\n")
   io $ appendFile "/tmp/xmonad-layout" (ltStr ++ "\n")
-
+  io $ appendFile "/tmp/caffeine" "%{F#eceff4}\xf0eb%{F-}\n"
   where
     fmt currWs ws
       -- %{T3} changes font to bold in polybar

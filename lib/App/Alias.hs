@@ -27,7 +27,7 @@ wallpaper = "~/.fehbg"
 
 
 compositor :: String
-compositor = "compton --config ~/.config/compton/compton.conf"
+compositor = "systemctl --user start compton"
 
 
 cursor :: String
@@ -39,7 +39,7 @@ lang = "export LANG=en_GB.UTF-8"
 
 
 numlock :: String
-numlock = "numlockx"
+numlock = "numlockx &"
 
 
 notifications :: String
