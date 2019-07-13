@@ -10,7 +10,7 @@
     + see how wmctl can help me out
   - [ ] X.U.Dzen to replicate the kind of bar on the left of https://i.redd.it/glzrkk83f4621.png ???
   - [ ] current dmenu is a bit clumsy on spacing, make it avoidStruts rather than place itself at 40 pixels so make it work on multihead setups
-  - [X] Design a sound scheme
+  - [ ] Design a sound scheme
 
 
 * NON XMONAD SPECIFIC [0/1]
