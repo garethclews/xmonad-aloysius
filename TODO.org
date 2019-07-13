@@ -1,0 +1,44 @@
+#+TITLE: XMonad-Aloysius
+
+* GENERAL [1/5]
+  - [ ] polybar pimping:
+    + better workspace listing
+      + should I replace with dzen to get a clickable ws list?
+  - [ ] keybindings are currently all over the place
+    + get toggle float all and sink all
+    + helper scripts to throw in ~/.scripts
+    + see how wmctl can help me out
+  - [ ] X.U.Dzen to replicate the kind of bar on the left of https://i.redd.it/glzrkk83f4621.png ???
+  - [ ] current dmenu is a bit clumsy on spacing, make it avoidStruts rather than place itself at 40 pixels so make it work on multihead setups
+  - [X] Design a sound scheme
+
+
+* NON XMONAD SPECIFIC [0/1]
+  - [ ] look into using glances to generate JSON for outputting somehow
+
+
+* ACTIVE [0/0]
+
+
+* DEFER [0/1]
+  - [ ] https://github.com/pjones/xmonadrc has some dynamic project helper functions
+
+
+* DONE [12/12]
+  - [X] tidy up gaps with polybar
+  - [X] pimped polybar with current layout descriptor (pprint)
+  - [X] make fullscreen logout
+  - [X] swapped out rofi for X.U.Dmenu
+  - [X] implemented dynamic projects
+  - [X] M-M1 now uses flexible manipulate (discrete - window is 9 blocks)
+  - [X] added scratchpads
+  - [X] sort out xautolock to prevent locking on screen with video playing
+  - [X] xset oddity where any window activity sees the polybar icon turn back on, this was
+  - [X] X.A.WindowBringer has been added for window switching by name
+  - [X] X.L.IfMax added so that layouts with single window end up maximised
+  - [X] Incorporate goodness from https://github.com/altercation/dotfiles-tilingwm/blob/master/.xmonad/xmonad.hs
+
+
+* TESTED/REJECTED/WONTFIX [2/2]
+  - [X] X.U.Themes - see if nord and dracula can be added -- going to just keep my themes in my format, if anybody else ever wants to use it then maybe revisit but just for me there's little to no point
+  - [X] XMonad.Hooks.DynamicBars  -- sticking with one bar

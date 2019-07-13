@@ -3,7 +3,7 @@
 
 module Bus.Events where
 
-import Data.List (sortBy)
+import Data.List (sortBy, isInfixOf)
 import Data.Function (on)
 import Control.Monad (join)
 
@@ -43,9 +43,9 @@ logHook' = do
 
     sort' = sortBy (compare `on` (!! 0))
     layoutParse s  -- 'pretty' printing
-      | s == "Spacing ThreeCol"      = "%{T2}+|+%{T-} TCM "
-      | s == "Spacing BSP"           = "%{T2}||+%{T-} BSP "
-      | s == "Spacing ResizableTall" = "%{T2}|||%{T-} Tall"
-      | s == "Full"                  = "%{T2}___%{T-} Full"
-      | s == "SimplestFloat"         = "%{T2}+++%{T-} FLT "
-      | otherwise                    = s -- fallback for changes in C.Layout
+      | "ThreeCol"      `isInfixOf` s = "%{T2}+|+%{T-} TCM "
+      | "BSP"           `isInfixOf` s = "%{T2}||+%{T-} BSP "
+      | "ResizableTall" `isInfixOf` s = "%{T2}|||%{T-} Tall"
+      | s == "Full"                   = "%{T2}___%{T-} Full"
+      | s == "SimplestFloat"          = "%{T2}+++%{T-} FLT "
+      | otherwise                     = s -- fallback for changes in C.Layout

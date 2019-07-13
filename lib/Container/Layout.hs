@@ -10,6 +10,7 @@ import XMonad.Hooks.ManageDocks
 import XMonad.Layout.BinarySpacePartition
 import XMonad.Layout.Fullscreen
 import XMonad.Layout.Gaps
+import XMonad.Layout.IfMax
 import XMonad.Layout.LayoutModifier (ModifiedLayout)
 import XMonad.Layout.NoBorders
 import XMonad.Layout.PerWorkspace
@@ -58,19 +59,21 @@ spacingses = spacingRaw True (Border      0  (x' gs) (x' gs) (x' gs))
 -- customised layouts
 full             = noBorders (fullscreenFull Full)
 
-spacedPartitions = gapses
+spacedPartitions = IfMax 1 full
+                 $ gapses
                  . spacingses
                  $ emptyBSP
                  ||| ResizableTall 1 (2/100) (1/2) []
 
-tcm              = gapses
+tcm              = IfMax 1 full
+                 $ gapses
                  . spacingses
                  $ ThreeColMid 1 (1/10) (1/2)
 
 -- layout --
-layout = avoidStruts
-       . smartBorders
-       . onWorkspace wsScratch simplestFloat
-       $ full
-     ||| spacedPartitions
-     ||| tcm
+layout           = avoidStruts
+                 . smartBorders
+                 . onWorkspace wsScratch simplestFloat
+                 $ full
+                 ||| spacedPartitions
+                 ||| tcm
