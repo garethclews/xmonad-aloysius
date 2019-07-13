@@ -50,8 +50,8 @@ defaultKeys c = mkKeymap c $
 
 
   -- window manipulation
-  , ("M-x g"       , gotoMenuArgs  dmf)
-  , ("M-x b"       , bringMenuArgs dmf)
+  , ("M-x g"       , gotoMenuArgs  $ dmenuFlags ++ [ "-p", "Go to window:  "])
+  , ("M-x b"       , bringMenuArgs $ dmenuFlags ++ [ "-p", "Bring window:  " ])
   --, ("M-x g"       , gotoMenu )
   --, ("M-x b"       , bringMenu)
 
@@ -90,8 +90,14 @@ defaultKeys c = mkKeymap c $
   -- @end keys
   where nextWindow      = windows W.focusDown
         prevWindow      = windows W.focusUp
-        dmf             = dmenuFlags options
-
+        dmenuFlags      = [ "-fn", "Fira Sans-12"
+                          , "-nb", "#2e3440"
+                          , "-nf", "#d3dee9"
+                          , "-sb", "#d08770"
+                          , "-sf", "#2e3440"
+                          , "-h" , "40"
+                          , "-y" , "40"
+                          ]
 
 -- search engine submap, starts with M-s (selected) and M-S-s (prompt)
 searchList :: [(String, S.SearchEngine)]

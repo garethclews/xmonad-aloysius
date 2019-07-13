@@ -27,7 +27,6 @@ data Options = Options
   , events     :: Event  -> X All
   , logs       :: X ()
   , starts     :: X ()
-  , dmenuFlags :: [String]
   }
 
 options :: Options
@@ -51,13 +50,4 @@ options = Options
                >> spawnOnce xresource
                >> spawnOnce energyStar
                -- return ()
-  , dmenuFlags = [ "-fn 'Fira Sans-12'"
-                 , "-nb '#2e3440'"
-                 , "-nf '#d3dee9'"
-                 , "-sb '#d08770'"
-                 , "-sf '#2e3440'"
-                 , "-h 40"
-                 , "-y 40"
-                 , "-p Windows: "
-                 ]
   }
