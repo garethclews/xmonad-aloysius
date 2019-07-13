@@ -6,6 +6,8 @@ import System.Exit
 
 import XMonad
 
+import XMonad.Actions.WindowBringer
+
 import XMonad.Layout.AvoidFloats
 
 -- build custom prompt to help find keys
@@ -44,9 +46,15 @@ defaultKeys c = mkKeymap c $
                      >> restart "xmonad" True)
   , ("M-S-q"       , io exitSuccess)
   , ("M-S-b"       , sendMessage AvoidFloatToggle)
+  , ("M-s p"       , unGrab >> powerMenu)
 
-  -- key combinations
-  , ("M-w p"       , unGrab >> powerMenu)
+
+  -- window manipulation
+  , ("M-x g"       , gotoMenuArgs  (dzenFlags options))
+  , ("M-x b"       , bringMenuArgs (dzenFlags options))
+  --, ("M-x g"       , gotoMenu )
+  --, ("M-x b"       , bringMenu)
+
 
   -- SESSION --
   , ("M-s l"       , spawn screensaver)
@@ -82,7 +90,6 @@ defaultKeys c = mkKeymap c $
   -- @end keys
   where nextWindow      = windows W.focusDown
         prevWindow      = windows W.focusUp
-        -- select text search submap
 
 
 -- search engine submap, starts with M-s (selected) and M-S-s (prompt)

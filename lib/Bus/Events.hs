@@ -32,7 +32,6 @@ logHook' = do
   -- fifo
   io $ appendFile "/tmp/xmonad-ws"     (wsStr ++ "\n")
   io $ appendFile "/tmp/xmonad-layout" (ltStr ++ "\n")
-  io $ appendFile "/tmp/caffeine" "%{F#eceff4}\xf0eb%{F-}\n"
   where
     fmt currWs ws
       -- %{T3} changes font to bold in polybar
@@ -43,13 +42,7 @@ logHook' = do
       | otherwise    = "  %{F" ++ base10 ++ "}%{T4}"  ++ ws ++ "%{T-}%{F-}  "
 
     sort' = sortBy (compare `on` (!! 0))
-    layoutParse s  -- pretty printing
--- FIXME: polybar needs monospaced symbols for this to be effective, changes the width on change otherwise
---      | s == "Spacing BSP"           = "%{T2}\xf1bb%{T-} BSP "
---      | s == "Full"                  = "%{T2}\xf2d0%{T-} Full"
---      | s == "Spacing ResizableTall" = "%{T2}\xf550%{T-} Tall"
---      | s == "Spacing ThreeColMid"   = "%{T2}+|+%{T-} TCM "
---      | s == "SimplestFloat"         = "%{T2}+++%{T-} FLT "
+    layoutParse s  -- 'pretty' printing
       | s == "Spacing ThreeCol"      = "%{T2}+|+%{T-} TCM "
       | s == "Spacing BSP"           = "%{T2}||+%{T-} BSP "
       | s == "Spacing ResizableTall" = "%{T2}|||%{T-} Tall"

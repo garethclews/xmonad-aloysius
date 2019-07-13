@@ -39,7 +39,7 @@ lang = "export LANG=en_GB.UTF-8"
 
 
 numlock :: String
-numlock = "numlockx &"
+numlock = "exec numlockx"
 
 
 notifications :: String
@@ -48,6 +48,10 @@ notifications = "dunst"
 
 screensaver :: String
 screensaver = "i3lock-fancy -t 'Hi Aloysius'"
+
+
+energyStar :: String
+energyStar = "echo '%{F#eceff4}\xf0eb%{F-}\n' > /tmp/caffeine "
 
 
 xresource :: String

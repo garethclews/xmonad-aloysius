@@ -18,8 +18,6 @@ ____             _    _                 _
 {-|
   GENERAL
 
-  * design a menu/toggleable side bar
-    - can scratchpad be used for this?
   * polybar pimping:
     - better workspace listing
       + should I replace with dzen to get a clickable ws list?
@@ -36,6 +34,7 @@ ____             _    _                 _
     https://github.com/altercation/dotfiles-tilingwm/blob/master/.xmonad/xmonad.hs
   * current dmenu is a bit clumsy on spacing, make it avoidStruts rather than place
     itself at 40 pixels so make it work on multihead setups
+  * Design a sound scheme
 
 
   NON XMONAD SPECIFIC
@@ -43,9 +42,6 @@ ____             _    _                 _
 
 
   ACTIVE
-  * sort out xautolock to prevent locking on screen with video playing
-    - need to get a toggleable `dset +-dpms` keybind with writes to fifo for polybar integration
-    - xset -dpms seems to not behave as intended, do we need xscreensaver installed?
 
 
   DEFER
@@ -61,6 +57,11 @@ ____             _    _                 _
   * implemented dynamic projects
   * M-M1 now uses flexible manipulate (discrete - window is 9 blocks)
   * added scratchpads
+  * sort out xautolock to prevent locking on screen with video playing
+    - need to get a toggleable `dset +-dpms` keybind with writes to fifo for polybar integration
+    - xset -dpms seems to not behave as intended, do we need xscreensaver installed?
+  * xset oddity where any window activity sees the polybar icon turn back on, this was
+    down to it being part of the log-hook so activated incorrectly on any action
 
 
   TESTED/REJECTED/WONTFIX
@@ -155,14 +156,15 @@ main :: IO ()
 main = do
     replace
 
-    -- polybar pipes
+    -- pipes
     forM_ [ "xmonad-ws"
           , "xmonad-layout"
           , "caffeine"
           ]
           $ \file -> safeSpawn "mkfifo" ["/tmp/"++file]
 
-    -- set up our ewmh
+
+    -- set up our ewmh-based desktop
     xmonad
       . docks
       . ewmh
