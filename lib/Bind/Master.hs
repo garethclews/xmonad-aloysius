@@ -50,8 +50,8 @@ defaultKeys c = mkKeymap c $
 
 
   -- window manipulation
-  , ("M-x g"       , gotoMenuArgs  (dzenFlags options))
-  , ("M-x b"       , bringMenuArgs (dzenFlags options))
+  , ("M-x g"       , gotoMenuArgs  dmf)
+  , ("M-x b"       , bringMenuArgs dmf)
   --, ("M-x g"       , gotoMenu )
   --, ("M-x b"       , bringMenu)
 
@@ -90,6 +90,7 @@ defaultKeys c = mkKeymap c $
   -- @end keys
   where nextWindow      = windows W.focusDown
         prevWindow      = windows W.focusUp
+        dmf             = dmenuFlags options
 
 
 -- search engine submap, starts with M-s (selected) and M-S-s (prompt)
