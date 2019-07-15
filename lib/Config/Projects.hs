@@ -12,7 +12,7 @@ import App.Alias
 wsWeb     = "1" -- https://fontawesome.com/icons/code?style=solid
 wsCode    = "2" -- https://fontawesome.com/icons/envelope?style=solid
 wsMusic   = "3" -- https://fontawesome.com/icons/music?style=solid
-wsTerm    = "4" -- https://fontawesome.com/icons/circle?style=solid
+wsPlain   = "4" -- https://fontawesome.com/icons/circle?style=solid
 wsMail    = "5" -- https://fontawesome.com/icons/terminal?style=solid
 wsScratch = "6" -- https://fontawesome.com/icons/globe-europe?style=solid
 
@@ -20,7 +20,7 @@ wsList = [ wsScratch
          , wsWeb
          , wsCode
          , wsMusic
-         , wsTerm
+         , wsPlain
          , wsMail
          ]
 
@@ -38,9 +38,9 @@ projects =
             , projectDirectory = "~/"
             , projectStartHook = Just $ spawn music
             }
-  , Project { projectName      = wsTerm
+  , Project { projectName      = wsPlain
             , projectDirectory = "~/"
-            , projectStartHook = Just $ spawn tty
+            , projectStartHook = Just $ return ()
             }
   , Project { projectName      = wsMail
             , projectDirectory = "~/"
