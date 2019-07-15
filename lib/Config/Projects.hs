@@ -12,8 +12,8 @@ import App.Alias
 wsWeb     = "1" -- https://fontawesome.com/icons/code?style=solid
 wsCode    = "2" -- https://fontawesome.com/icons/envelope?style=solid
 wsMusic   = "3" -- https://fontawesome.com/icons/music?style=solid
-wsPlain   = "4" -- https://fontawesome.com/icons/circle?style=solid
-wsMail    = "5" -- https://fontawesome.com/icons/terminal?style=solid
+wsMail    = "4" -- https://fontawesome.com/icons/terminal?style=solid
+wsPlain   = "5" -- https://fontawesome.com/icons/circle?style=solid
 wsScratch = "6" -- https://fontawesome.com/icons/globe-europe?style=solid
 
 wsList = [ wsScratch
@@ -38,13 +38,13 @@ projects =
             , projectDirectory = "~/"
             , projectStartHook = Just $ spawn music
             }
-  , Project { projectName      = wsPlain
-            , projectDirectory = "~/"
-            , projectStartHook = Just $ return ()
-            }
   , Project { projectName      = wsMail
             , projectDirectory = "~/"
             , projectStartHook = Just $ spawn mail
+            }
+  , Project { projectName      = wsPlain
+            , projectDirectory = "~/"
+            , projectStartHook = Just $ return ()
             }
   , Project { projectName      = wsScratch
             , projectDirectory = "~/"
