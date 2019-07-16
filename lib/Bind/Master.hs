@@ -85,8 +85,8 @@ defaultKeys c = mkKeymap c $
   , (m, f) <- [("M-", W.greedyView), ("M-S-", W.shift)]
   ] ++
   -- search engine submap
-  [ ("M-s  " ++ k, S.selectSearch f)       | (k,f) <- searchList ] ++
-  [ ("M-S-s" ++ k, S.promptSearch P.def f) | (k,f) <- searchList ] -- FIXME: not appearing?
+  [ ("M-/  " ++ k, S.selectSearch f)       | (k,f) <- searchList ] ++
+  [ ("M-S-/" ++ k, S.promptSearch P.def f) | (k,f) <- searchList ] -- FIXME: not appearing?
   -- @end keys
   where nextWindow      = windows W.focusDown
         prevWindow      = windows W.focusUp
