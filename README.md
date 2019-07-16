@@ -59,7 +59,7 @@ can be updated.
 | `nix`           | A purely functional package manager                | Compilation of the xmonad binary                                                         |
 
 For the polybar configuration files please see
-[here](https://github.com/nix-overlays). This is managed by home-manager and
+[here](https://github.com/karetsu/nix-overlays). This is managed by home-manager and
 contains an overlay for nixpkgs with additional software.
 
 
