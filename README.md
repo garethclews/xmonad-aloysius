@@ -1,6 +1,7 @@
-# Call Me Aloysius
+# [Call Me Al](https://www.youtube.com/watch?v=uq-gYOrU8bA)
 
 A [Nord](https://www.nordtheme.com/) themed XMonad configuration.
+
 
 ## Details
 
