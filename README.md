@@ -29,7 +29,7 @@ This list contains all of the features not included in the default XMonad experi
 | Toggling DPMS                       | Polybar clickable icon to toggle `xset +-dpms`                                                                      | click on lightbulb                      |
 | Maximise on single window           | Inspired by the i3-gaps treatment where gaps are disabled for single windows, this applies to all non-float layouts | always on                               |
 | Dedicated floating window workspace | A workspace where all windows float (workspace 6 by default)                                                        | M-6                                     |
-| Navigation2D                        | Swap windows on workspaces, go to windows and go to screens with keyboard shortcuts                                 | M-/M-S-/M-C- <arrow keys>               |
+| Navigation2D                        | Swap windows on workspaces, go to windows and go to screens with keyboard shortcuts                                 | M-/M-S-/M-C- \<arrow keys\>               |
 
 * g: duckduckgo, h: hoogle, w: wikipedia
 
