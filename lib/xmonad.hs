@@ -7,7 +7,7 @@ ____             _    _                 _
                               |___/
 
 ---------------------------------------------------------------------------
--- https://gitlab.com/karetsu                                            --
+-- https://gitlab.com/karetsu/xmonad-aloysius                            --
 -- X. >= 0.15                                                            --
 --                                                                       --
 -- For pending changes see TODO.org                                      --
