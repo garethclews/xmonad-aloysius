@@ -29,6 +29,7 @@ can be updated.
 | `dmenu2`        | General purpose menu                               | Application launcher, jump to window, bring window                                       |
 | `feh`           | Image viewer and wallpaper setter                  | Wallpaper                                                                                |
 | `polybar`       | Status bar                                         | Workspace info, layout info, launchers, DPMS toggling, spotify info, time, volume, power |
+| `compton`       | Compositor                                         | Shadows and glitz                                                                        |
 | `i3lock-fancy`  | Screen locking                                     | self-explanatory                                                                         |
 | `dunst`         | Notification daemon                                | self-explanatory                                                                         |
 | Fira Sans+Mono  | Fonts                                              | self-explanatory                                                                         |
