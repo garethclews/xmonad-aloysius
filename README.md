@@ -23,8 +23,8 @@ This list contains all of the features not included in the default XMonad experi
 | Named Scratchpad                    | Pop over terminal similar to quake/yakuake                                                                          | M-\`                                    |
 | Go-to window                        | X.A.WindowBringer - go to windows dmenu prompt for quick jumping between workspaces                                 | M-x g or click on workspaces on polybar |
 | Bring window                        | As above, but this time brings a window to your current workspace                                                   | M-x b                                   |
-| Search selected                     | Launch a web search for the currently selected text*                                                                | M-s g/h/w                               |
-| Search prompt                       | Launch a dmenu prompt to launch a web search*                                                                       | M-S-s g/h/w                             |
+| Search selected                     | Launch a web search for the currently selected text*                                                                | M-/ g/h/w                               |
+| Search prompt                       | Launch a dmenu prompt to launch a web search*                                                                       | M-S-/ g/h/w                             |
 | Media keys                          | Using media keys via playerctl                                                                                      | always on                               |
 | Toggling DPMS                       | Polybar clickable icon to toggle `xset +-dpms`                                                                      | click on lightbulb                      |
 | Maximise on single window           | Inspired by the i3-gaps treatment where gaps are disabled for single windows, this applies to all non-float layouts | always on                               |
