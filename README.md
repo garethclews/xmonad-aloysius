@@ -5,12 +5,32 @@ A [Nord](https://www.nordtheme.com/) themed XMonad configuration.
 
 ## Details
 
-TODO
+This XMonad configuration is my attempt at making it feel more like a desktop
+environment featuring a lot more mod-cons than you typically find in a tiling
+WM. You will also need my polybar configuration, available in the wiki, as well
+as all of the supporting scripts available
+[here](https://gitlab.com/karetsu/scripts).
+
+My personal setup looks like:
+
+- **OS**:       nixOS
+- **WM**:       XMonad
+- **Terminal**: urxvt
+- **Launcher**: dmenu2
+- **Editor**:  [doom emacs](https://github.com/hlissner/doom-emacs)
+- **Browser**: firefox
+
+See below for how to change these for your preferred options. If the build
+instructions do not seem to work on your preference of OS then please raise an
+issue. As the build is managed in a nix-shell then it should "just work".
+
 
 ## Latest Preview
 
 ![](./screens/1.png)
 ![](./screens/2.png)
+![](./screens/3.png)
+
 
 ## Features
 
@@ -29,9 +49,12 @@ This list contains all of the features not included in the default XMonad experi
 | Toggling DPMS                       | Polybar clickable icon to toggle `xset +-dpms`                                                                      | click on lightbulb                      |
 | Maximise on single window           | Inspired by the i3-gaps treatment where gaps are disabled for single windows, this applies to all non-float layouts | always on                               |
 | Dedicated floating window workspace | A workspace where all windows float (workspace 6 by default)                                                        | M-6                                     |
-| Navigation2D                        | Swap windows on workspaces, go to windows and go to screens with keyboard shortcuts                                 | M-/M-S-/M-C- \<arrow keys\>               |
+| Navigation2D                        | Swap windows on workspaces, go to windows and go to screens with keyboard shortcuts                                 | M-/M-S-/M-C- \<arrow keys\>             |
 
-* g: duckduckgo, h: hoogle, w: wikipedia
+* Search options
+  - g: duckduckgo
+  - h: hoogle
+  - w: wikipedia
 
 
 ## Dependencies
@@ -79,4 +102,15 @@ This setup is pretty opinionated. I have some explicit applications named in
 If you prefer other apps then edit them in this file.
 
 
-# TODO: finish this doc
+# Installation instructions
+
+The development plans for this eventually involve moving to a `~/.build` script
+which does everything for you. This is not yet implemented so for now you need
+to do the following:
+
+``` sh
+git clone https://gitlab.com/karetsu/xmonad-aloysius ~/.xmonad
+cd ~/.xmonad
+nix-shell --pure --run ./compile
+```
+

@@ -15,7 +15,7 @@
 
 * NON XMONAD SPECIFIC [0/1]
   - [ ] look into using glances to generate JSON for outputting somehow
-
+  - [ ] consider betterlockscreen (https://github.com/pavanjadhaw/betterlockscreen) over i3lock-fancy
 
 * ACTIVE [0/0]
 
@@ -24,7 +24,7 @@
   - [ ] https://github.com/pjones/xmonadrc has some dynamic project helper functions
 
 
-* DONE [12/12]
+* Done [12/12]
   - [X] tidy up gaps with polybar
   - [X] pimped polybar with current layout descriptor (pprint)
   - [X] make fullscreen logout
