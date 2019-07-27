@@ -1,21 +1,17 @@
 #+TITLE: XMonad-Aloysius
 
-* GENERAL [1/5]
-  - [ ] polybar pimping:
-    + better workspace listing
-      + should I replace with dzen to get a clickable ws list?
+* GENERAL [0/3]
   - [ ] keybindings are currently all over the place
     + get toggle float all and sink all
     + helper scripts to throw in ~/.scripts
     + see how wmctl can help me out
-  - [ ] X.U.Dzen to replicate the kind of bar on the left of https://i.redd.it/glzrkk83f4621.png ???
   - [ ] current dmenu is a bit clumsy on spacing, make it avoidStruts rather than place itself at 40 pixels so make it work on multihead setups
   - [ ] Design a sound scheme
+  - [ ] Fix xset bug (still locks even with `xset -dpms`)
 
 
-* NON XMONAD SPECIFIC [0/1]
-  - [ ] look into using glances to generate JSON for outputting somehow
-  - [ ] consider betterlockscreen (https://github.com/pavanjadhaw/betterlockscreen) over i3lock-fancy
+* NON XMONAD SPECIFIC [0/0]
+
 
 * ACTIVE [0/0]
 
@@ -39,6 +35,8 @@
   - [X] Incorporate goodness from https://github.com/altercation/dotfiles-tilingwm/blob/master/.xmonad/xmonad.hs
 
 
-* TESTED/REJECTED/WONTFIX [2/2]
+* TESTED/REJECTED/WONTFIX [4/4]
   - [X] X.U.Themes - see if nord and dracula can be added -- going to just keep my themes in my format, if anybody else ever wants to use it then maybe revisit but just for me there's little to no point
   - [X] XMonad.Hooks.DynamicBars  -- sticking with one bar
+  - [X] rejected betterlockscreen (https://github.com/pavanjadhaw/betterlockscreen), delay for lock is liveable
+  - [X] look into using glances to generate JSON for outputting somehow - lost interest
