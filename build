@@ -1,15 +1,20 @@
 #! /usr/bin/env nix-shell
 #! nix-shell -i zsh
 
+# suppress "zsh no matches found"
+setopt +o nomatch
+
 cd ~/.xmonad
 # set up the compile flags
 [[ -a cabal.project.local ]] && rm cabal.project.local
 cabal new-configure --enable-optimisation --enable-library-stripping
   
 # build
-cabal new-build &&\
-  mv -u dist-newstyle/build/x86_64-linux/**/build/xmonad/xmonad xmonad-x86_64-linux ||\
-  true
+cabal new-build
 
+# replace 
+(ls *(.mM+1) 2>/dev/null | grep xmonad-x86_64-linux) && \
+  cp -p -update dist-newstyle/**/build/xmonad/xmonad xmonad-x86_64-linux
+ 
 # restart xmonad
 xmonad --restart
