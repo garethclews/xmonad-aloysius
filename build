@@ -5,16 +5,21 @@
 setopt +o nomatch
 
 cd ~/.xmonad
-# set up the compile flags
-[[ -a cabal.project.local ]] && rm cabal.project.local
-cabal new-configure --enable-optimisation --enable-library-stripping
-  
-# build
-cabal new-build
+OLD=$(ls *(.mM+1) 2>/dev/null | grep xmonad-x64_64-linux)
 
-# replace 
-(ls *(.mM+1) 2>/dev/null | grep xmonad-x86_64-linux) && \
+doBuild () {
+  
+  # set up the compile flags
+  [[ -a cabal.project.local ]] || cabal new-configure --enable-optimisation --enable-library-stripping
+  
+  # build
+  cabal new-build
+
+  # replace 
   cp -p -update dist-newstyle/**/build/xmonad/xmonad xmonad-x86_64-linux
  
-# restart xmonad
-xmonad --restart
+  # restart xmonad
+  xmonad --restart
+}
+
+[[ "$OLD" -ne "" ]] && doBuild
