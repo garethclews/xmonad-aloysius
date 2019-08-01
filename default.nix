@@ -10,7 +10,7 @@ in
     xmonad = drv;
     xmonad-shell = haskellPackages.shellFor {
       packages = p: [drv];
-      buildInputs = with pkgs; [ cabal-install hlint ];
+      buildInputs = with pkgs; [ cabal-install hlint fd ];
     };
   }
 

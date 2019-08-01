@@ -50,10 +50,8 @@ defaultKeys c = mkKeymap c $
 
 
   -- window manipulation
-  , ("M-x g"       , gotoMenuArgs  $ dmenuFlags ++ [ "-p", "Go to window:  "])
-  , ("M-x b"       , bringMenuArgs $ dmenuFlags ++ [ "-p", "Bring window:  " ])
-  --, ("M-x g"       , gotoMenu )
-  --, ("M-x b"       , bringMenu)
+  , ("M-w g"       , gotoMenuArgs  $ dmenuFlags ++ [ "-p", "Go to window:  "])
+  , ("M-w b"       , bringMenuArgs $ dmenuFlags ++ [ "-p", "Bring window:  " ])
 
 
   -- SESSION --
@@ -95,8 +93,8 @@ defaultKeys c = mkKeymap c $
                           , "-nf", "#d3dee9"
                           , "-sb", "#d08770"
                           , "-sf", "#2e3440"
-                          , "-h" , "40"
-                          , "-y" , "40"
+                          , "-h" , "52"
+                          , "-y" , "52"
                           ]
 
 -- search engine submap, starts with M-s (selected) and M-S-s (prompt)

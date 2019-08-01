@@ -5,8 +5,6 @@ module App.Launcher where
 -- Imports ----------------------------------------------------------------------
 import XMonad
 
-import XMonad.Hooks.ManageDocks
-
 import XMonad.Util.Dzen
 import XMonad.Util.Font (Align(..))
 
@@ -15,13 +13,16 @@ import Theme.Nord
 
 -- Definitions ------------------------------------------------------------------
 powerMenu :: X ()
-powerMenu = dzenConfig ( font "Font Awesome:size=62"
+powerMenu = dzenConfig ( font "Font Awesome:size=32"
                          >=> timeout 5
-                         >=> onCurr (center 2560 1440)
-                       -- FIXME: abstract out screen size
+                         >=> xScreen 1
+                         >=> x 2240
+                         >=> y 53
                          >=> align AlignCenter
                          >=> bgColor base00
                          >=> fgColor base04
+                         >=> addArgs [ "-h", "120"
+                                     , "-w", "320"]
                        )
                        $
                        "^fg(" ++ base14 ++ ")^ca(1, " ++ screensaver ++ ")\xf023^ca() \
