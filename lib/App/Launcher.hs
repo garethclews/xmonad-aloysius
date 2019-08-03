@@ -13,19 +13,18 @@ import Theme.Nord
 
 -- Definitions ------------------------------------------------------------------
 powerMenu :: X ()
-powerMenu = dzenConfig ( font "Font Awesome:size=32"
+powerMenu = dzenConfig ( font "Font Awesome:size=14"
                          >=> timeout 5
                          >=> xScreen 1
-                         >=> x 2240
-                         >=> y 53
+                         >=> x 2380
+                         >=> y 0
                          >=> align AlignCenter
-                         >=> bgColor base00
-                         >=> fgColor base04
-                         >=> addArgs [ "-h", "120"
-                                     , "-w", "320"]
+                         >=> bgColor base01
+                         >=> addArgs [ "-h", "52"
+                                     , "-w", "180"]
                        )
                        $
                        "^fg(" ++ base14 ++ ")^ca(1, " ++ screensaver ++ ")\xf023^ca() \
-                       \^p(65)^fg(" ++ base08 ++ ")^ca(1, systemctl reboot)\xf021^ca() \
-                       \^p(65)^fg(" ++ base11 ++ ")^ca(1, systemctl poweroff)\xf011^ca()"
+                       \^p(30)^fg(" ++ base08 ++ ")^ca(1, systemctl reboot)\xf021^ca() \
+                       \^p(30)^fg(" ++ base11 ++ ")^ca(1, systemctl poweroff)\xf011^ca()"
 

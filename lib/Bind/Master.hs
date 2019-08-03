@@ -94,7 +94,7 @@ defaultKeys c = mkKeymap c $
                           , "-sb", "#d08770"
                           , "-sf", "#2e3440"
                           , "-h" , "52"
-                          , "-y" , "52"
+                          , "-y" , "0"
                           ]
 
 -- search engine submap, starts with M-s (selected) and M-S-s (prompt)

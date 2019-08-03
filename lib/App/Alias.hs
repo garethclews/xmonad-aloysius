@@ -13,9 +13,7 @@ appLauncher = " dmenu_run -p 'Launch application:  ' \
               \ -nf '#d8dee9' \
               \ -sb '#a3be8c' \
               \ -sf '#2e3440' \
-              \ -h 52 \
-              \ -o 80 \
-              \ -y 52"  -- playing with offsets to see if it skips the dock
+              \ -h 52"
 
 
 panel :: String

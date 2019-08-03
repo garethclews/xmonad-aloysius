@@ -26,4 +26,4 @@ doBuild () {
   xmonad --restart
 }
 
-[[ $OLD -ge 0 ]] && doBuild
+[[ $OLD > 0 ]] && doBuild
