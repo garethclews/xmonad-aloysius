@@ -61,7 +61,7 @@ logger = "xdotool search dunst windowraise"
 
 
 tty :: String
-tty = "urxvt"
+tty = "kitty"
 
 
 mail :: String
