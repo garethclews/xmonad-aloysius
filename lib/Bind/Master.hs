@@ -65,7 +65,9 @@ defaultKeys c = mkKeymap c $
 
 
   -- TEST
-  , ("M-`"  , scratchpadSpawnActionTerminal (term options))
+  , ("M-`"  , scratchpadSpawnActionTerminal "urxvt")
+  -- FIXME: (term options) does not work when it is set to kitty, deal with this
+
   -- /TEST
 
   -- media keys
