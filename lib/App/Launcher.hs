@@ -16,12 +16,12 @@ powerMenu :: X ()
 powerMenu = dzenConfig ( font "Font Awesome:size=14"
                          >=> timeout 5
                          >=> xScreen 1
-                         >=> x 2380
+                         >=> x 2341
                          >=> y 0
                          >=> align AlignCenter
                          >=> bgColor base01
                          >=> addArgs [ "-h", "52"
-                                     , "-w", "180"]
+                                     , "-w", "219"]
                        )
                        $
                        "^fg(" ++ base14 ++ ")^ca(1, " ++ screensaver ++ ")\xf023^ca() \

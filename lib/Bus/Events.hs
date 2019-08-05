@@ -38,8 +38,8 @@ logHook' = do
       -- %{T-} resets it back to font-0
       -- NOTE: Foreground colours also edited here
       -- this block then depends on +THEME+
-      | currWs == ws = " %{F"  ++ base00 ++ "}%{T3}[" ++ ws ++ "]%{T-}%{F-} "
-      | otherwise    = "  %{F" ++ base10 ++ "}%{T4}"  ++ ws ++ "%{T-}%{F-}  "
+      | currWs == ws = " [%{F"  ++ base06 ++ "}%{T3}" ++ ws ++ "%{T-}%{F" ++ base02 ++ "}] "
+      | otherwise    = "  " ++ ws ++ "  "
 
     sort' = sortBy (compare `on` (!! 0))
     layoutParse s  -- 'pretty' printing

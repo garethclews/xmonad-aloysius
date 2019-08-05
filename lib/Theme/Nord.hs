@@ -16,6 +16,7 @@ data Theme = Theme
 
 -- whole nord colour palette
 -- naming convention for my personal themes, all should have 16 base colours
+basebg = "#292E39"
 base00 = "#2E3440"
 base01 = "#3B4252"
 base02 = "#434C5E"
@@ -32,6 +33,7 @@ base12 = "#D08770"
 base13 = "#EBCB8B"
 base14 = "#A3BE8C"
 base15 = "#B48EAD"
+
 
 sansserif :: String
 sansserif = "xft:Fira Sans:size=10"
