@@ -7,7 +7,6 @@ import System.Exit
 import XMonad
 
 import XMonad.Actions.WindowBringer
-
 import XMonad.Layout.AvoidFloats
 
 -- build custom prompt to help find keys
@@ -52,6 +51,13 @@ defaultKeys c = mkKeymap c $
   -- window manipulation
   , ("M-w g"       , gotoMenuArgs  $ dmenuFlags ++ [ "-p", "Go to window:  "])
   , ("M-w b"       , bringMenuArgs $ dmenuFlags ++ [ "-p", "Bring window:  " ])
+  , ("M-w `"       , scratchpadSpawnActionTerminal "urxvt")
+  -- FIXME: (term options) does not work when it is set to kitty, deal with this
+  , ("M-w h"       , sendMessage Shrink)  -- %! Shrink the master area
+  , ("M-w l"       , sendMessage Expand)  -- %! Expand the master area
+  , ("M-w S-."     , sendMessage $ IncMasterN 1) -- %! Increment the number of windows in the master area
+  , ("M-w S-,"     , sendMessage $ IncMasterN (-1)) -- %! Increment the number of windows in the master area
+  , ("M-w m"       , windows W.focusMaster)
 
 
   -- SESSION --
@@ -65,8 +71,6 @@ defaultKeys c = mkKeymap c $
 
 
   -- TEST
-  , ("M-`"  , scratchpadSpawnActionTerminal "urxvt")
-  -- FIXME: (term options) does not work when it is set to kitty, deal with this
 
   -- /TEST
 
