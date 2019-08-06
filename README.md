@@ -65,19 +65,19 @@ eventually) then all of the following should be easily replaceable.
 If you notice any missing dependencies please raise an issue so that this table
 can be updated.
 
-| Dependency      | Description                                             | Why/Where is it needed?                                                                  |
-| ---             | ---                                                     | ---                                                                                      |
-| `xmonad` v0.15+ | Window manager                                          | self-explanatory                                                                         |
-| `dzen2`         | General purpose messaging and notification program      | Power menu                                                                               |
-| `dmenu2`        | General purpose menu                                    | Application launcher, jump to window, bring window                                       |
-| `feh`           | Image viewer and wallpaper setter                       | Wallpaper                                                                                |
-| `polybar`       | Status bar                                              | Workspace info, layout info, launchers, DPMS toggling, spotify info, time, volume, power |
-| `compton`       | Compositor                                              | Shadows and glitz                                                                        |
-| `i3lock-fancy`  | Screen locking                                          | self-explanatory                                                                         |
-| `dunst`         | Notification daemon                                     | self-explanatory                                                                         |
-| Iosevka Custom  | Fonts (see [here](https://gihub.com/elenapan/dotfiles)) | self-explanatory                                                                         |
-| FontAwesome     | Icons                                                   | self-explanatory                                                                         |
-| `nix`           | A purely functional package manager                     | Compilation of the xmonad binary                                                         |
+| Dependency      | Description                                              | Why/Where is it needed?                                                                  |
+| ---             | ---                                                      | ---                                                                                      |
+| `xmonad` v0.15+ | Window manager                                           | self-explanatory                                                                         |
+| `dzen2`         | General purpose messaging and notification program       | Power menu                                                                               |
+| `dmenu2`        | General purpose menu                                     | Application launcher, jump to window, bring window                                       |
+| `feh`           | Image viewer and wallpaper setter                        | Wallpaper                                                                                |
+| `polybar`       | Status bar                                               | Workspace info, layout info, launchers, DPMS toggling, spotify info, time, volume, power |
+| `compton`       | Compositor                                               | Shadows and glitz                                                                        |
+| `i3lock-fancy`  | Screen locking                                           | self-explanatory                                                                         |
+| `dunst`         | Notification daemon                                      | self-explanatory                                                                         |
+| Iosevka Custom  | Fonts (see [here](https://github.com/elenapan/dotfiles)) | self-explanatory                                                                         |
+| FontAwesome     | Icons                                                    | self-explanatory                                                                         |
+| `nix`           | A purely functional package manager                      | Compilation of the xmonad binary                                                         |
 
 For the polybar configuration files please see
 [here](https://github.com/karetsu/nix-overlays). This is managed by home-manager and
