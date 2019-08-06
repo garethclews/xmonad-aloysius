@@ -46,17 +46,17 @@ defaultKeys c = mkKeymap c $
   , ("M-S-q"       , io exitSuccess)
   , ("M-S-b"       , sendMessage AvoidFloatToggle)
   , ("M-s p"       , unGrab >> powerMenu)
+  , ("M-`"       , scratchpadSpawnActionTerminal "urxvt")
 
 
   -- window manipulation
   , ("M-w g"       , gotoMenuArgs  $ dmenuFlags ++ [ "-p", "Go to window:  "])
   , ("M-w b"       , bringMenuArgs $ dmenuFlags ++ [ "-p", "Bring window:  " ])
-  , ("M-w `"       , scratchpadSpawnActionTerminal "urxvt")
   -- FIXME: (term options) does not work when it is set to kitty, deal with this
   , ("M-w h"       , sendMessage Shrink)  -- %! Shrink the master area
   , ("M-w l"       , sendMessage Expand)  -- %! Expand the master area
   , ("M-w S-."     , sendMessage $ IncMasterN 1) -- %! Increment the number of windows in the master area
-  , ("M-w S-,"     , sendMessage $ IncMasterN (-1)) -- %! Increment the number of windows in the master area
+  , ("M-w S-,"     , sendMessage $ IncMasterN (-1)) -- %! Decrease the number of windows in the master area
   , ("M-w m"       , windows W.focusMaster)
 
 
