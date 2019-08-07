@@ -61,7 +61,11 @@ logger = "xdotool search dunst windowraise"
 
 
 tty :: String
-tty = "kitty"
+tty = "kitty "
+
+
+scratch :: String
+scratch = "kitty --name=scratchpad"
 
 
 mail :: String
