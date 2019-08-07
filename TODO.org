@@ -1,16 +1,14 @@
 #+TITLE: XMonad-Aloysius
 
-* GENERAL [0/3]
+* GENERAL [1/3]
   - [ ] keybindings are currently all over the place
     + get toggle float all and sink all
     + helper scripts to throw in ~/.scripts
     + see how wmctl can help me out
-  - [ ] current dmenu is a bit clumsy on spacing, make it avoidStruts rather than place itself at 40 pixels so make it work on multihead setups
-  - [ ] Design a sound scheme
-  - [ ] Fix xset bug (still locks even with `xset -dpms`)
 
 
 * NON XMONAD SPECIFIC [0/0]
+- [ ] lightdm switch to greeter should release the pulseaudio sink
 
 
 * ACTIVE [0/0]
@@ -18,9 +16,10 @@
 
 * DEFER [0/1]
   - [ ] https://github.com/pjones/xmonadrc has some dynamic project helper functions
+  - [ ] Design a sound scheme
 
 
-* Done [12/12]
+* Done [13/13]
   - [X] tidy up gaps with polybar
   - [X] pimped polybar with current layout descriptor (pprint)
   - [X] make fullscreen logout
@@ -33,6 +32,8 @@
   - [X] X.A.WindowBringer has been added for window switching by name
   - [X] X.L.IfMax added so that layouts with single window end up maximised
   - [X] Incorporate goodness from https://github.com/altercation/dotfiles-tilingwm/blob/master/.xmonad/xmonad.hs
+  - [X] dmenu changed to overlap polybar completely, spacing issue removed
+  - [X] Fix xset bug (still locks even with `xset -dpms`)
 
 
 * TESTED/REJECTED/WONTFIX [4/4]
