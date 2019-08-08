@@ -46,6 +46,7 @@ logHook' = do
       | "ThreeCol"      `isInfixOf` s = "%{T2}+|+%{T-} TCM "
       | "BSP"           `isInfixOf` s = "%{T2}||+%{T-} BSP "
       | "ResizableTall" `isInfixOf` s = "%{T2}|||%{T-} Tall"
-      | s == "Full"                   = "%{T2}___%{T-} Full"
+      | "Tabbed"        `isInfixOf` s = "%{T2}___%{T-} Tab "
+      | s == "Full"                   = "%{T2}| |%{T-} Full"
       | s == "SimplestFloat"          = "%{T2}+++%{T-} FLT "
       | otherwise                     = s -- fallback for changes in C.Layout

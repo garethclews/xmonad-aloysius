@@ -17,10 +17,11 @@ import XMonad.Layout.PerWorkspace
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.SimplestFloat
 import XMonad.Layout.Spacing
+import XMonad.Layout.Tabbed
 import XMonad.Layout.ThreeColumns
 
 import Config.Projects
-
+import Theme.Nord
 ------------------------------------------------------------------------
 --
 -- Layouts:
@@ -47,6 +48,22 @@ gs = Gaps'
   , x  = 20
   , x' = 20
   }
+
+
+tabTheme :: XMonad.Layout.Tabbed.Theme
+tabTheme = def { activeColor = basebg
+               , activeBorderColor = basebg
+               , activeTextColor = base06
+               , inactiveColor = basebg
+               , inactiveBorderColor = basebg
+               , inactiveTextColor = base03
+               , urgentColor = basebg
+               , urgentBorderColor = basebg
+               , urgentTextColor = base12
+               , fontName = "xft:Fira Sans:pixelsize=14"
+               , decoHeight = 52
+               }
+
 
 gapses :: l a -> ModifiedLayout Gaps l a
 gapses     = gaps [(U, u gs), (R, x gs), (L, x gs), (D, d gs)]
@@ -77,3 +94,4 @@ layout           = avoidStruts
                  $ full
                  ||| spacedPartitions
                  ||| tcm
+                 ||| tabbedBottomAlways shrinkText tabTheme
