@@ -5,6 +5,9 @@
 
 module App.Alias where
 
+
+import Theme.Nord
+
 appLauncher :: String
 -- appLauncher = "rofi -show run"
 appLauncher = " dmenu_run -p 'Launch application:  ' \
@@ -45,7 +48,10 @@ notifications = "dunst"
 
 
 screensaver :: String
-screensaver = "i3lock-fancy -t 'Hi Aloysius'"
+screensaver = concatMap (++ " ") ["i3lock"
+                                 , "-e"
+                                 , "-c", filter (/= '#') basebg
+                                 ]
 
 
 energyStar :: String

@@ -1,25 +1,31 @@
 #+TITLE: XMonad-Aloysius
 
-* GENERAL [1/3]
+* GENERAL [0/5]
   - [ ] keybindings are currently all over the place
     + get toggle float all and sink all
     + helper scripts to throw in ~/.scripts
     + see how wmctl can help me out
+  - [ ] use urgencyhook to either change the colour of the workspace in polybar
+    or do a notify-send (alternatives?)
+  - [ ] M-S-` for an alternative scratchpad with custom command?
+  - [ ] Develop additional colour schemes
+  - [ ] work through https://hackage.haskell.org/package/xmonad-contrib-0.15/docs/XMonad-Doc-Extending.html
 
 
-* NON XMONAD SPECIFIC [0/0]
+* NON XMONAD SPECIFIC [0/2]
 - [ ] lightdm switch to greeter should release the pulseaudio sink
+- [ ] general research into pulseaudio configuration
 
 
 * ACTIVE [0/0]
 
 
-* DEFER [0/1]
+* DEFER [0/2]
   - [ ] https://github.com/pjones/xmonadrc has some dynamic project helper functions
   - [ ] Design a sound scheme
 
 
-* Done [13/13]
+* Done [14/14]
   - [X] tidy up gaps with polybar
   - [X] pimped polybar with current layout descriptor (pprint)
   - [X] make fullscreen logout
