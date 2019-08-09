@@ -29,3 +29,13 @@ powerMenu = dzenConfig ( font "Font Awesome:size=14"
                        \^p(30)^fg(" ++ base08 ++ ")^ca(1, systemctl reboot)\xf021^ca() \
                        \^p(30)^fg(" ++ base11 ++ ")^ca(1, systemctl poweroff)\xf011^ca()"
 
+
+appLauncher :: String
+-- appLauncher = "rofi -show run"
+appLauncher = "dmenu_run -p 'Launch application:  ' "
+           ++ "-fn \"" ++ sansserif' ++ "\" "
+           ++ "-nb \"" ++ basebg     ++ "\" "
+           ++ "-nf \"" ++ base04     ++ "\" "
+           ++ "-sb \"" ++ base14     ++ "\" "
+           ++ "-sf \"" ++ base00     ++ "\" "
+           ++ "-h 52"

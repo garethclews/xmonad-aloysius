@@ -36,10 +36,13 @@ base15 = "#B48EAD"
 
 
 sansserif :: String
-sansserif = "xft:Fira Sans:size=10"
+sansserif = "xft:Fira Sans:size=12"
+
+sansserif' :: String
+sansserif' = "Fira Sans-12"
 
 monospace :: String
-monospace = "xft:Fira Mono:size=10"
+monospace = "xft:Fira Mono:size=12"
 
 
 theme :: Theme

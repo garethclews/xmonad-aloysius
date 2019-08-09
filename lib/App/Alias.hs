@@ -6,15 +6,6 @@
 module App.Alias where
 
 
-appLauncher :: String
--- appLauncher = "rofi -show run"
-appLauncher = " dmenu_run -p 'Launch application:  ' \
-              \ -fn 'Fira Sans-12' \
-              \ -nb '#2e3440' \
-              \ -nf '#d8dee9' \
-              \ -sb '#a3be8c' \
-              \ -sf '#2e3440' \
-              \ -h 52"
 
 
 panel :: String
