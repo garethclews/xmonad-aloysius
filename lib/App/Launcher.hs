@@ -25,7 +25,7 @@ powerMenu = dzenConfig ( font "Font Awesome:size=14"
                                      ]
                        )
                        $
-                       "^fg(" ++ base14 ++ ")^ca(1, " ++ screensaver ++ ")\xf023^ca() \
+                       "^fg(" ++ base14 ++ ")^ca(1, " ++ suspend ++ ")\xf04c^ca() \
                        \^p(30)^fg(" ++ base08 ++ ")^ca(1, systemctl reboot)\xf021^ca() \
                        \^p(30)^fg(" ++ base11 ++ ")^ca(1, systemctl poweroff)\xf011^ca()"
 

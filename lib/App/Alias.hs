@@ -6,8 +6,6 @@
 module App.Alias where
 
 
-import Theme.Nord
-
 appLauncher :: String
 -- appLauncher = "rofi -show run"
 appLauncher = " dmenu_run -p 'Launch application:  ' \
@@ -49,6 +47,9 @@ notifications = "dunst"
 
 screensaver :: String
 screensaver = "~/.scripts/lock"
+
+suspend :: String
+suspend = "~/.scripts/suspend"
 
 
 energyStar :: String
