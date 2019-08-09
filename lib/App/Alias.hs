@@ -40,7 +40,7 @@ lang = "export LANG=en_GB.UTF-8"
 
 
 numlock :: String
-numlock = "exec numlockx"
+numlock = "numlockx"
 
 
 notifications :: String
@@ -48,10 +48,7 @@ notifications = "dunst"
 
 
 screensaver :: String
-screensaver = concatMap (++ " ") ["i3lock"
-                                 , "-e"
-                                 , "-c", filter (/= '#') basebg
-                                 ]
+screensaver = "~/.scripts/lock"
 
 
 energyStar :: String

@@ -11,6 +11,8 @@
   - [ ] Develop additional colour schemes
   - [ ] work through https://hackage.haskell.org/package/xmonad-contrib-0.15/docs/XMonad-Doc-Extending.html
   - [ ] remove that monstrous gif and replace with smaller images
+  - [ ] make screen locking better, currently in a script outside xmonad and the
+    sound control is really clumsy
 
 
 * NON XMONAD SPECIFIC [0/2]
