@@ -19,6 +19,7 @@
 * NON XMONAD SPECIFIC [0/2]
 - [ ] lightdm switch to greeter should release the pulseaudio sink
 - [ ] general research into pulseaudio configuration
+- [ ] update git prompt to show ahead/behind status
 
 
 * ACTIVE [0/1]
