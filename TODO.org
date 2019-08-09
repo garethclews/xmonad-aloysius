@@ -12,6 +12,8 @@
   - [ ] work through https://hackage.haskell.org/package/xmonad-contrib-0.15/docs/XMonad-Doc-Extending.html
   - [ ] make screen locking better, currently in a script outside xmonad and the
     sound control is really clumsy
+  - [ ] consider window decorations for float workspace
+  - [ ] clickable layout selector
 
 
 * NON XMONAD SPECIFIC [0/2]
@@ -20,8 +22,8 @@
 
 
 * ACTIVE [0/1]
-
   - [ ] remove that monstrous gif and replace with smaller images
+
 
 * DEFER [0/2]
   - [ ] https://github.com/pjones/xmonadrc has some dynamic project helper functions

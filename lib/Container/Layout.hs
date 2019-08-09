@@ -94,4 +94,4 @@ layout           = avoidStruts
                  $ full
                  ||| spacedPartitions
                  ||| tcm
-                 ||| tabbedBottomAlways shrinkText tabTheme
+                 ||| tabbedBottom shrinkText tabTheme

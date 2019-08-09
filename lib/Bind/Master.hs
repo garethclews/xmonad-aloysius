@@ -19,7 +19,6 @@ import XMonad.Util.Ungrab
 import qualified Data.Map                          as M
 import qualified XMonad.Actions.FlexibleManipulate as F
 import qualified XMonad.Actions.Search             as S
-import qualified XMonad.Prompt                     as P
 import qualified XMonad.StackSet                   as W
 
 
@@ -85,8 +84,8 @@ defaultKeys c = mkKeymap c $
   , (m, f) <- [("M-", W.greedyView), ("M-S-", W.shift)]
   ] ++
   -- search engine submap
-  [ ("M-/  " ++ k, S.selectSearch f)       | (k,f) <- searchList ] ++
-  [ ("M-S-/" ++ k, S.promptSearch P.def f) | (k,f) <- searchList ] -- FIXME: not appearing?
+  [ ("M-/ s " ++ k, S.selectSearch f)              | (k,f) <- searchList ] ++
+  [ ("M-/ p " ++ k, S.promptSearch promptConfig f) | (k,f) <- searchList ]
   -- @end keys
   where nextWindow      = windows W.focusDown
         prevWindow      = windows W.focusUp
