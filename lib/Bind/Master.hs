@@ -45,7 +45,6 @@ defaultKeys c = mkKeymap c $
   , ("M-S-q"       , io exitSuccess)
   , ("M-S-b"       , sendMessage AvoidFloatToggle)
   , ("M-s p"       , unGrab >> powerMenu)
-  -- FIXME: (term options) does not work when it is set to kitty, deal with this
   , ("M-`"         , scratchpadSpawnActionCustom scratch)
 
 
