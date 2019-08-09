@@ -10,7 +10,6 @@
   - [ ] M-S-` for an alternative scratchpad with custom command?
   - [ ] Develop additional colour schemes
   - [ ] work through https://hackage.haskell.org/package/xmonad-contrib-0.15/docs/XMonad-Doc-Extending.html
-  - [ ] remove that monstrous gif and replace with smaller images
   - [ ] make screen locking better, currently in a script outside xmonad and the
     sound control is really clumsy
 
@@ -20,8 +19,9 @@
 - [ ] general research into pulseaudio configuration
 
 
-* ACTIVE [0/0]
+* ACTIVE [0/1]
 
+  - [ ] remove that monstrous gif and replace with smaller images
 
 * DEFER [0/2]
   - [ ] https://github.com/pjones/xmonadrc has some dynamic project helper functions
