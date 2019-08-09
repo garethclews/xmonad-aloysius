@@ -31,7 +31,6 @@ powerMenu = dzenConfig ( font "Font Awesome:size=14"
 
 
 appLauncher :: String
--- appLauncher = "rofi -show run"
 appLauncher = "dmenu_run -p 'Launch application:  ' "
            ++ "-fn \"" ++ sansserif' ++ "\" "
            ++ "-nb \"" ++ basebg     ++ "\" "

@@ -40,13 +40,14 @@ This list contains all of the features not included in the default XMonad experi
 | ---                                 | ---                                                                                                                 | ---                                     |
 | EWMH                                | Simpler control over X                                                                                              | always on                               |
 | Dynamic Projects                    | Each workspace is given as a 'project' with default applications launched on entry if empty                         | always on                               |
-| Named Scratchpad                    | Pop over terminal similar to quake/yakuake (currently uses `urxvt`)                                                 | M-w \`                                  |
-| Go-to window                        | X.A.WindowBringer - go to windows dmenu prompt for quick jumping between workspaces                                 | M-x g or click on workspaces on polybar |
-| Bring window                        | As above, but this time brings a window to your current workspace                                                   | M-x b                                   |
-| Search selected                     | Launch a web search for the currently selected text*                                                                | M-/ g/h/w                               |
-| Search prompt                       | Launch a dmenu prompt to launch a web search*                                                                       | M-S-/ g/h/w                             |
+| Named Scratchpad                    | Pop over terminal similar to quake/yakuake (currently uses `urxvt`)                                                 | M-\`                                    |
+| Go-to window                        | X.A.WindowBringer - go to windows dmenu prompt for quick jumping between workspaces                                 | M-w g or click on workspaces on polybar |
+| Bring window                        | As above, but this time brings a window to your current workspace                                                   | M-w b                                   |
+| Search selected                     | Launch a web search for the currently selected text*                                                                | M-/ s <search option>                   |
+| Search prompt                       | Launch a dmenu prompt to launch a web search*                                                                       | M-/ p <search option>                   |
 | Media keys                          | Using media keys via playerctl                                                                                      | always on                               |
 | Toggling DPMS                       | Polybar clickable icon to toggle `xset +-dpms` and `xset s on/off`                                                  | click on lightbulb                      |
+| Lock screen                         | Provided by i3lock-color & used in lock and suspend                                                                 | power menu in polybar                   |
 | Maximise on single window           | Inspired by the i3-gaps treatment where gaps are disabled for single windows, this applies to all non-float layouts | always on                               |
 | Dedicated floating window workspace | A workspace where all windows float (workspace 6 by default)                                                        | M-6                                     |
 | Navigation2D                        | Swap windows on workspaces, go to windows and go to screens with keyboard shortcuts                                 | M-/M-S-/M-C- \<arrow keys\>             |
@@ -67,24 +68,34 @@ eventually) then all of the following should be easily replaceable.
 If you notice any missing dependencies please raise an issue so that this table
 can be updated.
 
-| Dependency      | Description                                              | Why/Where is it needed?                                                                  |
-| ---             | ---                                                      | ---                                                                                      |
-| `xmonad` v0.15+ | Window manager                                           | self-explanatory                                                                         |
-| `dzen2`         | General purpose messaging and notification program       | Power menu                                                                               |
-| `dmenu2`        | General purpose menu                                     | Application launcher, jump to window, bring window                                       |
-| `feh`           | Image viewer and wallpaper setter                        | Wallpaper                                                                                |
-| `polybar`       | Status bar                                               | Workspace info, layout info, launchers, DPMS toggling, spotify info, time, volume, power |
-| `compton`       | Compositor                                               | Shadows and glitz                                                                        |
-| `i3lock-color`  | Screen locking                                           | self-explanatory                                                                         |
-| `dunst`         | Notification daemon                                      | self-explanatory                                                                         |
-| Iosevka Custom  | Fonts (see [here](https://github.com/elenapan/dotfiles)) | self-explanatory                                                                         |
-| FontAwesome     | Icons                                                    | self-explanatory                                                                         |
-| `nix`           | A purely functional package manager                      | Compilation of the xmonad binary                                                         |
+| Dependency      | Description                                                            | Why/Where is it needed?                                                                  |
+| ---             | ---                                                                    | ---                                                                                      |
+| `xmonad` v0.15+ | Window manager                                                         | self-explanatory                                                                         |
+| `xmonad-extras` | Contributed additional functionality for xmonad                        | Everywhere, so much of the code base is these extras                                     |
+| `dzen2`         | General purpose messaging and notification program                     | Power menu                                                                               |
+| `dmenu2`        | General purpose menu                                                   | Application launcher, jump to window, bring window                                       |
+| `xset`          | User preference utility for X                                          | Enabling/Disabling DPMS and screensaver                                                  |
+| `feh`           | Image viewer and wallpaper setter                                      | Wallpaper                                                                                |
+| `polybar`       | Status bar                                                             | Workspace info, layout info, launchers, DPMS toggling, spotify info, time, volume, power |
+| `compton`       | Compositor                                                             | Shadows and glitz                                                                        |
+| `i3lock-color`  | Screen locking                                                         | self-explanatory                                                                         |
+| `dunst`         | Notification daemon                                                    | self-explanatory                                                                         |
+| `pulseaudio`    | Sound system                                                           | Liberal use made of pacmd and pactl, anything audio related                              |
+| Iosevka Custom  | Fonts (see [here](https://github.com/elenapan/dotfiles))               | self-explanatory                                                                         |
+| Deadhead Script | Lock screen font - [here](https://www.dafont.com/deadhead-script.font) | self-explanatory                                                                         |
+| FontAwesome     | Icons                                                                  | self-explanatory                                                                         |
+| `nix`           | A purely functional package manager                                    | Compilation of the xmonad binary                                                         |
 
 For the polybar configuration files please see
 [here](https://github.com/karetsu/nix-overlays). This is managed by home-manager and
 contains an overlay for nixpkgs with additional software. You also need my
 custom scripts directory available [here](https://github.com/karetsu/scripts).
+
+I have not mentioned here that the preferred login manager here is lightdm in
+order to get access to `dm-tool` to enable user switching. If you do *not* use
+lightdm then you will need to edit the polybar configuration and change the user
+switching module into one which suits your preference.
+
 
 
 ## Default applications
@@ -100,7 +111,9 @@ This setup is pretty opinionated. I have some explicit applications named in
 | Music    | `spotify` |
 | IDE      | `emacs`   |
 
-If you prefer other apps then edit them in this file.
+If you prefer other apps then edit the variables in this file. At some point you
+will probably need to be doing this anyway and it helps you to get familiar with
+the structure of my environment.
 
 
 # Installation instructions
