@@ -27,9 +27,10 @@ issue. As the build is managed in a nix-shell then it should "just work".
 
 ## Latest Previews
 
-| Nord everywhere                                | Named scratchpad popup                         | Lock screen |
-| ---                                            | ---                                            | --- |
-| ![Screenshot](https://i.imgur.com/eRHOmQT.png) | ![Screenshot](https://i.imgur.com/YXhuaW2.png) | ![Screenshot](https://i.imgur.com/MVvi8RU.png) |
+| Nord everywhere                                | Named scratchpad popup                         | Lock screen                                                                     |
+| ---                                            | ---                                            | ------------------------------------------------------------------------------- |
+| ![Screenshot](https://i.imgur.com/eRHOmQT.png) | ![Screenshot](https://i.imgur.com/cut7Cnm.png) | ![Screenshot](https://i.imgur.com/MVvi8RU.png)                                  |
+
 
 ## Features
 
