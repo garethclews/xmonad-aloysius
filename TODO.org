@@ -1,6 +1,6 @@
 #+TITLE: XMonad-Aloysius
 
-* GENERAL [0/5]
+* GENERAL [0/6]
   - [ ] keybindings are currently all over the place
     + get toggle float all and sink all
     + helper scripts to throw in ~/.scripts
@@ -10,6 +10,7 @@
   - [ ] M-S-` for an alternative scratchpad with custom command?
   - [ ] Develop additional colour schemes
   - [ ] work through https://hackage.haskell.org/package/xmonad-contrib-0.15/docs/XMonad-Doc-Extending.html
+  - [ ] remove that monstrous gif and replace with smaller images
 
 
 * NON XMONAD SPECIFIC [0/2]
