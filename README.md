@@ -25,10 +25,12 @@ instructions do not seem to work on your preference of OS then please raise an
 issue. As the build is managed in a nix-shell then it should "just work".
 
 
-## Latest Preview
+## Latest Previews
 
-![](./.local/screens/preview.gif)
-
+| Nord everywhere                                | Named scratchpad popup                         |
+| ---                                            | ---                                            |
+| ![Screenshot](https://i.imgur.com/eRHOmQT.png) | ![Screenshot](https://i.imgur.com/YXhuaW2.png) |
+|                                                |                                                |
 
 ## Features
 
