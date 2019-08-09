@@ -40,7 +40,7 @@ This list contains all of the features not included in the default XMonad experi
 | ---                                 | ---                                                                                                                 | ---                                     |
 | EWMH                                | Simpler control over X                                                                                              | always on                               |
 | Dynamic Projects                    | Each workspace is given as a 'project' with default applications launched on entry if empty                         | always on                               |
-| Named Scratchpad                    | Pop over terminal similar to quake/yakuake (currently uses `urxvt`)                                                 | M-\`                                    |
+| Named Scratchpad                    | Pop over terminal similar to quake/yakuake                                                                          | M-\`                                    |
 | Go-to window                        | X.A.WindowBringer - go to windows dmenu prompt for quick jumping between workspaces                                 | M-w g or click on workspaces on polybar |
 | Bring window                        | As above, but this time brings a window to your current workspace                                                   | M-w b                                   |
 | Search selected                     | Launch a web search for the currently selected text*                                                                | M-/ s <search option>                   |
