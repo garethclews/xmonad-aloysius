@@ -43,8 +43,8 @@ This list contains all of the features not included in the default XMonad experi
 | Named Scratchpad                    | Pop over terminal similar to quake/yakuake                                                                          | M-\`                                    |
 | Go-to window                        | X.A.WindowBringer - go to windows dmenu prompt for quick jumping between workspaces                                 | M-w g or click on workspaces on polybar |
 | Bring window                        | As above, but this time brings a window to your current workspace                                                   | M-w b                                   |
-| Search selected                     | Launch a web search for the currently selected text*                                                                | M-/ s <search option>                   |
-| Search prompt                       | Launch a dmenu prompt to launch a web search*                                                                       | M-/ p <search option>                   |
+| Search selected                     | Launch a web search for the currently selected text*                                                                | M-/ s \<search option\>                 |
+| Search prompt                       | Launch a dmenu prompt to launch a web search*                                                                       | M-/ p \<search option\>                 |
 | Media keys                          | Using media keys via playerctl                                                                                      | always on                               |
 | Toggling DPMS                       | Polybar clickable icon to toggle `xset +-dpms` and `xset s on/off`                                                  | click on lightbulb                      |
 | Lock screen                         | Provided by i3lock-color & used in lock and suspend                                                                 | power menu in polybar                   |
