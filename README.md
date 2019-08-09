@@ -74,7 +74,7 @@ can be updated.
 | `feh`           | Image viewer and wallpaper setter                        | Wallpaper                                                                                |
 | `polybar`       | Status bar                                               | Workspace info, layout info, launchers, DPMS toggling, spotify info, time, volume, power |
 | `compton`       | Compositor                                               | Shadows and glitz                                                                        |
-| `i3lock-fancy`  | Screen locking                                           | self-explanatory                                                                         |
+| `i3lock-color`  | Screen locking                                           | self-explanatory                                                                         |
 | `dunst`         | Notification daemon                                      | self-explanatory                                                                         |
 | Iosevka Custom  | Fonts (see [here](https://github.com/elenapan/dotfiles)) | self-explanatory                                                                         |
 | FontAwesome     | Icons                                                    | self-explanatory                                                                         |
