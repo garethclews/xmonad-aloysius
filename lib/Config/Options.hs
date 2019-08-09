@@ -67,3 +67,4 @@ promptConfig = P.def { P.fgColor = base04
                      , P.maxComplRows = Just 0
                      , P.position = P.Top
                      }
+

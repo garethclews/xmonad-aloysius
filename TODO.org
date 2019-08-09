@@ -1,6 +1,6 @@
 #+TITLE: XMonad-Aloysius
 
-* GENERAL [0/6]
+* GENERAL [0/8]
   - [ ] keybindings are currently all over the place
     + get toggle float all and sink all
     + helper scripts to throw in ~/.scripts
