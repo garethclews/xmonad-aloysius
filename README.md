@@ -85,6 +85,7 @@ can be updated.
 | Deadhead Script | Lock screen font - [here](https://www.dafont.com/deadhead-script.font) | self-explanatory                                                                         |
 | FontAwesome     | Icons                                                                  | self-explanatory                                                                         |
 | `nix`           | A purely functional package manager                                    | Compilation of the xmonad binary                                                         |
+| `fd`            | A replacement for `find`                                               | It is used in the `build` script to find the compiled xmonad version                     |
 
 For the polybar configuration files please see
 [here](https://github.com/karetsu/nix-overlays). This is managed by home-manager and
@@ -118,9 +119,8 @@ the structure of my environment.
 
 # Installation instructions
 
-The development plans for this eventually involve moving to a `~/.build` script
-which does everything for you. This is not yet implemented so for now you need
-to do the following:
+In order to compile this you need to have `nix-shell` and `zsh` in your $PATH
+but once you have this it should be pretty automatic
 
 ``` sh
 git clone https://gitlab.com/karetsu/xmonad-aloysius ~/.xmonad
