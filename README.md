@@ -30,7 +30,6 @@ issue. As the build is managed in a nix-shell then it should "just work".
 | Nord everywhere                                | Named scratchpad popup                         |
 | ---                                            | ---                                            |
 | ![Screenshot](https://i.imgur.com/eRHOmQT.png) | ![Screenshot](https://i.imgur.com/YXhuaW2.png) |
-|                                                |                                                |
 
 ## Features
 
