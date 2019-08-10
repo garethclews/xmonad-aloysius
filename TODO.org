@@ -6,7 +6,7 @@
     + helper scripts to throw in ~/.scripts
     + see how wmctl can help me out
   - [ ] use urgencyhook to either change the colour of the workspace in polybar
-    or do a notify-send (alternatives?)
+    or do a notify-send (alternatives?) -- tie this into the sound scheme?
   - [ ] M-S-` for an alternative scratchpad with custom command (ghcid)?
   - [ ] Develop additional colour schemes
   - [ ] work through https://hackage.haskell.org/package/xmonad-contrib-0.15/docs/XMonad-Doc-Extending.html
