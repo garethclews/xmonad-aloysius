@@ -68,24 +68,24 @@ eventually) then all of the following should be easily replaceable.
 If you notice any missing dependencies please raise an issue so that this table
 can be updated.
 
-| Dependency      | Description                                                            | Why/Where is it needed?                                                                  |
-| ---             | ---                                                                    | ---                                                                                      |
-| `xmonad` v0.15+ | Window manager                                                         | self-explanatory                                                                         |
-| `xmonad-extras` | Contributed additional functionality for xmonad                        | Everywhere, so much of the code base is these extras                                     |
-| `dzen2`         | General purpose messaging and notification program                     | Power menu                                                                               |
-| `dmenu2`        | General purpose menu                                                   | Application launcher, jump to window, bring window                                       |
-| `xset`          | User preference utility for X                                          | Enabling/Disabling DPMS and screensaver                                                  |
-| `feh`           | Image viewer and wallpaper setter                                      | Wallpaper                                                                                |
-| `polybar`       | Status bar                                                             | Workspace info, layout info, launchers, DPMS toggling, spotify info, time, volume, power |
-| `compton`       | Compositor                                                             | Shadows and glitz                                                                        |
-| `i3lock-color`  | Screen locking                                                         | self-explanatory                                                                         |
-| `dunst`         | Notification daemon                                                    | self-explanatory                                                                         |
-| `pulseaudio`    | Sound system                                                           | Liberal use made of pacmd and pactl, anything audio related                              |
-| Iosevka Custom  | Fonts (see [here](https://github.com/elenapan/dotfiles))               | self-explanatory                                                                         |
-| Deadhead Script | Lock screen font - [here](https://www.dafont.com/deadhead-script.font) | self-explanatory                                                                         |
-| FontAwesome     | Icons                                                                  | self-explanatory                                                                         |
-| `nix`           | A purely functional package manager                                    | Compilation of the xmonad binary                                                         |
-| `fd`            | A replacement for `find`                                               | It is used in the `build` script to find the compiled xmonad version                     |
+| Dependency       | Description                                                            | Why/Where is it needed?                                                                  |
+| ---              | ---                                                                    | ---                                                                                      |
+| `xmonad` v0.15+  | Window manager                                                         | self-explanatory                                                                         |
+| `xmonad-contrib` | Contributed additional functionality for xmonad                        | Everywhere, so much of the code base is these extras                                     |
+| `dzen2`          | General purpose messaging and notification program                     | Power menu                                                                               |
+| `dmenu2`         | General purpose menu                                                   | Application launcher, jump to window, bring window                                       |
+| `xset`           | User preference utility for X                                          | Enabling/Disabling DPMS and screensaver                                                  |
+| `feh`            | Image viewer and wallpaper setter                                      | Wallpaper                                                                                |
+| `polybar`        | Status bar                                                             | Workspace info, layout info, launchers, DPMS toggling, spotify info, time, volume, power |
+| `compton`        | Compositor                                                             | Shadows and glitz                                                                        |
+| `i3lock-color`   | Screen locking                                                         | self-explanatory                                                                         |
+| `dunst`          | Notification daemon                                                    | self-explanatory                                                                         |
+| `pulseaudio`     | Sound system                                                           | Liberal use made of pacmd and pactl, anything audio related                              |
+| Iosevka Custom   | Fonts (see [here](https://github.com/elenapan/dotfiles))               | self-explanatory                                                                         |
+| Deadhead Script  | Lock screen font - [here](https://www.dafont.com/deadhead-script.font) | self-explanatory                                                                         |
+| FontAwesome      | Icons                                                                  | self-explanatory                                                                         |
+| `nix`            | A purely functional package manager                                    | Compilation of the xmonad binary                                                         |
+| `fd`             | A replacement for `find`                                               | It is used in the `build` script to find the compiled xmonad version                     |
 
 For the polybar configuration files please see
 [here](https://github.com/karetsu/nix-overlays). This is managed by home-manager and
@@ -96,7 +96,6 @@ I have not mentioned here that the preferred login manager here is lightdm in
 order to get access to `dm-tool` to enable user switching. If you do *not* use
 lightdm then you will need to edit the polybar configuration and change the user
 switching module into one which suits your preference.
-
 
 
 ## Default applications
@@ -115,6 +114,7 @@ This setup is pretty opinionated. I have some explicit applications named in
 If you prefer other apps then edit the variables in this file. At some point you
 will probably need to be doing this anyway and it helps you to get familiar with
 the structure of my environment.
+
 
 
 # Installation instructions
