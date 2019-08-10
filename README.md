@@ -116,8 +116,7 @@ will probably need to be doing this anyway and it helps you to get familiar with
 the structure of my environment.
 
 
-
-# Installation instructions
+## Installation instructions
 
 In order to compile this you need to have `nix-shell` and `zsh` in your $PATH
 but once you have this it should be pretty automatic
@@ -128,3 +127,25 @@ cd ~/.xmonad
 ./build
 ```
 
+
+## Key Bindings
+
+Installing is all well and good but if you log in and don't know how to launch
+anything there could be trouble. Familiarise yourself with some of these useful
+bindings. A full list will be available on the wiki.
+
+In all of the below, <kbd>M</kbd> is the Windows key (or whatever your Mod4 has
+been changed to) and <kbd>S</kbd> is Shift.
+
+| Key Binding                                         | Action                             |
+|-----------------------------------------------------|------------------------------------|
+| <kbd>M</kbd>-<kbd>Return</kbd>                      | Launch terminal                    |
+| <kbd>M</kbd>-<kbd>p</kbd>                           | Spawn dmenu to launch applications |
+| <kbd>M</kbd>-<kbd>Space</kbd>                       | Change to the next layout          |
+| <kbd>M</kbd>-<kbd>Tab</kbd>                         | Move to next window                |
+| <kbd>M</kbd>-<kbd>S</kbd>-<kbd>Tab</kbd>            | Move to previous window            |
+| <kbd>M</kbd>-<kbd>S</kbd>-q                         | Quit XMonad                        |
+| <kbd>M</kbd>-<kbd>s</kbd> p                         | Open the power menu                |
+| <kbd>M</kbd>-<kbd>1</kbd>..<kbd>6</kbd>             | Change to workspace 1 thro' 6      |
+| <kbd>M</kbd>-<kbd>\`</kbd>                          | Launch scratchpad terminal         |
+| <kbd>M</kbd>-<kbd>x</kbd> <kbd>M</kbd>-<kbd>c</kbd> | Close application                  |
