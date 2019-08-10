@@ -7,7 +7,7 @@
     + see how wmctl can help me out
   - [ ] use urgencyhook to either change the colour of the workspace in polybar
     or do a notify-send (alternatives?)
-  - [ ] M-S-` for an alternative scratchpad with custom command?
+  - [ ] M-S-` for an alternative scratchpad with custom command (ghcid)?
   - [ ] Develop additional colour schemes
   - [ ] work through https://hackage.haskell.org/package/xmonad-contrib-0.15/docs/XMonad-Doc-Extending.html
   - [ ] make screen locking better, currently in a script outside xmonad and the
@@ -22,8 +22,7 @@
 - [ ] update git prompt to show ahead/behind status
 
 
-* ACTIVE [0/1]
-  - [ ] remove that monstrous gif and replace with smaller images
+* ACTIVE [0/0]
 
 
 * DEFER [0/2]
@@ -31,7 +30,7 @@
   - [ ] Design a sound scheme
 
 
-* Done [14/14]
+* Done [15/15]
   - [X] tidy up gaps with polybar
   - [X] pimped polybar with current layout descriptor (pprint)
   - [X] make fullscreen logout
@@ -46,6 +45,7 @@
   - [X] Incorporate goodness from https://github.com/altercation/dotfiles-tilingwm/blob/master/.xmonad/xmonad.hs
   - [X] dmenu changed to overlap polybar completely, spacing issue removed
   - [X] Fix xset bug (still locks even with `xset -dpms`)
+  - [X] remove that monstrous gif and replace with smaller images
 
 
 * TESTED/REJECTED/WONTFIX [4/4]
