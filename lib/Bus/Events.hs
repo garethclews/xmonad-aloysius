@@ -10,7 +10,7 @@ import Control.Monad (join)
 import XMonad
 import qualified XMonad.StackSet as W
 
-import Theme.Nord
+import Theme.ChosenTheme
 
 
 logHook' :: X ()
@@ -47,6 +47,6 @@ logHook' = do
       | "BSP"           `isInfixOf` s = "%{T2}||+%{T-} BSP "
       | "ResizableTall" `isInfixOf` s = "%{T2}|||%{T-} Tall"
       | "Tabbed"        `isInfixOf` s = "%{T2}___%{T-} Tab "
-      | s == "Full"                   = "%{T2}| |%{T-} Full"
-      | s == "SimplestFloat"          = "%{T2}+++%{T-} FLT "
+      | "Float"         `isInfixOf` s = "%{T2}+++%{T-} FLT "
+      | "Full"          `isInfixOf` s = "%{T2}| |%{T-} Full"
       | otherwise                     = s -- fallback for changes in C.Layout

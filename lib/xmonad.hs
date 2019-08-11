@@ -35,7 +35,6 @@ import Config.Options
 import Config.Projects
 import Container.Layout
 import Container.Navigation
-import Theme.Nord -- alternatively Dracula or Ephemeral
 
 
 -- Configuration ----------------------------------------------------------------

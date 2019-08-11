@@ -4,7 +4,7 @@ cabal-version:       2.4
 -- http://haskell.org/cabal/users-guide/
 
 name:                  aloysius
-version:               0.1.2.1
+version:               0.1.2.2
 synopsis:              xmonad config
 -- description:
 homepage:              https://gitlab.com/karetsu/xmonad-aloysius
@@ -30,8 +30,10 @@ executable xmonad
                      , Container.Layout
                      , Container.Navigation
                      , Data.Commands
-                     , Theme.Nord
+                     , Theme.ChosenTheme
                      , Theme.Dracula
+                     , Theme.Ephemeral
+                     , Theme.Nord
   -- other-extensions:
   build-depends:       Cabal >= 2.4.0.1
                      , X11

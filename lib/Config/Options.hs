@@ -5,12 +5,14 @@ module Config.Options where
 import Data.Monoid
 
 import XMonad
-
 import XMonad.Actions.UpdatePointer
 
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.SetWMName
 
+import XMonad.Layout.Tabbed
+
+import XMonad.Util.Font
 import XMonad.Util.SpawnOnce
 
 import qualified XMonad.Prompt as P
@@ -18,7 +20,18 @@ import qualified XMonad.Prompt as P
 -- import Theme.Dracula
 import App.Alias
 import Config.Projects
-import Theme.Nord
+import Theme.ChosenTheme
+
+-- data declarations ------------------------------------------------------------
+-- general XMonad theme settings
+data XMTheme = XMTheme
+  { foreground :: String
+  , background :: String
+  , highlight  :: String
+  , focused    :: String
+  , unfocused  :: String
+  , border     :: Dimension
+  }
 
 
 -- preferences ------------------------------------------------------------------
@@ -45,6 +58,7 @@ options = Options
                >> setWMName "XMonad"
                -- apps from alias
                >> spawnOnce panel
+               >> spawnOnce numlock
                >> spawnOnce wallpaper
                >> spawnOnce compositor
                >> spawnOnce cursor
@@ -53,6 +67,18 @@ options = Options
                >> spawnOnce xresource
                >> spawnOnce energyStar
                -- return ()
+  }
+
+
+-- Theming related options ------------------------------------------------------
+theme :: XMTheme
+theme = XMTheme
+  { highlight  = base00
+  , background = base00
+  , foreground = base04
+  , focused    = base00
+  , unfocused  = basebg
+  , border     = 1
   }
 
 
@@ -67,4 +93,35 @@ promptConfig = P.def { P.fgColor = base04
                      , P.maxComplRows = Just 0
                      , P.position = P.Top
                      }
+
+
+tabTheme = def { activeColor = base00
+               , activeBorderColor = base00
+               , activeTextColor = base06
+               , inactiveColor = basebg
+               , inactiveBorderColor = basebg
+               , inactiveTextColor = base03
+               , urgentColor = basebg
+               , urgentBorderColor = basebg
+               , urgentTextColor = base12
+               , fontName = sansserif
+               , decoHeight = 52
+               }
+
+
+decoTheme = def { activeColor = base00
+                , activeBorderColor = basebg
+                , activeTextColor = base06
+                , inactiveColor = basebg
+                , inactiveBorderColor = basebg
+                , inactiveTextColor = base03
+                , urgentColor = basebg
+                , urgentBorderColor = basebg
+                , urgentTextColor = base12
+                , fontName = monospace
+                , windowTitleAddons = [ ( "\xf005", AlignRightOffset 12)]
+                , decoHeight = 36
+                , decoWidth = 2560
+                }
+
 

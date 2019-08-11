@@ -1,28 +1,24 @@
 #+TITLE: XMonad-Aloysius
 
-* GENERAL [0/8]
+* GENERAL [0/6]
   - [ ] keybindings are currently all over the place
-    + get toggle float all and sink all
-    + helper scripts to throw in ~/.scripts
-    + see how wmctl can help me out
   - [ ] use urgencyhook to either change the colour of the workspace in polybar
-    or do a notify-send (alternatives?) -- tie this into the sound scheme?
   - [ ] M-S-` for an alternative scratchpad with custom command (ghcid)?
   - [ ] Develop additional colour schemes
   - [ ] work through https://hackage.haskell.org/package/xmonad-contrib-0.15/docs/XMonad-Doc-Extending.html
-  - [ ] make screen locking better, currently in a script outside xmonad and the
-    sound control is really clumsy
-  - [ ] consider window decorations for float workspace
   - [ ] clickable layout selector
+  - [ ] make window decoration clickable on floating workspace
+  - [ ] change the colour of the windowTitleAddons (possible?)
 
 
-* NON XMONAD SPECIFIC [0/2]
+* NON XMONAD SPECIFIC [0/3]
 - [ ] lightdm switch to greeter should release the pulseaudio sink
 - [ ] general research into pulseaudio configuration
 - [ ] update git prompt to show ahead/behind status
 
 
-* ACTIVE [0/0]
+* ACTIVE [0/1]
+  - [ ] consider window decorations for float workspace
 
 
 * DEFER [0/2]
@@ -48,8 +44,9 @@
   - [X] remove that monstrous gif and replace with smaller images
 
 
-* TESTED/REJECTED/WONTFIX [4/4]
+* TESTED/REJECTED/WONTFIX [5/5]
   - [X] X.U.Themes - see if nord and dracula can be added -- going to just keep my themes in my format, if anybody else ever wants to use it then maybe revisit but just for me there's little to no point
   - [X] XMonad.Hooks.DynamicBars  -- sticking with one bar
   - [X] rejected betterlockscreen (https://github.com/pavanjadhaw/betterlockscreen), delay for lock is liveable
   - [X] look into using glances to generate JSON for outputting somehow - lost interest
+  - [X] screen locking: being in a script is actually ok, need to tidy the script

@@ -9,7 +9,7 @@ import XMonad.Util.Dzen
 import XMonad.Util.Font (Align(..))
 
 import App.Alias
-import Theme.Nord
+import Theme.ChosenTheme
 
 -- Definitions ------------------------------------------------------------------
 powerMenu :: X ()

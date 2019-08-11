@@ -8,6 +8,7 @@ import XMonad
 import XMonad.Hooks.ManageDocks
 
 import XMonad.Layout.BinarySpacePartition
+import XMonad.Layout.DwmStyle
 import XMonad.Layout.Fullscreen
 import XMonad.Layout.Gaps
 import XMonad.Layout.IfMax
@@ -15,13 +16,13 @@ import XMonad.Layout.LayoutModifier (ModifiedLayout)
 import XMonad.Layout.NoBorders
 import XMonad.Layout.PerWorkspace
 import XMonad.Layout.ResizableTile
-import XMonad.Layout.SimplestFloat
+import XMonad.Layout.SimpleFloat
 import XMonad.Layout.Spacing
 import XMonad.Layout.Tabbed
 import XMonad.Layout.ThreeColumns
 
 import Config.Projects
-import Theme.Nord
+import Config.Options
 ------------------------------------------------------------------------
 --
 -- Layouts:
@@ -50,20 +51,6 @@ gs = Gaps'
   }
 
 
-tabTheme :: XMonad.Layout.Tabbed.Theme
-tabTheme = def { activeColor = basebg
-               , activeBorderColor = basebg
-               , activeTextColor = base06
-               , inactiveColor = basebg
-               , inactiveBorderColor = basebg
-               , inactiveTextColor = base03
-               , urgentColor = basebg
-               , urgentBorderColor = basebg
-               , urgentTextColor = base12
-               , fontName = "xft:Fira Sans:pixelsize=14"
-               , decoHeight = 52
-               }
-
 
 gapses :: l a -> ModifiedLayout Gaps l a
 gapses     = gaps [(U, u gs), (R, x gs), (L, x gs), (D, d gs)]
@@ -72,6 +59,7 @@ spacingses :: l a -> ModifiedLayout Spacing l a
 spacingses = spacingRaw True (Border      0  (x' gs) (x' gs) (x' gs))
                         True (Border (x' gs) (x' gs) (x' gs) (x' gs))
                         True
+
 
 -- customised layouts
 full             = noBorders (fullscreenFull Full)
@@ -90,7 +78,7 @@ tcm              = IfMax 1 full
 -- layout --
 layout           = avoidStruts
                  . smartBorders
-                 . onWorkspace wsScratch simplestFloat
+                 . onWorkspace wsScratch (simpleFloat' shrinkText decoTheme)
                  $ full
                  ||| spacedPartitions
                  ||| tcm
