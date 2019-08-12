@@ -13,6 +13,7 @@ import XMonad.Layout.Fullscreen
 import XMonad.Layout.Gaps
 import XMonad.Layout.IfMax
 import XMonad.Layout.LayoutModifier (ModifiedLayout)
+import XMonad.Layout.Named
 import XMonad.Layout.NoBorders
 import XMonad.Layout.PerWorkspace
 import XMonad.Layout.ResizableTile
@@ -51,7 +52,6 @@ gs = Gaps'
   }
 
 
-
 gapses :: l a -> ModifiedLayout Gaps l a
 gapses     = gaps [(U, u gs), (R, x gs), (L, x gs), (D, d gs)]
 
@@ -62,24 +62,40 @@ spacingses = spacingRaw True (Border      0  (x' gs) (x' gs) (x' gs))
 
 
 -- customised layouts
-full             = noBorders (fullscreenFull Full)
+full = named "Fullscreen"
+     $ noBorders (fullscreenFull Full)
 
-spacedPartitions = IfMax 1 full
-                 $ gapses
-                 . spacingses
-                 $ emptyBSP
-                 ||| ResizableTall 1 (2/100) (1/2) []
+bsp  = named "Binary Partition"
+     $ IfMax 1 full
+     $ gapses
+     . spacingses
+     $ emptyBSP
 
-tcm              = IfMax 1 full
-                 $ gapses
-                 . spacingses
-                 $ ThreeColMid 1 (1/10) (1/2)
+tall = named "Tall"
+     $ IfMax 1 full
+     $ gapses
+     . spacingses
+     $ ResizableTall 1 (2/100) (1/2) []
+
+tcm  = named "Three Columns"
+     $ IfMax 1 full
+     $ gapses
+     . spacingses
+     $ ThreeColMid 1 (1/10) (1/2)
+
+tabs = named "Tabbed"
+     $ tabbedBottom shrinkText tabTheme
+
+flt  = named "Float"
+     $ simpleFloat' shrinkText decoTheme
+
 
 -- layout --
-layout           = avoidStruts
-                 . smartBorders
-                 . onWorkspace wsScratch (simpleFloat' shrinkText decoTheme)
-                 $ full
-                 ||| spacedPartitions
-                 ||| tcm
-                 ||| tabbedBottom shrinkText tabTheme
+layout = avoidStruts
+       . smartBorders
+       . onWorkspace wsScratch flt
+       $ full
+     ||| bsp
+     ||| tall
+     ||| tcm
+     ||| tabs

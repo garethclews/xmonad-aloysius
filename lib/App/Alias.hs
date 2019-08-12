@@ -6,8 +6,6 @@
 module App.Alias where
 
 
-
-
 panel :: String
 panel = "~/.scripts/polybar/launch"
 
@@ -44,7 +42,7 @@ suspend = "~/.scripts/suspend"
 
 
 energyStar :: String
-energyStar = "echo '%{F#eceff4}\xf0eb%{F-}\n' > /tmp/caffeine "
+energyStar = "echo '%{F#eceff4}\xf0eb%{F-}\n' > /tmp/caffeine"
 
 
 xresource :: String
@@ -56,7 +54,7 @@ logger = "xdotool search dunst windowraise"
 
 
 tty :: String
-tty = "kitty "
+tty = "kitty"
 
 
 scratch :: String

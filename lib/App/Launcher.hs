@@ -11,6 +11,7 @@ import XMonad.Util.Font (Align(..))
 import App.Alias
 import Theme.ChosenTheme
 
+
 -- Definitions ------------------------------------------------------------------
 powerMenu :: X ()
 powerMenu = dzenConfig ( font "Font Awesome:size=14"

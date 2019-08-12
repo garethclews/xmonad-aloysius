@@ -7,10 +7,9 @@ import System.Exit
 import XMonad
 
 import XMonad.Actions.WindowBringer
-import XMonad.Layout.AvoidFloats
+import XMonad.Actions.WithAll
 
--- build custom prompt to help find keys
--- https://hackage.haskell.org/package/xmonad-contrib-0.15/docs/XMonad-Prompt.html
+import XMonad.Layout.AvoidFloats
 
 import XMonad.Util.EZConfig
 import XMonad.Util.Scratchpad
@@ -21,18 +20,18 @@ import qualified XMonad.Actions.FlexibleManipulate as F
 import qualified XMonad.Actions.Search             as S
 import qualified XMonad.StackSet                   as W
 
-
 -- local
 import App.Alias
 import App.Launcher
 import Config.Options
+import Theme.ChosenTheme
 
 -- Keymaps ----------------------------------------------------------------------
 
 -- default keymap
 defaultKeys :: XConfig l -> M.Map (KeyMask, KeySym) (X ())
 defaultKeys c = mkKeymap c $
-  [ ("M-<Return>"  , spawn (term options))
+  [ ("M-<Return>"        , spawn (term options))
   , ("M-p"         , spawn appLauncher)
   , ("M-<Space>"   , sendMessage NextLayout)
   , ("M-<Tab>"     , nextWindow)
@@ -49,13 +48,14 @@ defaultKeys c = mkKeymap c $
 
 
   -- window manipulation
-  , ("M-w g"       , gotoMenuArgs  $ dmenuFlags ++ [ "-p", "Go to window:  "])
-  , ("M-w b"       , bringMenuArgs $ dmenuFlags ++ [ "-p", "Bring window:  " ])
-  , ("M-w h"       , sendMessage Shrink)  -- %! Shrink the master area
-  , ("M-w l"       , sendMessage Expand)  -- %! Expand the master area
-  , ("M-w S-."     , sendMessage $ IncMasterN 1) -- %! Increment the number of windows in the master area
-  , ("M-w S-,"     , sendMessage $ IncMasterN (-1)) -- %! Decrease the number of windows in the master area
+  , ("M-w g"       , gotoMenuArgs  $ dmenuTheme base12 "Go to window:  ")
+  , ("M-w b"       , bringMenuArgs $ dmenuTheme base12 "Bring window:  ")
+  , ("M-w h"       , sendMessage Shrink)
+  , ("M-w l"       , sendMessage Expand)
+  , ("M-w ."       , sendMessage $ IncMasterN 1)
+  , ("M-w ,"       , sendMessage $ IncMasterN (-1))
   , ("M-w m"       , windows W.focusMaster)
+  , ("M-w t"       , sinkAll)
 
 
   -- SESSION --
@@ -69,13 +69,13 @@ defaultKeys c = mkKeymap c $
 
 
   -- media keys
-  , ("<XF86AudioPlay>",        spawn "playerctl play-pause")
-  , ("<XF86AudioStop>",        spawn "playerctl stop")
-  , ("<XF86AudioNext>",        spawn "playerctl next")
-  , ("<XF86AudioPrev>",        spawn "playerctl previous")
+  , ("<XF86AudioPlay>"       , spawn "playerctl play-pause")
+  , ("<XF86AudioStop>"       , spawn "playerctl stop")
+  , ("<XF86AudioNext>"       , spawn "playerctl next")
+  , ("<XF86AudioPrev>"       , spawn "playerctl previous")
   , ("<XF86AudioLowerVolume>", spawn "pactl set-sink-volume 0 -5%")
   , ("<XF86AudioRaiseVolume>", spawn "pactl set-sink-volume 0 +5%")
-  , ("<XF86AudioMute>",        spawn "pactl set-sink-mute 0 toggle")
+  , ("<XF86AudioMute>"       , spawn "pactl set-sink-mute 0 toggle")
   ] ++
   -- standard jumping around workspaces etc.
   [ (m ++ k, windows $ f w)
@@ -88,14 +88,7 @@ defaultKeys c = mkKeymap c $
   -- @end keys
   where nextWindow      = windows W.focusDown
         prevWindow      = windows W.focusUp
-        dmenuFlags      = [ "-fn", "Fira Sans-12"
-                          , "-nb", "#2e3440"
-                          , "-nf", "#d3dee9"
-                          , "-sb", "#d08770"
-                          , "-sf", "#2e3440"
-                          , "-h" , "52"
-                          , "-y" , "0"
-                          ]
+
 
 -- search engine submap, starts with M-s (selected) and M-S-s (prompt)
 searchList :: [(String, S.SearchEngine)]

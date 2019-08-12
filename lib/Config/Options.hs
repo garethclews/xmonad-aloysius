@@ -41,7 +41,6 @@ data Options = Options
   , mask       :: KeyMask
   , spaces     :: [String]
   , events     :: Event  -> X All
-  , logs       :: X ()
   , starts     :: X ()
   }
 
@@ -52,8 +51,6 @@ options = Options
   , mask       = mod4Mask
   , spaces     = wsList
   , events     = ewmhDesktopsEventHook
-  , logs       = updatePointer (0.5, 0.5) (0, 0)
-               >> spawn logger
   , starts     = ewmhDesktopsStartup
                >> setWMName "XMonad"
                -- apps from alias
@@ -64,8 +61,8 @@ options = Options
                >> spawnOnce cursor
                >> spawnOnce lang
                >> spawnOnce notifications
-               >> spawnOnce xresource
                >> spawnOnce energyStar
+               >> spawnOnce xresource
                -- return ()
   }
 
@@ -93,6 +90,17 @@ promptConfig = P.def { P.fgColor = base04
                      , P.maxComplRows = Just 0
                      , P.position = P.Top
                      }
+
+
+dmenuTheme :: String -> String -> [String]
+dmenuTheme colour s = [ "-fn", sansserif'
+                      , "-nb", basebg
+                      , "-nf", base04
+                      , "-sf", base00
+                      , "-sb", colour
+                      , "-h" , "52"
+                      , "-p" , s
+                      ]
 
 
 tabTheme = def { activeColor = base00

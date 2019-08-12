@@ -43,10 +43,10 @@ logHook' = do
 
     sort' = sortBy (compare `on` (!! 0))
     layoutParse s  -- 'pretty' printing
-      | "ThreeCol"      `isInfixOf` s = "%{T2}+|+%{T-} TCM "
-      | "BSP"           `isInfixOf` s = "%{T2}||+%{T-} BSP "
-      | "ResizableTall" `isInfixOf` s = "%{T2}|||%{T-} Tall"
-      | "Tabbed"        `isInfixOf` s = "%{T2}___%{T-} Tab "
-      | "Float"         `isInfixOf` s = "%{T2}+++%{T-} FLT "
-      | "Full"          `isInfixOf` s = "%{T2}| |%{T-} Full"
-      | otherwise                     = s -- fallback for changes in C.Layout
+      | s == "Three Columns"    = "%{T2}+|+%{T-} TCM "
+      | s == "Binary Partition" = "%{T2}||+%{T-} BSP "
+      | s == "Tall"             = "%{T2}|||%{T-} Tall"
+      | s == "Tabbed"           = "%{T2}___%{T-} Tab "
+      | s == "Float"            = "%{T2}+++%{T-} FLT "
+      | s == "Fullscreen"       = "%{T2}| |%{T-} Full"
+      | otherwise               = s -- fallback for changes in C.Layout
