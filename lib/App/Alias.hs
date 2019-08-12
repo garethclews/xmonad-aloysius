@@ -49,10 +49,6 @@ xresource :: String
 xresource = "[[ -f ~/.Xresources ]] && nohup xrdb -merge -I$HOME ~/.Xresources >/dev/null"
 
 
-logger :: String
-logger = "xdotool search dunst windowraise"
-
-
 tty :: String
 tty = "kitty"
 
