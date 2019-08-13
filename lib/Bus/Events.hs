@@ -38,6 +38,8 @@ logHook' = do
       -- %{T-} resets it back to font-0
       -- NOTE: Foreground colours also edited here
       -- this block then depends on +THEME+
+      -- FIXME: I don't understand why it needs the latter base02, it should
+      --        revert back to the base colour (base02) but it does not...
       | currWs == ws = " [%{F"  ++ base06 ++ "}%{T3}" ++ ws ++ "%{T-}%{F" ++ base02 ++ "}] "
       | otherwise    = "  " ++ ws ++ "  "
 
