@@ -9,7 +9,7 @@ module Theme.ChosenTheme where
 --         as is Xresources
 -- import qualified Theme.Dracula   as T
 -- import qualified Theme.Ephemeral as T
-import qualified Theme.Nord      as T
+import qualified Theme.Nord as T
 
 
 basebg = T.basebg

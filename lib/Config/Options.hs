@@ -73,7 +73,7 @@ theme = XMTheme
   { highlight  = base00
   , background = base00
   , foreground = base04
-  , focused    = base00
+  , focused    = basebg
   , unfocused  = basebg
   , border     = 1
   }
