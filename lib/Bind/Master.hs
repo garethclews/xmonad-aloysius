@@ -29,9 +29,47 @@ import Theme.ChosenTheme
 -- Keymaps ----------------------------------------------------------------------
 
 -- default keymap
+-- TODO: implement leader type key usage
+-- defaultKeys :: XConfig l -> M.Map (KeyMask, KeySym) (X ())
+-- defaultKeys c = mkKeymap c $
+--   [ ("M M"         , spawn (term options))
+--   , ("M p"         , spawn appLauncher)
+--   , ("M <Space>"   , sendMessage NextLayout)
+--   , ("M <Tab>"     , nextWindow)
+--   , ("M S-<Tab>"   , prevWindow)
+--   , ("M h"         , windows $ W.swapUp   . W.focusUp)
+--   , ("M l"         , windows $ W.swapDown . W.focusDown)
+--   , ("M t"         , withFocused $ windows . W.sink)
+--   , ("M `"         , scratchpadSpawnActionCustom scratch)
+
+
+--   -- window manipulation
+--   , ("M w g"       , gotoMenuArgs  $ dmenuTheme base12 "Go to window:  ")
+--   , ("M w b"       , bringMenuArgs $ dmenuTheme base12 "Bring window:  ")
+--   , ("M w h"       , sendMessage Shrink)
+--   , ("M w l"       , sendMessage Expand)
+--   , ("M w ."       , sendMessage $ IncMasterN 1)
+--   , ("M w ,"       , sendMessage $ IncMasterN (-1))
+--   , ("M w m"       , windows W.focusMaster)
+--   , ("M w t"       , sinkAll)
+--   , ("M w f"       , sendMessage AvoidFloatToggle)
+
+
+--   -- SESSION --
+--   , ("M q l"       , spawn screensaver)
+--   , ("M q r"       , broadcastMessage ReleaseResources
+--                      >> restart "xmonad" True)
+--   , ("M q q"       , io exitSuccess)
+--   , ("M q m"       , unGrab >> powerMenu)
+
+
+--   -- APPLICATIONS --
+--   , ("M x c"       , kill)
+
+
 defaultKeys :: XConfig l -> M.Map (KeyMask, KeySym) (X ())
 defaultKeys c = mkKeymap c $
-  [ ("M-<Return>"        , spawn (term options))
+  [ ("M-<Return>"  , spawn (term options))
   , ("M-p"         , spawn appLauncher)
   , ("M-<Space>"   , sendMessage NextLayout)
   , ("M-<Tab>"     , nextWindow)
@@ -39,11 +77,6 @@ defaultKeys c = mkKeymap c $
   , ("M-h"         , windows $ W.swapUp   . W.focusUp)
   , ("M-l"         , windows $ W.swapDown . W.focusDown)
   , ("M-t"         , withFocused $ windows . W.sink)
-  , ("M-q"         , broadcastMessage ReleaseResources
-                     >> restart "xmonad" True)
-  , ("M-S-q"       , io exitSuccess)
-  , ("M-S-b"       , sendMessage AvoidFloatToggle)
-  , ("M-s p"       , unGrab >> powerMenu)
   , ("M-`"         , scratchpadSpawnActionCustom scratch)
 
 
@@ -52,21 +85,23 @@ defaultKeys c = mkKeymap c $
   , ("M-w b"       , bringMenuArgs $ dmenuTheme base12 "Bring window:  ")
   , ("M-w h"       , sendMessage Shrink)
   , ("M-w l"       , sendMessage Expand)
-  , ("M-w ."       , sendMessage $ IncMasterN 1)
+  , ("M-w."       , sendMessage $ IncMasterN 1)
   , ("M-w ,"       , sendMessage $ IncMasterN (-1))
   , ("M-w m"       , windows W.focusMaster)
   , ("M-w t"       , sinkAll)
+  , ("M-w f"       , sendMessage AvoidFloatToggle)
 
 
   -- SESSION --
-  , ("M-s l"       , spawn screensaver)
-  , ("M-s q"       , io exitSuccess)
-  , ("M-s r"       , broadcastMessage ReleaseResources
+  , ("M-q l"       , spawn screensaver)
+  , ("M-q r"       , broadcastMessage ReleaseResources
                      >> restart "xmonad" True)
+  , ("M-q q"       , io exitSuccess)
+  , ("M-q m"       , unGrab >> powerMenu)
+
 
   -- APPLICATIONS --
-  , ("M-x M-c"     , kill)
-
+  , ("M-x c"       , kill)
 
   -- media keys
   , ("<XF86AudioPlay>"       , spawn "playerctl play-pause")

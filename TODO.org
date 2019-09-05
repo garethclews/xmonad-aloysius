@@ -8,6 +8,7 @@
   - [ ] work through https://hackage.haskell.org/package/xmonad-contrib-0.15/docs/XMonad-Doc-Extending.html
   - [ ] make window decoration clickable on floating workspace
   - [ ] change the colour of the windowTitleAddons (possible?)
+  - [ ] implement a 'local leader' type key binding scheme
 
 
 * NON XMONAD SPECIFIC [0/3]
