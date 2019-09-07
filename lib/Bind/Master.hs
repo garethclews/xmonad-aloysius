@@ -23,6 +23,7 @@ import qualified XMonad.StackSet                   as W
 -- local
 import App.Alias
 import App.Launcher
+import Bind.Util
 import Config.Options
 import Theme.ChosenTheme
 
