@@ -11,8 +11,7 @@ import XMonad.Actions.WithAll
 
 import XMonad.Layout.AvoidFloats
 
--- import XMonad.Util.EZConfig
--- NOTE: this is used because its part of Bind.Util
+import XMonad.Util.EZConfig
 import XMonad.Util.Scratchpad
 import XMonad.Util.Ungrab
 
@@ -27,16 +26,15 @@ import App.Launcher
 import Config.Options
 import Theme.ChosenTheme
 
-import Bind.Util
 
 -- Keymaps ----------------------------------------------------------------------
 
 -- default keymap
 -- TODO: implement leader type key usage
+
 defaultKeys :: XConfig l -> M.Map (KeyMask, KeySym) (X ())
 defaultKeys c = mkKeymap c $
   [ ("M-<Return>"  , spawn (term options))
-  , ("<M> <M>"     , spawn (term options))
   , ("M-p"         , spawn appLauncher)
   , ("M-<Space>"   , sendMessage NextLayout)
   , ("M-<Tab>"     , nextWindow)

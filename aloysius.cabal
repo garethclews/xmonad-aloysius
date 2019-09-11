@@ -23,7 +23,6 @@ executable xmonad
                      , App.Launcher
                      , App.Scratchpad
                      , Bind.Master
-                     , Bind.Util
                      , Bus.Events
                      , Bus.Hooks
                      , Config.Options
