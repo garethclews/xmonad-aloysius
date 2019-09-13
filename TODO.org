@@ -1,10 +1,7 @@
 #+TITLE: XMonad-Aloysius
 
-* GENERAL [0/7]
-  - [ ] keybindings are currently all over the place
+* GENERAL [0/4]
   - [ ] use urgencyhook to either change the colour of the workspace in polybar
-  - [ ] M-S-` for an alternative scratchpad with custom command (ghcid)?
-  - [ ] Develop additional colour schemes
   - [ ] work through https://hackage.haskell.org/package/xmonad-contrib-0.15/docs/XMonad-Doc-Extending.html
   - [ ] make window decoration clickable on floating workspace
   - [ ] change the colour of the windowTitleAddons (possible?)
@@ -18,15 +15,16 @@
 
 * ACTIVE [0/1]
   - [ ] consider window decorations for float workspace
-  - [ ] implement a 'local leader' type key binding scheme
 
 
-* DEFER [0/2]
+* DEFER [0/4]
   - [ ] https://github.com/pjones/xmonadrc has some dynamic project helper functions
   - [ ] Design a sound scheme
+  - [ ] Develop additional colour schemes
+  - [ ] M-S-` for an alternative scratchpad with custom command (ghcid)?
 
 
-* Done [15/15]
+* Done [17/17]
   - [X] tidy up gaps with polybar
   - [X] pimped polybar with current layout descriptor (pprint)
   - [X] make fullscreen logout
@@ -42,6 +40,8 @@
   - [X] dmenu changed to overlap polybar completely, spacing issue removed
   - [X] Fix xset bug (still locks even with `xset -dpms`)
   - [X] remove that monstrous gif and replace with smaller images
+  - [X] implement a 'local leader' type key binding scheme
+  - [X] keybindings are currently all over the place
 
 
 * TESTED/REJECTED/WONTFIX [6/6]
