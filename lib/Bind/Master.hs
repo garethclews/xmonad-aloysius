@@ -11,7 +11,7 @@ import XMonad.Actions.WithAll
 
 import XMonad.Layout.AvoidFloats
 
-import XMonad.Util.EZConfig
+-- import XMonad.Util.EZConfig
 import XMonad.Util.Scratchpad
 import XMonad.Util.Ungrab
 
@@ -23,6 +23,7 @@ import qualified XMonad.StackSet                   as W
 -- local
 import App.Alias
 import App.Launcher
+import Bind.Util
 import Config.Options
 import Theme.ChosenTheme
 
@@ -30,43 +31,41 @@ import Theme.ChosenTheme
 -- Keymaps ----------------------------------------------------------------------
 
 -- default keymap
--- TODO: implement leader type key usage
-
 defaultKeys :: XConfig l -> M.Map (KeyMask, KeySym) (X ())
 defaultKeys c = mkKeymap c $
-  [ ("M-<Return>"  , spawn (term options))
-  , ("M-p"         , spawn appLauncher)
-  , ("M-<Space>"   , sendMessage NextLayout)
-  , ("M-<Tab>"     , nextWindow)
-  , ("M-S-<Tab>"   , prevWindow)
-  , ("M-h"         , windows $ W.swapUp   . W.focusUp)
-  , ("M-l"         , windows $ W.swapDown . W.focusDown)
-  , ("M-t"         , withFocused $ windows . W.sink)
-  , ("M-`"         , scratchpadSpawnActionCustom scratch)
+  [ ("<S> <Return>"  , spawn (term options))
+  , ("<S> <Space>"   , sendMessage NextLayout)
+  , ("<S> <Tab>"     , nextWindow)
+  , ("<S> S-<Tab>"   , prevWindow)
+  , ("<S> p"         , spawn appLauncher)
+  , ("<S> h"         , windows $ W.swapUp   . W.focusUp)
+  , ("<S> l"         , windows $ W.swapDown . W.focusDown)
+  , ("<S> t"         , withFocused $ windows . W.sink)
+  , ("<S> `"         , scratchpadSpawnActionCustom scratch)
 
 
   -- window manipulation
-  , ("M-w g"       , gotoMenuArgs  $ dmenuTheme base12 "Go to window:  ")
-  , ("M-w b"       , bringMenuArgs $ dmenuTheme base12 "Bring window:  ")
-  , ("M-w h"       , sendMessage Shrink)
-  , ("M-w l"       , sendMessage Expand)
-  , ("M-w."       , sendMessage $ IncMasterN 1)
-  , ("M-w ,"       , sendMessage $ IncMasterN (-1))
-  , ("M-w m"       , windows W.focusMaster)
-  , ("M-w t"       , sinkAll)
-  , ("M-w f"       , sendMessage AvoidFloatToggle)
+  , ("<S> w g"       , gotoMenuArgs  $ dmenuTheme base12 "Go to window:  ")
+  , ("<S> w b"       , bringMenuArgs $ dmenuTheme base12 "Bring window:  ")
+  , ("<S> w h"       , sendMessage Shrink)
+  , ("<S> w l"       , sendMessage Expand)
+  , ("<S> w ."       , sendMessage $ IncMasterN 1)
+  , ("<S> w ,"       , sendMessage $ IncMasterN (-1))
+  , ("<S> w m"       , windows W.focusMaster)
+  , ("<S> w t"       , sinkAll)
+  , ("<S> w f"       , sendMessage AvoidFloatToggle)
 
 
   -- SESSION --
-  , ("M-q l"       , spawn screensaver)
-  , ("M-q r"       , broadcastMessage ReleaseResources
-                     >> restart "xmonad" True)
-  , ("M-q q"       , io exitSuccess)
-  , ("M-q m"       , unGrab >> powerMenu)
+  , ("<S> q l"       , spawn screensaver)
+  , ("<S> q r"       , broadcastMessage ReleaseResources
+                       >> restart "xmonad" True)
+  , ("<S> q q"       , io exitSuccess)
+  , ("<S> q m"       , unGrab >> powerMenu)
 
 
   -- APPLICATIONS --
-  , ("M-x c"       , kill)
+  , ("<S> k"         , kill)
 
   -- media keys
   , ("<XF86AudioPlay>"       , spawn "playerctl play-pause")
@@ -78,12 +77,12 @@ defaultKeys c = mkKeymap c $
   , ("<XF86AudioMute>"       , spawn "pactl set-sink-mute 0 toggle")
   ] ++
   -- search engine submap
-  [ ("M-/ s " ++ k, S.selectSearch f)              | (k,f) <- searchList ] ++
-  [ ("M-/ p " ++ k, S.promptSearch promptConfig f) | (k,f) <- searchList ] ++
+  [ ("<S> / s " ++ k, S.selectSearch f)              | (k,f) <- searchList ] ++
+  [ ("<S> / p " ++ k, S.promptSearch promptConfig f) | (k,f) <- searchList ] ++
   -- standard jumping around workspaces etc.
   [ (m ++ k, windows $ f w)
   | (w, k) <- zip (XMonad.workspaces c) (spaces options)
-  , (m, f) <- [("M-", W.greedyView), ("M-S-", W.shift)]
+  , (m, f) <- [("<S> ", W.greedyView), ("<S> S-", W.shift)]
   ]
   -- @end keys
   where nextWindow      = windows W.focusDown
