@@ -10,7 +10,7 @@ ____             _    _                 _
 -- https://gitlab.com/karetsu/xmonad-aloysius                            --
 -- X. >= 0.15                                                            --
 --                                                                       --
--- For pending changes see TODO.org                                      --
+-- For pending changes see the todo                                      --
 ---------------------------------------------------------------------------
 -}
 
