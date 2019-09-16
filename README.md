@@ -34,28 +34,31 @@ issue. As the build is managed in a nix-shell then it should "just work".
 
 ## Features
 
-This list contains all of the features not included in the default XMonad experience
+This list contains all of the features not included in the default XMonad
+experience. Key sequences are modal with <kbd>M</kbd> representing your left
+super, <kbd>S-</kbd> means shift plus the following button and <kbd>C-</kbd> is control
+plus whatever follows it
 
-| Feature                             | Description                                                                                                         | Access                                  |
-| ---                                 | ---                                                                                                                 | ---                                     |
-| EWMH                                | Simpler control over X                                                                                              | always on                               |
-| Dynamic Projects                    | Each workspace is given as a 'project' with default applications launched on entry if empty                         | always on                               |
-| Easy theming                        | Nominate your 16 base colours and preferred fonts and they appear everywhere                                        | always on                               |
-| Modal keybindings                   | Vim style keybind sequences                                                                                         | always on                               |
-| Tabbed layout                       | For when you want lots of containers on one workspace and clickable tabs                                            | always on                               |
-| Custom event hooks                  | FIFO for easy piping of event text to outside applications                                                          | always on                               |
-| Named Scratchpad                    | Pop over terminal similar to quake/yakuake                                                                          | M \`                                    |
-| Go-to window                        | X.A.WindowBringer - go to windows dmenu prompt for quick jumping between workspaces                                 | M w g or click on workspaces on polybar |
-| Bring window                        | As above, but this time brings a window to your current workspace                                                   | M w b                                   |
-| Search selected                     | Launch a web search for the currently selected text*                                                                | M / s \<search option\>                 |
-| Search prompt                       | Launch a dmenu prompt to launch a web search*                                                                       | M / p \<search option\>                 |
-| Media keys                          | Using media keys via playerctl                                                                                      | always on                               |
-| Toggling DPMS                       | Polybar clickable icon to toggle `xset +-dpms` and `xset s on/off`                                                  | click on lightbulb                      |
-| Lock screen                         | Provided by i3lock-color & used in lock and suspend                                                                 | power menu in polybar                   |
-| Maximise on single window           | Inspired by the i3-gaps treatment where gaps are disabled for single windows, this applies to all non-float layouts | always on                               |
-| Dedicated floating window workspace | A workspace where all windows float (workspace 7 by default)                                                        | M 7                                     |
-| Navigation2D                        | Swap windows on workspaces, go to windows and go to screens with keyboard shortcuts                                 | M { ,S-,C-}\<arrow keys\>               |
-| XMonad prompt                       | Prompt to run lesser used xmonad actions                                                                            | M / /                                   |
+| Feature                             | Description                                                                                                         | Access                                                                   |
+| ---                                 | ---                                                                                                                 | ---                                                                      |
+| EWMH                                | Simpler control over X                                                                                              | always on                                                                |
+| Dynamic Projects                    | Each workspace is given as a 'project' with default applications launched on entry if empty                         | always on                                                                |
+| Easy theming                        | Nominate your 16 base colours and preferred fonts and they appear everywhere                                        | always on                                                                |
+| Modal keybindings                   | Vim style keybind sequences                                                                                         | always on                                                                |
+| Tabbed layout                       | For when you want lots of containers on one workspace and clickable tabs                                            | always on                                                                |
+| Custom event hooks                  | FIFO for easy piping of event text to outside applications                                                          | always on                                                                |
+| Media keys                          | Using media keys via playerctl                                                                                      | always on                                                                |
+| Maximise on single window           | Inspired by the i3-gaps treatment where gaps are disabled for single windows, this applies to all non-float layouts | always on                                                                |
+| Named Scratchpad                    | Pop over terminal similar to quake/yakuake                                                                          | <kbd>M</kbd> <kbd>\`</kbd>                                               |
+| Go-to window                        | X.A.WindowBringer - go to windows dmenu prompt for quick jumping between workspaces                                 | <kbd>M</kbd> <kbd>w</kbd> <kbd>g</kbd> or click on workspaces on polybar |
+| Bring window                        | As above, but this time brings a window to your current workspace                                                   | <kbd>M</kbd> <kbd>w</kbd> <kbd>b</kbd>                                   |
+| Search selected                     | Launch a web search for the currently selected text*                                                                | <kbd>M</kbd> <kbd>/</kbd> <kbd>s</kbd> \<search option\>                 |
+| Search prompt                       | Launch a dmenu prompt to launch a web search*                                                                       | <kbd>M</kbd> <kbd>/</kbd> <kbd>p</kbd> \<search option\>                 |
+| Toggling DPMS                       | Polybar clickable icon to toggle `xset +-dpms` and `xset s on/off`                                                  | click on lightbulb                                                       |
+| Lock screen                         | Provided by i3lock-color & used in lock and suspend                                                                 | <kbd>M</kbd> <kbd>q</kbd> <kbd>l</kbd> or lock in polybar                |
+| Dedicated floating window workspace | A workspace where all windows float (workspace 7 by default)                                                        | <kbd>M</kbd> <kbd>7</kbd>                                                |
+| Navigation2D                        | Swap windows on workspaces, go to windows and go to screens with keyboard shortcuts                                 | <kbd>M</kbd> { ,<kbd>S-</kbd>,<kbd>C-</kbd>} \<arrow keys\>              |
+| XMonad prompt                       | Prompt to run lesser used xmonad actions                                                                            | <kbd>M</kbd> <kbd>/</kbd> <kbd>/</kbd>                                   |
 
 * Search options
   - g: duckduckgo
