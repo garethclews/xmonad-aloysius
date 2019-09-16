@@ -150,7 +150,7 @@ been changed to) and <kbd>S</kbd> is Shift.
 | <kbd>M</kbd> <kbd>Tab</kbd>              | Move to next window                |
 | <kbd>M</kbd> <kbd>S</kbd>-<kbd>Tab</kbd> | Move to previous window            |
 | <kbd>M</kbd> <kbd>q</kbd> <kbd>q</kbd>   | Quit XMonad                        |
-| <kbd>M</kbd> <kbd>s</kbd> <kbd>p</kbd>   | Open the power menu                |
+| <kbd>M</kbd> <kbd>q</kbd> <kbd>m</kbd>   | Open the power menu                |
 | <kbd>M</kbd> <kbd>1</kbd>..<kbd>7</kbd>  | Change to workspace 1 thro' 7      |
 | <kbd>M</kbd> <kbd>\`</kbd>               | Launch scratchpad terminal         |
 | <kbd>M</kbd> <kbd>a</kbd> <kbd>k</kbd>   | Close application                  |
