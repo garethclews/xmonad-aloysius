@@ -5,13 +5,16 @@ module Bind.Master where
 import System.Exit
 
 import XMonad
-
+import XMonad.Actions.CopyWindow (kill1)
 import XMonad.Actions.WindowBringer
 import XMonad.Actions.WithAll
 
+import XMonad.Hooks.ManageDocks (ToggleStruts(..))
+
 import XMonad.Layout.AvoidFloats
 
--- import XMonad.Util.EZConfig
+import XMonad.Prompt.XMonad
+
 import XMonad.Util.Scratchpad
 import XMonad.Util.Ungrab
 
@@ -23,7 +26,7 @@ import qualified XMonad.StackSet                   as W
 -- local
 import App.Alias
 import App.Launcher
-import Bind.Util
+import Bind.Util  -- replaces EZConfig, adds <S>
 import Config.Options
 import Theme.ChosenTheme
 
@@ -35,13 +38,15 @@ defaultKeys :: XConfig l -> M.Map (KeyMask, KeySym) (X ())
 defaultKeys c = mkKeymap c $
   [ ("<S> <Return>"  , spawn (term options))
   , ("<S> <Space>"   , sendMessage NextLayout)
-  , ("<S> <Tab>"     , nextWindow)
-  , ("<S> S-<Tab>"   , prevWindow)
+  , ("<S> <Tab>"     , windows W.focusDown)
+  , ("<S> S-<Tab>"   , windows W.focusUp)
   , ("<S> p"         , spawn appLauncher)
-  , ("<S> h"         , windows $ W.swapUp   . W.focusUp)
-  , ("<S> l"         , windows $ W.swapDown . W.focusDown)
-  , ("<S> t"         , withFocused $ windows . W.sink)
   , ("<S> `"         , scratchpadSpawnActionCustom scratch)
+
+  -- APPLICATIONS --
+  , ("<S> a k"       , kill1)
+  , ("<S> a f"       , spawn browser)
+  , ("<S> a e"       , spawn code)
 
 
   -- window manipulation
@@ -52,8 +57,11 @@ defaultKeys c = mkKeymap c $
   , ("<S> w ."       , sendMessage $ IncMasterN 1)
   , ("<S> w ,"       , sendMessage $ IncMasterN (-1))
   , ("<S> w m"       , windows W.focusMaster)
-  , ("<S> w t"       , sinkAll)
+  , ("<S> w h"       , windows $ W.swapUp   . W.focusUp)
+  , ("<S> w l"       , windows $ W.swapDown . W.focusDown)
+  , ("<S> w t"       , sinkAll) -- maybe: withFocused $ windows . W.sink
   , ("<S> w f"       , sendMessage AvoidFloatToggle)
+  , ("<S> w s"       , sendMessage ToggleStruts)
 
 
   -- SESSION --
@@ -64,8 +72,8 @@ defaultKeys c = mkKeymap c $
   , ("<S> q m"       , unGrab >> powerMenu)
 
 
-  -- APPLICATIONS --
-  , ("<S> k"         , kill)
+  -- PROMPTS --
+  , ("<S> / /"         , xmonadPromptC actions promptConfig)
 
   -- media keys
   , ("<XF86AudioPlay>"       , spawn "playerctl play-pause")
@@ -85,8 +93,15 @@ defaultKeys c = mkKeymap c $
   , (m, f) <- [("<S> ", W.greedyView), ("<S> S-", W.shift)]
   ]
   -- @end keys
-  where nextWindow      = windows W.focusDown
-        prevWindow      = windows W.focusUp
+
+-- Menu for less common actions
+actions :: [ (String, X ()) ]
+actions = [ ("increaseM", sendMessage (IncMasterN 1))
+          , ("decreaseM", sendMessage (IncMasterN (-1)))
+          , ("toggleStruts"    , sendMessage ToggleStruts)
+          , ("screensaver"     , spawn screensaver)
+          , ("kill"            , kill1)
+          ]
 
 
 -- search engine submap, starts with M-s (selected) and M-S-s (prompt)

@@ -3,7 +3,7 @@
 
 module Bus.Events where
 
-import Data.List (sortBy, isInfixOf)
+import Data.List (sortBy)
 import Data.Function (on)
 import Control.Monad (join)
 
