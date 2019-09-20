@@ -51,34 +51,7 @@ defaultKeys c = mkKeymap c $
 
   -- window manipulation
   , ("<S> w g"       , gotoMenuArgs  $ dmenuTheme base12 "Go to window:  ")
-  , ("<S> w b"       , bringMenuArgs $ dmenuTheme base12 "Bring window:  ")
-  , ("<S> w h"       , sendMessage Shrink)
-  , ("<S> w l"       , sendMessage Expand)
-  , ("<S> w ."       , sendMessage $ IncMasterN 1)
-  , ("<S> w ,"       , sendMessage $ IncMasterN (-1))
-  , ("<S> w m"       , windows W.focusMaster)
-  , ("<S> w h"       , windows $ W.swapUp   . W.focusUp)
-  , ("<S> w l"       , windows $ W.swapDown . W.focusDown)
-  , ("<S> w t"       , sinkAll) -- maybe: withFocused $ windows . W.sink
-  , ("<S> w f"       , sendMessage AvoidFloatToggle)
-  , ("<S> w s"       , sendMessage ToggleStruts)
-
-
-  -- SESSION --
-  , ("<S> q l"       , spawn screensaver)
-  , ("<S> q r"       , broadcastMessage ReleaseResources
-                       >> restart "xmonad" True)
-  , ("<S> q q"       , io exitSuccess)
-  , ("<S> q m"       , unGrab >> powerMenu)
-
-
-  -- PROMPTS --
-  , ("<S> / /"         , xmonadPromptC actions promptConfig)
-
-  -- media keys
-  , ("<XF86AudioPlay>"       , spawn "playerctl play-pause")
-  , ("<XF86AudioStop>"       , spawn "playerctl stop")
-  , ("<XF86AudioNext>"       , spawn "playerctl next")
+  , ("<S> w b"       , bringMenuArgs $ dmenuTheme base12 "Bring<XF86AudioNext>"       , spawn "playerctl next")
   , ("<XF86AudioPrev>"       , spawn "playerctl previous")
   , ("<XF86AudioLowerVolume>", spawn "pactl set-sink-volume 0 -5%")
   , ("<XF86AudioRaiseVolume>", spawn "pactl set-sink-volume 0 +5%")
@@ -96,11 +69,11 @@ defaultKeys c = mkKeymap c $
 
 -- Menu for less common actions
 actions :: [ (String, X ()) ]
-actions = [ ("increaseM", sendMessage (IncMasterN 1))
-          , ("decreaseM", sendMessage (IncMasterN (-1)))
-          , ("toggleStruts"    , sendMessage ToggleStruts)
-          , ("screensaver"     , spawn screensaver)
-          , ("kill"            , kill1)
+actions = [ ("increaseM"   , sendMessage (IncMasterN 1))
+          , ("decreaseM"   , sendMessage (IncMasterN (-1)))
+          , ("toggleStruts", sendMessage ToggleStruts)
+          , ("screensaver" , spawn screensaver)
+          , ("kill"        , kill1)
           ]
 
 
@@ -116,7 +89,8 @@ numPadKeys :: [KeySym]
 numPadKeys = [ xK_KP_End,  xK_KP_Down,  xK_KP_Page_Down -- 1, 2, 3
              , xK_KP_Left, xK_KP_Begin, xK_KP_Right     -- 4, 5, 6
              , xK_KP_Home, xK_KP_Up,    xK_KP_Page_Up   -- 7, 8, 9
-             , xK_KP_Insert]
+             , xK_KP_Insert
+             ]
 
 ------------------------------------------------------------------------
 
@@ -124,11 +98,11 @@ numPadKeys = [ xK_KP_End,  xK_KP_Down,  xK_KP_Page_Down -- 1, 2, 3
 mouseBindings' :: XConfig l -> M.Map (KeyMask, Button) (Window -> X ())
 mouseBindings' XConfig {XMonad.modMask = modm} = M.fromList
     -- mod-button1, flexible linear scale
-    [ ((modm, button1), \w -> focus w >> F.mouseWindow F.discrete w)
+    [ ((mod4Mask, button1), \w -> focus w >> F.mouseWindow F.discrete w)
     -- mod-button2, Raise the window to the top of the stack
-    , ((modm, button2), \w -> focus w >> windows W.shiftMaster)
+    , ((mod4Mask, button2), \w -> focus w >> windows W.shiftMaster)
     -- mod-button3, Set the window to floating mode and resize by dragging
-    , ((modm, button3), \w -> focus w >> mouseResizeWindow w
-                                       >> windows W.shiftMaster)
+    , ((mod4Mask, button3), \w -> focus w >> mouseResizeWindow w
+                                      >> windows W.shiftMaster)
     -- you may also bind events to the mouse scroll wheel (button4 and button5)
     ]

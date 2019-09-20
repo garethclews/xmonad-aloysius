@@ -4,7 +4,7 @@ cabal-version:         2.4
 -- http://haskell.org/cabal/users-guide/
 
 name:                  aloysius
-version:               0.1.3.1
+version:               1.0.0.0
 synopsis:              xmonad config
 -- description:
 homepage:              https://gitlab.com/karetsu/xmonad-aloysius
