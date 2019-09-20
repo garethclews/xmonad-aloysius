@@ -4,9 +4,7 @@
 setopt +o nomatch
 autoload -U age
 
-cd ~/.xmonad
-
-AGEREF=$(stat -c %y xmonad-x86_64-linux)
-OLD=$(ls *(+age) | grep -v xmonad-x86_64-linux | grep -E '*.hs' | wc -l)
+AGEREF=$(stat -c %y ~/.xmonad/xmonad-x86_64-linux)
+OLD=$(ls *(+age) | grep -E '*.hs' | wc -l)
 
 [[ $OLD > 0 ]] && ./compile > /dev/null
