@@ -51,15 +51,44 @@ defaultKeys c = mkKeymap c $
 
   -- window manipulation
   , ("<S> w g"       , gotoMenuArgs  $ dmenuTheme base12 "Go to window:  ")
-  , ("<S> w b"       , bringMenuArgs $ dmenuTheme base12 "Bring<XF86AudioNext>"       , spawn "playerctl next")
+  , ("<S> w b"       , bringMenuArgs $ dmenuTheme base12 "Bring window:  ")
+  , ("<S> w h"       , sendMessage Shrink)
+  , ("<S> w l"       , sendMessage Expand)
+  , ("<S> w ."       , sendMessage $ IncMasterN 1)
+  , ("<S> w ,"       , sendMessage $ IncMasterN (-1))
+  , ("<S> w m"       , windows W.focusMaster)
+  , ("<S> w h"       , windows $ W.swapUp   . W.focusUp)
+  , ("<S> w l"       , windows $ W.swapDown . W.focusDown)
+  , ("<S> w t"       , sinkAll) -- maybe: withFocused $ windows . W.sink
+  , ("<S> w f"       , sendMessage AvoidFloatToggle)
+  , ("<S> w s"       , sendMessage ToggleStruts)
+
+
+  -- SESSION --
+  , ("<S> q l"       , spawn screensaver)
+  , ("<S> q r"       , broadcastMessage ReleaseResources
+                       >> restart "xmonad" True)
+  , ("<S> q q"       , io exitSuccess)
+  , ("<S> q m"       , unGrab >> powerMenu)
+
+
+  -- PROMPTS --
+  , ("<S> / /"         , xmonadPromptC actions promptConfig)
+
+  -- media keys
+  , ("<XF86AudioPlay>"       , spawn "playerctl play-pause")
+  , ("<XF86AudioStop>"       , spawn "playerctl stop")
+  , ("<XF86AudioNext>"       , spawn "playerctl next")
   , ("<XF86AudioPrev>"       , spawn "playerctl previous")
   , ("<XF86AudioLowerVolume>", spawn "pactl set-sink-volume 0 -5%")
   , ("<XF86AudioRaiseVolume>", spawn "pactl set-sink-volume 0 +5%")
   , ("<XF86AudioMute>"       , spawn "pactl set-sink-mute 0 toggle")
   ] ++
+
   -- search engine submap
   [ ("<S> / s " ++ k, S.selectSearch f)              | (k,f) <- searchList ] ++
   [ ("<S> / p " ++ k, S.promptSearch promptConfig f) | (k,f) <- searchList ] ++
+
   -- standard jumping around workspaces etc.
   [ (m ++ k, windows $ f w)
   | (w, k) <- zip (XMonad.workspaces c) (spaces options)
