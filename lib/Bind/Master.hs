@@ -8,13 +8,14 @@ import XMonad
 import XMonad.Actions.CopyWindow (kill1)
 import XMonad.Actions.WindowBringer
 import XMonad.Actions.WithAll
-
 import XMonad.Hooks.ManageDocks (ToggleStruts(..))
 
 import XMonad.Layout.AvoidFloats
+import XMonad.Layout.LayoutCombinators hiding ((|||))
 
 import XMonad.Prompt.XMonad
 
+import XMonad.Util.Dmenu (dmenuMap)
 import XMonad.Util.Scratchpad
 import XMonad.Util.Ungrab
 
@@ -52,6 +53,7 @@ defaultKeys c = mkKeymap c $
   -- window manipulation
   , ("<S> w g"       , gotoMenuArgs  $ dmenuTheme base12 "Go to window:  ")
   , ("<S> w b"       , bringMenuArgs $ dmenuTheme base12 "Bring window:  ")
+--  , ("<S> w ?"       , layoutMenu)
   , ("<S> w h"       , sendMessage Shrink)
   , ("<S> w l"       , sendMessage Expand)
   , ("<S> w ."       , sendMessage $ IncMasterN 1)
@@ -104,6 +106,7 @@ actions = [ ("increaseM"   , sendMessage (IncMasterN 1))
           , ("screensaver" , spawn screensaver)
           , ("kill"        , kill1)
           ]
+
 
 
 -- search engine submap, starts with M-s (selected) and M-S-s (prompt)
