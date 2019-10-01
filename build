@@ -1,4 +1,7 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env nix-shell
+#!nix-shell -i zsh
+
+set -e
 
 # suppress "zsh no matches found"
 setopt +o nomatch
@@ -7,4 +10,14 @@ autoload -U age
 AGEREF=$(stat -c %y ~/.xmonad/xmonad-x86_64-linux)
 OLD=$(ls *(+age) | grep -E '*.hs' | wc -l)
 
-[[ $OLD > 0 ]] && ./compile > /dev/null
+compile () {
+  [[ -a cabal.project.local ]] || cabal configure --enable-optimisation --enable-library-stripping
+
+  cabal build
+
+  fd -tf 'xmonad' dist -x mv -u {} "~/.xmonad/xmonad-x86_64-linux"
+}
+
+
+# [[ $OLD > 0 ]] && compile
+compile
