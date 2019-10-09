@@ -131,6 +131,7 @@ but once you have this it should be pretty automatic
 
 ``` sh
 git clone https://gitlab.com/karetsu/xmonad-aloysius
+cd xmonad-aloysius
 ./build -h
 ```
 
