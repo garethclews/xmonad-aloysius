@@ -130,10 +130,12 @@ In order to compile this you need to have `nix-shell` and `zsh` in your $PATH
 but once you have this it should be pretty automatic
 
 ``` sh
-git clone https://gitlab.com/karetsu/xmonad-aloysius ~/.xmonad
-cd ~/.xmonad
-./build
+git clone https://gitlab.com/karetsu/xmonad-aloysius
+./build -h
 ```
+
+This will print the build help documentation. Follow the options presented here
+to build the binary to your needs.
 
 
 ## Key Bindings
