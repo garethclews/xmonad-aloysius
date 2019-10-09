@@ -105,5 +105,4 @@ all () {
 # -- Runtime --------------------------------------------------------------------
 [[ -n $help  ]] && help  && exit
 [[ -n $tidy  ]] && clean && exit
-#[[ $OLD > 0  ]] && build || echo "   No compilation required"
-build
+[[ $OLD > 0  ]] && build || echo "   No compilation required"

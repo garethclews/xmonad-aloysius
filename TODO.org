@@ -8,10 +8,14 @@
   - [ ] add a dmenu prompt for quick selecing layout a la https://github.com/KnairdA/nixos_home/blob/master/gui/conf/xmonad.hs
 
 
-* NON XMONAD SPECIFIC [0/3]
+* NON XMONAD SPECIFIC [0/4]
 - [ ] lightdm switch to greeter should release the pulseaudio sink
 - [ ] general research into pulseaudio configuration
 - [ ] update git prompt to show ahead/behind status
+- [ ] continue to improve the build script [0/3]
+  - [ ] incorporate all of the moving parts (scripts, overlays etc.)
+  - [ ] build in a theme selector which edits ChosenTheme.hs and overlay content
+  - [ ] hide the nix-shell pre-run stuff
 
 
 * ACTIVE [0/1]
