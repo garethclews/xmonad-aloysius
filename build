@@ -1,23 +1,86 @@
 #!/usr/bin/env nix-shell
 #!nix-shell -i zsh
 
+# -- Setup ----------------------------------------------------------------------
 set -e
+
+local -a help clean
+zparseopts \
+  h=help   -help=help\
+  c=clean  -clean=clean\
+  C=tidy   -tidy=tidy
+
+ILOC=$HOME/.xmonad/xmonad-x86_64-linux
 
 # suppress "zsh no matches found"
 setopt +o nomatch
 autoload -U age
 
-AGEREF=$(stat -c %y ~/.xmonad/xmonad-x86_64-linux)
+AGEREF=$(stat -c %y $ILOC)
 OLD=$(ls *(+age) | grep -E '*.hs' | wc -l)
 
+
+# -- Functions ------------------------------------------------------------------
+help () {
+  echo "
+    Configuration script for compiling Aloysius' XMonad setup
+
+    Usage:
+      ./build [FLAGS]
+
+    Flags:
+      -h --help    prints this message
+      -c --clean   compile then remove build content
+      -C --tidy    only remove previous build content
+
+      No flag causes a standard compile with no cleaning
+
+  "
+}
+
 compile () {
-  [[ -a cabal.project.local ]] || cabal configure --enable-optimisation --enable-library-stripping
+  printf "   Configuring\r"
+  [[ -a cabal.project.local ]] || cabal new-configure --enable-optimisation --enable-library-stripping > install.log
+  # [[ -a cabal.project.local ]] || cabal configure --enable-optimisation --enable-library-stripping
+  echo "   Configured"
 
-  cabal build
 
-  fd -tf 'xmonad' dist -x mv -u {} "~/.xmonad/xmonad-x86_64-linux"
+  printf "   Building\r"
+  cabal new-build >> install.log
+  # cabal build
+  echo "   Built"
+
+
+  printf "   Installing\r"
+  fd -t f 'xmonad' dist-newstyle -x mv -u {} $ILOC
+  # fd -tf 'xmonad' dist -x mv -u {} $ILOC
+  echo "   Installed"
+}
+
+clean () {
+  printf "   Cleaning\r"
+  find . \( -name '*.hi'\
+        -or -name '*.o'\
+        -or -name '*.errors'\
+        -or -name '*.log'\
+        -or -name 'cabal.project.local*'\
+        \) -type f -delete
+
+  rm -rf dist-newstyle/
+  rm -rf dist/
+
+  echo "   Clean"
+}
+
+build () {
+  echo " Building Aloysius, sit tight"
+  [[ -n $clean  ]] && compile && clean && xmonad --restart
+  [[ "$#" -eq 0 ]] && compile && xmonad --restart
 }
 
 
-# [[ $OLD > 0 ]] && compile
-compile
+# -- Runtime --------------------------------------------------------------------
+[[ -n $help  ]] && help  && exit
+[[ -n $tidy  ]] && clean && exit
+#[[ $OLD > 0  ]] && build || echo "   No compilation required"
+build
