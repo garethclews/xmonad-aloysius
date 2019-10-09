@@ -4,11 +4,12 @@
 # -- Setup ----------------------------------------------------------------------
 set -e
 
-local -a help clean
+local -a help clean tidy all
 zparseopts \
   h=help   -help=help\
   c=clean  -clean=clean\
-  C=tidy   -tidy=tidy
+  C=tidy   -tidy=tidy\
+  a=all    -all=all
 
 ILOC=$HOME/.xmonad/xmonad-x86_64-linux
 
@@ -32,30 +33,35 @@ help () {
       -h --help    prints this message
       -c --clean   compile then remove build content
       -C --tidy    only remove previous build content
+      -a --all     get all of the supplementary content
 
       No flag causes a standard compile with no cleaning
 
   "
 }
 
+
 compile () {
   printf "   Configuring\r"
-  [[ -a cabal.project.local ]] || cabal new-configure --enable-optimisation --enable-library-stripping > install.log
+  [[ -a cabal.project.local ]] ||\
+    cabal new-configure --enable-optimisation --enable-library-stripping >\
+    install.log
   # [[ -a cabal.project.local ]] || cabal configure --enable-optimisation --enable-library-stripping
-  echo "   Configured"
+  echo "   Configured  "
 
 
   printf "   Building\r"
   cabal new-build >> install.log
   # cabal build
-  echo "   Built"
+  echo "   Built    "
 
 
   printf "   Installing\r"
   fd -t f 'xmonad' dist-newstyle -x mv -u {} $ILOC
   # fd -tf 'xmonad' dist -x mv -u {} $ILOC
-  echo "   Installed"
+  echo "   Installed "
 }
+
 
 clean () {
   printf "   Cleaning\r"
@@ -69,15 +75,32 @@ clean () {
   rm -rf dist-newstyle/
   rm -rf dist/
 
-  echo "   Clean"
+  echo "   Cleaned  "
 }
+
 
 build () {
-  echo " Building Aloysius, sit tight"
-  [[ -n $clean  ]] && compile && clean && xmonad --restart
-  [[ "$#" -eq 0 ]] && compile && xmonad --restart
+  echo "  Building Aloysius, sit tight"
+  [[ -n $clean  ]] && compile && clean && xmonad --restart && exit
+  [[ $#  -eq  0 ]] && compile && xmonad --restart && exit
 }
 
+
+all () {
+  printf "   Fetching scripts\r"
+  git clone https://github.com/karetsu/scripts $HOME/.scripts 1>install.log
+  echo "   Scripts installed  "
+
+  printf "   Fetching nix-overlay\r"
+  [[ -d $HOME/.config/nixpkgs ]] &&\
+    echo "Overlay exists, skipping" >> install.log ||\
+    git clone https://github.com/karetsu/ $HOME/.config/nixpkgs 1>install.log
+
+  (( $+commands[home-manager] )) &&\
+    home-manager switch ||\
+    echo "home-manager does not exist" >> install.log
+  echo "   Overlay installed   "
+}
 
 # -- Runtime --------------------------------------------------------------------
 [[ -n $help  ]] && help  && exit
