@@ -16,6 +16,7 @@
   - [ ] incorporate all of the moving parts (scripts, overlays etc.)
   - [ ] build in a theme selector which edits ChosenTheme.hs and overlay content
   - [ ] hide the nix-shell pre-run stuff
+- [ ] remove the need for cabal2nix
 
 
 * ACTIVE [0/1]

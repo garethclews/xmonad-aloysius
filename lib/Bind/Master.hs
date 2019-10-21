@@ -45,7 +45,7 @@ defaultKeys c = mkKeymap c $
   , ("<S> `"         , scratchpadSpawnActionCustom scratch)
 
   -- APPLICATIONS --
-  , ("<S> a k"       , kill1)
+  , ("<S> a q"       , kill1)
   , ("<S> a f"       , spawn browser)
   , ("<S> a e"       , spawn code)
 
