@@ -38,4 +38,5 @@ appLauncher = "dmenu_run -p 'Launch application:  ' "
            ++ "-nf \"" ++ base04     ++ "\" "
            ++ "-sb \"" ++ base14     ++ "\" "
            ++ "-sf \"" ++ base00     ++ "\" "
-           ++ "-h 52"
+--           ++ "-h 52"  -- height 52
+--           ++ "-n"     -- instant on single match

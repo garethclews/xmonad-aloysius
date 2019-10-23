@@ -1,6 +1,6 @@
 #+TITLE: XMonad-Aloysius
 
-* GENERAL [0/4]
+* GENERAL [0/5]
   - [ ] use urgencyhook to either change the colour of the workspace in polybar
   - [ ] work through https://hackage.haskell.org/package/xmonad-contrib-0.15/docs/XMonad-Doc-Extending.html
   - [ ] make window decoration clickable on floating workspace
@@ -8,15 +8,16 @@
   - [ ] add a dmenu prompt for quick selecing layout a la https://github.com/KnairdA/nixos_home/blob/master/gui/conf/xmonad.hs
 
 
-* NON XMONAD SPECIFIC [0/4]
+* NON XMONAD SPECIFIC [0/5]
 - [ ] lightdm switch to greeter should release the pulseaudio sink
 - [ ] general research into pulseaudio configuration
 - [ ] update git prompt to show ahead/behind status
-- [ ] continue to improve the build script [0/3]
+- [-] continue to improve the build script [1/4]
   - [ ] incorporate all of the moving parts (scripts, overlays etc.)
   - [ ] build in a theme selector which edits ChosenTheme.hs and overlay content
-  - [ ] hide the nix-shell pre-run stuff
-- [ ] remove the need for cabal2nix
+  - [X] hide the nix-shell pre-run stuff
+  - [ ] fix the age finding lines, currently does not work
+- [ ] investigate dmenu patches to move to dmenu (4.9) rather than the old dmenu2
 
 
 * ACTIVE [0/1]
@@ -30,7 +31,7 @@
   - [ ] M-S-` for an alternative scratchpad with custom command (ghcid)?
 
 
-* Done [17/17]
+* DONE [18/18]
   - [X] tidy up gaps with polybar
   - [X] pimped polybar with current layout descriptor (pprint)
   - [X] make fullscreen logout
@@ -48,6 +49,7 @@
   - [X] remove that monstrous gif and replace with smaller images
   - [X] implement a 'local leader' type key binding scheme
   - [X] keybindings are currently all over the place
+  - [X] remove the need for cabal2nix
 
 
 * TESTED/REJECTED/WONTFIX [6/6]

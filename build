@@ -1,16 +1,15 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i zsh
+#!/usr/bin/env zsh
 
 # -- Setup ----------------------------------------------------------------------
 set -e
 
-local -a help clean tidy all
+local -a help clean force
 zparseopts \
   h=help   -help=help\
   c=clean  -clean=clean\
-  C=tidy   -tidy=tidy\
-  a=all    -all=all
+  f=force  -force=force
 
+# installation target
 ILOC=$HOME/.xmonad/xmonad-x86_64-linux
 
 # suppress "zsh no matches found"
@@ -18,7 +17,8 @@ setopt +o nomatch
 autoload -U age
 
 AGEREF=$(stat -c %y $ILOC)
-OLD=$(ls *(+age) | grep -E '*.hs' | wc -l)
+OLD=$(ls *(+age) 2>/dev/null | grep -E '*.hs' | wc -l)
+# TODO: fix this from piping stderr
 
 
 # -- Functions ------------------------------------------------------------------
@@ -44,21 +44,19 @@ help () {
 compile () {
   printf "   Configuring\r"
   [[ -a cabal.project.local ]] ||\
-    cabal configure --enable-optimisation --enable-library-stripping >\
-    install.log
-  # [[ -a cabal.project.local ]] || cabal configure --enable-optimisation --enable-library-stripping
+    nix-shell --command \
+    "cabal configure --enable-optimisation --enable-library-stripping" >\
+      install.log
   echo "   Configured  "
 
 
   printf "   Building\r"
-  cabal build >> install.log
-  # cabal build
+  nix-shell --command "cabal build" >> install.log
   echo "   Built    "
 
 
   printf "   Installing\r"
-  # fd -t f 'xmonad' dist-newstyle -x mv -u {} $ILOC
-  fd -tf 'xmonad' dist -x mv -u {} $ILOC
+  fd -tf 'xmonad' dist* -x mv -u {} $ILOC
   echo "   Installed "
 }
 
@@ -82,7 +80,8 @@ clean () {
 build () {
   echo "  Building Aloysius, sit tight"
   [[ -n $clean  ]] && compile && clean && xmonad --restart && exit
-  [[ $#  -eq  0 ]] && compile && xmonad --restart && exit
+  [[ $#  -eq  0 ]] && compile && echo "   Restarting XMonad " &&\
+                      xmonad --restart && exit
 }
 
 
@@ -104,6 +103,6 @@ all () {
 
 # -- Runtime --------------------------------------------------------------------
 [[ -n $help  ]] && help  && exit
-[[ -n $tidy  ]] && clean && exit
-## [[ $OLD > 0  ]] && build || echo "   No compilation required"
-build
+[[ -n $clean ]] && clean && exit
+[[ -n $force ]] && build && exit
+[[ $OLD > 0  ]] && build || echo "   No compilation required"
