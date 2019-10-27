@@ -38,5 +38,7 @@ appLauncher = "dmenu_run -p 'Launch application:  ' "
            ++ "-nf \"" ++ base04     ++ "\" "
            ++ "-sb \"" ++ base14     ++ "\" "
            ++ "-sf \"" ++ base00     ++ "\" "
---           ++ "-h 52"  -- height 52
---           ++ "-n"     -- instant on single match
+           -- non-standard dmenu options, please see: https://tools.suckless.org/dmenu/patches/
+           -- my nixOS overlay (aloysius) includes these patches by default
+           ++ "-h 52"  -- height 52
+           ++ "-F"     -- fuzzy matching
