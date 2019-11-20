@@ -128,7 +128,7 @@ decoTheme = def { activeColor = base00
                 , urgentTextColor = base12
                 , fontName = monospace
                 , windowTitleAddons = [ ( "\xf005", AlignRightOffset 12)]
-                , decoHeight = 36
+                , decoHeight = 40
                 , decoWidth = 2560
                 }
 
