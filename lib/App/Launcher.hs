@@ -14,21 +14,21 @@ import Theme.ChosenTheme
 
 -- Definitions ------------------------------------------------------------------
 powerMenu :: X ()
-powerMenu = dzenConfig ( font "Font Awesome:size=14"
+powerMenu = dzenConfig ( font "Font Awesome:size=12"
                          >=> timeout 5
                          >=> xScreen 1
-                         >=> x 2346
+                         >=> x 2380
                          >=> y 0
                          >=> align AlignCenter
                          >=> bgColor basebg
                          >=> addArgs [ "-h", "52"
-                                     , "-w", "214"
+                                     , "-w", "200"
                                      ]
                        )
                        $
                        "^fg(" ++ base14 ++ ")^ca(1, " ++ suspend ++ ")\xf04c^ca() \
-                       \^p(30)^fg(" ++ base08 ++ ")^ca(1, systemctl reboot)\xf021^ca() \
-                       \^p(30)^fg(" ++ base11 ++ ")^ca(1, systemctl poweroff)\xf011^ca()"
+                       \^p(20)^fg(" ++ base08 ++ ")^ca(1, systemctl reboot)\xf021^ca() \
+                       \^p(20)^fg(" ++ base11 ++ ")^ca(1, systemctl poweroff)\xf011^ca()"
 
 
 appLauncher :: String

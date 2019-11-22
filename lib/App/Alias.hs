@@ -31,7 +31,7 @@ numlock = "numlockx"
 
 
 notifications :: String
-notifications = "systemctl --user start dunst"
+notifications = "dunst"
 
 
 screensaver :: String

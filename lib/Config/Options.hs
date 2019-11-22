@@ -60,7 +60,7 @@ options = Options
                >> spawnOnce compositor
                >> spawnOnce cursor
                >> spawnOnce lang
-               >> spawnOnce notifications
+               -- >> spawnOnce notifications
                >> spawnOnce energyStar
                >> spawnOnce xresource
                -- return ()
