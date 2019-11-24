@@ -12,13 +12,8 @@ zparseopts \
 # installation target
 ILOC=$HOME/.xmonad/xmonad-x86_64-linux
 
-# suppress "zsh no matches found"
-setopt +o nomatch
-autoload -U age
-
-AGEREF=$(stat -c %y $ILOC)
-OLD=$(ls *(+age) 2>/dev/null | grep -E '*.hs' | wc -l)
-# TODO: fix this from piping stderr
+# find all files newer than the compiled xmonad
+OLD=$(find . -newer $ILOC | grep -Ev 'dist*|.git' | wc -l)
 
 
 # -- Functions ------------------------------------------------------------------
@@ -105,4 +100,4 @@ all () {
 [[ -n $help  ]] && help  && exit
 [[ -n $clean ]] && clean && exit
 [[ -n $force ]] && build && exit
-[[ $OLD > 0  ]] && build || echo "   No compilation required"
+[[ $OLD > 1  ]] && build || echo "   No compilation required"
