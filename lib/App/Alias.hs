@@ -71,3 +71,7 @@ code = "emacs"
 
 browser :: String
 browser = "firefox"
+
+
+keybase :: String
+keybase = "keybase-gui"

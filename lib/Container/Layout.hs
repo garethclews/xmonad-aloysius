@@ -94,8 +94,6 @@ flt  = named "Float"
 layout = avoidStruts
        . smartBorders
        . onWorkspace wsScratch flt
---       $ full
---     ||| bsp
        $ bsp
      ||| tall
      ||| tcm

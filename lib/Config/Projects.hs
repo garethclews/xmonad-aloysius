@@ -15,7 +15,8 @@ wsCode    = "3" -- https://fontawesome.com/icons/envelope?style=solid
 wsWeb     = "4" -- https://fontawesome.com/icons/code?style=solid
 wsMusic   = "5" -- https://fontawesome.com/icons/music?style=solid
 wsMail    = "6" -- https://fontawesome.com/icons/terminal?style=solid
-wsScratch = "7" -- https://fontawesome.com/icons/globe-europe?style=solid
+wsKeybase = "7"
+wsScratch = "8" -- https://fontawesome.com/icons/globe-europe?style=solid
 
 wsList = [ wsScratch
          , wsTerm
@@ -24,6 +25,7 @@ wsList = [ wsScratch
          , wsMusic
          , wsPlain
          , wsMail
+         , wsKeybase
          ]
 
 projects :: [Project]
@@ -52,6 +54,9 @@ projects =
             , projectDirectory = "~/"
             , projectStartHook = Just $ spawn mail
             }
+  , Project { projectName      = wsKeybase
+            , projectDirectory = "~/"
+            , projectStartHook = Just $ spawn keybase }
   , Project { projectName      = wsScratch
             , projectDirectory = "~/"
             , projectStartHook = Just $ return ()
