@@ -18,7 +18,7 @@ powerMenu = dzenConfig ( font "Font Awesome:size=12"
                          >=> timeout 5
                          >=> xScreen 1
                          >=> x 2380
-                         >=> y 0
+                         >=> y 1398
                          >=> align AlignCenter
                          >=> bgColor basebg
                          >=> addArgs [ "-h", "52"
