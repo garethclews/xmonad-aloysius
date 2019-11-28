@@ -32,4 +32,4 @@ sansserif' :: String
 sansserif' = "Fira Sans-" ++ fontsize
 
 monospace :: String
-monospace = "xft:mononoki:size=" ++ fontsize
+monospace = "xft:Iosevka Nerd Font:size=" ++ fontsize
