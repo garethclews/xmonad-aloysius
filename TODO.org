@@ -1,58 +1,58 @@
 #+TITLE: XMonad-Aloysius
 
-* GENERAL [0/5]
-  - [ ] use urgencyhook to either change the colour of the workspace in polybar
-  - [ ] work through https://hackage.haskell.org/package/xmonad-contrib-0.15/docs/XMonad-Doc-Extending.html
-  - [ ] make window decoration clickable on floating workspace
-  - [ ] change the colour of the windowTitleAddons (possible?)
-  - [ ] add a dmenu prompt for quick selecing layout a la https://github.com/KnairdA/nixos_home/blob/master/gui/conf/xmonad.hs
+* TODO GENERAL [0/5]
+- [ ] use urgencyhook to either change the colour of the workspace in polybar
+- [ ] work through https://hackage.haskell.org/package/xmonad-contrib-0.15/docs/XMonad-Doc-Extending.html
+- [ ] make window decoration clickable on floating workspace
+- [ ] change the colour of the windowTitleAddons (possible?)
+- [ ] add a dmenu prompt for quick selecing layout a la https://github.com/KnairdA/nixos_home/blob/master/gui/conf/xmonad.hs
+- [ ] abstract themes out of haskell so that integration with other apps is easier
 
 
-* NON XMONAD SPECIFIC [0/5]
+* TODO NON XMONAD SPECIFIC [0/3]
 - [ ] lightdm switch to greeter should release the pulseaudio sink
 - [ ] general research into pulseaudio configuration
-- [ ] update git prompt to show ahead/behind status
-- [-] continue to improve the build script [1/4]
+- [-] continue to improve the build script [2/4]
   - [ ] incorporate all of the moving parts (scripts, overlays etc.)
   - [ ] build in a theme selector which edits ChosenTheme.hs and overlay content
   - [X] hide the nix-shell pre-run stuff
-  - [ ] fix the age finding lines, currently does not work
-- [ ] investigate dmenu patches to move to dmenu (4.9) rather than the old dmenu2
+  - [X] fix the age finding lines, currently does not work
 
 
-* ACTIVE [0/1]
-  - [ ] consider window decorations for float workspace
+* STRT ACTIVE [0/1]
+- [ ] consider window decorations for float workspace
 
 
-* DEFER [0/4]
-  - [ ] https://github.com/pjones/xmonadrc has some dynamic project helper functions
-  - [ ] Design a sound scheme
-  - [ ] Develop additional colour schemes
-  - [ ] M-S-` for an alternative scratchpad with custom command (ghcid)?
+* WAIT DEFER [0/4]
+- [ ] https://github.com/pjones/xmonadrc has some dynamic project helper functions
+- [ ] Design a sound scheme
+- [ ] Develop additional colour schemes
+- [ ] M-S-` for an alternative scratchpad with custom command (ghcid)?
+- [ ] update git prompt to show ahead/behind status
 
 
-* DONE [18/18]
-  - [X] tidy up gaps with polybar
-  - [X] pimped polybar with current layout descriptor (pprint)
-  - [X] make fullscreen logout
-  - [X] swapped out rofi for X.U.Dmenu
-  - [X] implemented dynamic projects
-  - [X] M-M1 now uses flexible manipulate (discrete - window is 9 blocks)
-  - [X] added scratchpads
-  - [X] sort out xautolock to prevent locking on screen with video playing
-  - [X] xset oddity where any window activity sees the polybar icon turn back on, this was
-  - [X] X.A.WindowBringer has been added for window switching by name
-  - [X] X.L.IfMax added so that layouts with single window end up maximised
-  - [X] Incorporate goodness from https://github.com/altercation/dotfiles-tilingwm/blob/master/.xmonad/xmonad.hs
-  - [X] dmenu changed to overlap polybar completely, spacing issue removed
-  - [X] Fix xset bug (still locks even with `xset -dpms`)
-  - [X] remove that monstrous gif and replace with smaller images
-  - [X] implement a 'local leader' type key binding scheme
-  - [X] keybindings are currently all over the place
-  - [X] remove the need for cabal2nix
+* DONE [19/19]
+- [X] tidy up gaps with polybar
+- [X] pimped polybar with current layout descriptor (pprint)
+- [X] make fullscreen logout
+- [X] swapped out rofi for X.U.Dmenu
+- [X] implemented dynamic projects
+- [X] M-M1 now uses flexible manipulate (discrete - window is 9 blocks)
+- [X] added scratchpads
+- [X] sort out xautolock to prevent locking on screen with video playing
+- [X] xset oddity where any window activity sees the polybar icon turn back on, this was
+- [X] X.A.WindowBringer has been added for window switching by name
+- [X] X.L.IfMax added so that layouts with single window end up maximised
+- [X] Incorporate goodness from https://github.com/altercation/dotfiles-tilingwm/blob/master/.xmonad/xmonad.hs
+- [X] dmenu changed to overlap polybar completely, spacing issue removed
+- [X] Fix xset bug (still locks even with `xset -dpms`)
+- [X] remove that monstrous gif and replace with smaller images
+- [X] implement a 'local leader' type key binding scheme
+- [X] keybindings are currently all over the place
+- [X] remove the need for cabal2nix
+- [X] investigate dmenu patches to move to dmenu (4.9) rather than the old dmenu2
 
-
-* TESTED/REJECTED/WONTFIX [6/6]
+* KILL TESTED/REJECTED/WONTFIX [6/6]
   - [X] X.U.Themes - see if nord and dracula can be added -- going to just keep my themes in my format, if anybody else ever wants to use it then maybe revisit but just for me there's little to no point
   - [X] XMonad.Hooks.DynamicBars  -- sticking with one bar
   - [X] rejected betterlockscreen (https://github.com/pavanjadhaw/betterlockscreen), delay for lock is liveable
