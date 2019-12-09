@@ -27,9 +27,21 @@ issue. As the build is managed in a nix-shell then it should "just work".
 
 ## Latest Previews
 
-| Nord everywhere                                | Named scratchpad popup                         | Lock screen                                                                     |
+| Floating desktop                               | Named scratchpad popup                         | Lock screen                                                                     |
 | ---                                            | ---                                            | ------------------------------------------------------------------------------- |
 | ![Screenshot](https://i.imgur.com/eRHOmQT.png) | ![Screenshot](https://i.imgur.com/OC36W58.png) | ![Screenshot](https://i.imgur.com/MVvi8RU.png)                                  |
+
+
+## Themes!
+
+Please note that the theming mechanisms currently sit across three or so
+different repositories and it is not yet integrated. Some manual labour is
+required in order to co-ordinate the themes (across xmonad, those things managed
+by home-manager and kitty).
+
+| Laserwave                                      | Nord                                           |
+| ---                                            | ---                                            |
+| ![Screenshot](https://i.imgur.com/FWXxd19.png) | ![Screenshot](https://i.imgur.com/eRHOmQT.png) |
 
 
 ## Features

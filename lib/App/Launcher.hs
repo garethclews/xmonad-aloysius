@@ -17,12 +17,12 @@ powerMenu :: X ()
 powerMenu = dzenConfig ( font "Font Awesome:size=12"
                          >=> timeout 5
                          >=> xScreen 1
-                         >=> x 2352
+                         >=> x 2370
                          >=> y 0
                          >=> align AlignCenter
                          >=> bgColor basebg
                          >=> addArgs [ "-h", "52"
-                                     , "-w", "208"
+                                     , "-w", "180"
                                      ]
                        )
                        $
