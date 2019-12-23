@@ -14,36 +14,45 @@
 -- (See also "XMonad.Util.CustomKeys" in xmonad-contrib.)
 --
 ---------------------------------------------------------------------
-module Bind.Util (
-                    -- * Usage
-                    -- $usage
+module Bind.Util
+  (
+   -- * Usage
+   -- $usage
+   -- * Adding or removing keybindings
+    additionalKeys
+  , additionalKeysP
+  , removeKeys
+  , removeKeysP
+  , additionalMouseBindings
+  , removeMouseBindings
+  ,
 
-                    -- * Adding or removing keybindings
+  -- * Emacs-style keybinding specifications
+    mkKeymap
+  , checkKeymap
+  , mkNamedKeymap
+  , parseKey -- used by XMonad.Util.Paste
+  )
+where
 
-                    additionalKeys, additionalKeysP,
-                    removeKeys, removeKeysP,
-                    additionalMouseBindings, removeMouseBindings,
+import           XMonad
+import           XMonad.Actions.Submap
 
-                    -- * Emacs-style keybinding specifications
+import           XMonad.Util.NamedActions
 
-                    mkKeymap, checkKeymap,
-                    mkNamedKeymap,
+import qualified Data.Map                      as M
+import           Data.List                      ( foldl'
+                                                , sortBy
+                                                , groupBy
+                                                , nub
+                                                )
+import           Data.Ord                       ( comparing )
+import           Data.Maybe
+import           Control.Arrow                  ( first
+                                                , (&&&)
+                                                )
 
-                    parseKey -- used by XMonad.Util.Paste
-                  ) where
-
-import XMonad
-import XMonad.Actions.Submap
-
-import XMonad.Util.NamedActions
-
-import qualified Data.Map as M
-import Data.List (foldl', sortBy, groupBy, nub)
-import Data.Ord (comparing)
-import Data.Maybe
-import Control.Arrow (first, (&&&))
-
-import Text.ParserCombinators.ReadP
+import           Text.ParserCombinators.ReadP
 
 -- $usage
 -- To use this module, first import it into your @~\/.xmonad\/xmonad.hs@:
@@ -82,7 +91,7 @@ import Text.ParserCombinators.ReadP
 -- whichever), or add your own @myModMask = mod1Mask@ line.
 additionalKeys :: XConfig a -> [((KeyMask, KeySym), X ())] -> XConfig a
 additionalKeys conf keyList =
-    conf { keys = \cnf -> M.union (M.fromList keyList) (keys conf cnf) }
+  conf { keys = \cnf -> M.union (M.fromList keyList) (keys conf cnf) }
 
 -- | Like 'additionalKeys', except using short @String@ key
 --   descriptors like @\"M-m\"@ instead of @(modMask, xK_m)@, as
@@ -96,7 +105,7 @@ additionalKeys conf keyList =
 
 additionalKeysP :: XConfig l -> [(String, X ())] -> XConfig l
 additionalKeysP conf keyList =
-    conf { keys = \cnf -> M.union (mkKeymap cnf keyList) (keys conf cnf) }
+  conf { keys = \cnf -> M.union (mkKeymap cnf keyList) (keys conf cnf) }
 
 -- |
 -- Remove standard keybindings you're not using. Example use:
@@ -104,8 +113,10 @@ additionalKeysP conf keyList =
 -- > main = xmonad $ def { terminal = "urxvt" }
 -- >                 `removeKeys` [(mod1Mask .|. shiftMask, n) | n <- [xK_1 .. xK_9]]
 removeKeys :: XConfig a -> [(KeyMask, KeySym)] -> XConfig a
-removeKeys conf keyList =
-    conf { keys = \cnf -> keys conf cnf `M.difference` M.fromList (zip keyList $ repeat ()) }
+removeKeys conf keyList = conf
+  { keys = \cnf ->
+             keys conf cnf `M.difference` M.fromList (zip keyList $ repeat ())
+  }
 
 -- | Like 'removeKeys', except using short @String@ key descriptors
 --   like @\"M-m\"@ instead of @(modMask, xK_m)@, as described in the
@@ -115,19 +126,25 @@ removeKeys conf keyList =
 -- >                 `removeKeysP` ["M-S-" ++ [n] | n <- ['1'..'9']]
 
 removeKeysP :: XConfig l -> [String] -> XConfig l
-removeKeysP conf keyList =
-    conf { keys = \cnf -> keys conf cnf `M.difference` mkKeymap cnf (zip keyList $ repeat (return ())) }
+removeKeysP conf keyList = conf
+  { keys = \cnf -> keys conf cnf
+             `M.difference` mkKeymap cnf (zip keyList $ repeat (return ()))
+  }
 
 -- | Like 'additionalKeys', but for mouse bindings.
-additionalMouseBindings :: XConfig a -> [((ButtonMask, Button), Window -> X ())] -> XConfig a
-additionalMouseBindings conf mouseBindingsList =
-    conf { mouseBindings = \cnf -> M.union (M.fromList mouseBindingsList) (mouseBindings conf cnf) }
+additionalMouseBindings
+  :: XConfig a -> [((ButtonMask, Button), Window -> X ())] -> XConfig a
+additionalMouseBindings conf mouseBindingsList = conf
+  { mouseBindings =
+    \cnf -> M.union (M.fromList mouseBindingsList) (mouseBindings conf cnf)
+  }
 
 -- | Like 'removeKeys', but for mouse bindings.
 removeMouseBindings :: XConfig a -> [(ButtonMask, Button)] -> XConfig a
-removeMouseBindings conf mouseBindingList =
-    conf { mouseBindings = \cnf -> mouseBindings conf cnf `M.difference`
-                                   M.fromList (zip mouseBindingList $ repeat ()) }
+removeMouseBindings conf mouseBindingList = conf
+  { mouseBindings = \cnf -> mouseBindings conf cnf `M.difference` M.fromList
+                      (zip mouseBindingList $ repeat ())
+  }
 
 
 --------------------------------------------------------------
@@ -356,27 +373,28 @@ removeMouseBindings conf mouseBindingList =
 mkKeymap :: XConfig l -> [(String, X ())] -> M.Map (KeyMask, KeySym) (X ())
 mkKeymap c = M.fromList . mkSubmaps . readKeymap c
 
-mkNamedKeymap :: XConfig l -> [(String, NamedAction)] -> [((KeyMask, KeySym), NamedAction)]
+mkNamedKeymap
+  :: XConfig l -> [(String, NamedAction)] -> [((KeyMask, KeySym), NamedAction)]
 mkNamedKeymap c = mkNamedSubmaps . readKeymap c
 
 -- | Given a list of pairs of parsed key sequences and actions,
 --   group them into submaps in the appropriate way.
 
-mkNamedSubmaps :: [([(KeyMask, KeySym)], NamedAction)] -> [((KeyMask, KeySym), NamedAction)]
+mkNamedSubmaps
+  :: [([(KeyMask, KeySym)], NamedAction)] -> [((KeyMask, KeySym), NamedAction)]
 mkNamedSubmaps = mkSubmaps' submapName
 
-mkSubmaps :: [ ([(KeyMask,KeySym)], X ()) ] -> [((KeyMask, KeySym), X ())]
+mkSubmaps :: [([(KeyMask, KeySym)], X ())] -> [((KeyMask, KeySym), X ())]
 mkSubmaps = mkSubmaps' $ submap . M.fromList
 
-mkSubmaps' ::  (Ord a) => ([(a, c)] -> c) -> [([a], c)] -> [(a, c)]
+mkSubmaps' :: (Ord a) => ([(a, c)] -> c) -> [([a], c)] -> [(a, c)]
 mkSubmaps' subm binds = map combine gathered
-  where gathered = groupBy fstKey
-                 . sortBy (comparing fst)
-                 $ binds
-        combine [([k],act)] = (k,act)
-        combine ks = (head . fst . head $ ks,
-                      subm . mkSubmaps' subm $ map (first tail) ks)
-        fstKey = (==) `on` (head . fst)
+ where
+  gathered = groupBy fstKey . sortBy (comparing fst) $ binds
+  combine [([k], act)] = (k, act)
+  combine ks =
+    (head . fst . head $ ks, subm . mkSubmaps' subm $ map (first tail) ks)
+  fstKey = (==) `on` (head . fst)
 
 on :: (a -> a -> b) -> (c -> a) -> c -> c -> b
 op `on` f = \x y -> f x `op` f y
@@ -387,14 +405,16 @@ op `on` f = \x y -> f x `op` f y
 --   be ignored.
 readKeymap :: XConfig l -> [(String, t)] -> [([(KeyMask, KeySym)], t)]
 readKeymap c = mapMaybe (maybeKeys . first (readKeySequence c))
-  where maybeKeys (Nothing,_) = Nothing
-        maybeKeys (Just k, act) = Just (k, act)
+ where
+  maybeKeys (Nothing, _  ) = Nothing
+  maybeKeys (Just k , act) = Just (k, act)
 
 -- | Parse a sequence of keys, returning Nothing if there is
 --   a parse failure (no parse, or ambiguous parse).
 readKeySequence :: XConfig l -> String -> Maybe [(KeyMask, KeySym)]
 readKeySequence c = listToMaybe . parses
-  where parses = map fst . filter (null.snd) . readP_to_S (parseKeySequence c)
+ where
+  parses = map fst . filter (null . snd) . readP_to_S (parseKeySequence c)
 
 -- | Parse a sequence of key combinations separated by spaces, e.g.
 --   @\"M-c x C-S-2\"@ (mod+c, x, ctrl+shift+2).
@@ -403,22 +423,25 @@ parseKeySequence c = sepBy1 (parseKeyCombo c) (many1 $ char ' ')
 
 -- | Parse a modifier-key combination such as "M-C-s" (mod+ctrl+s).
 parseKeyCombo :: XConfig l -> ReadP (KeyMask, KeySym)
-parseKeyCombo c = do mods <- many (parseModifier c)
-                     k <- parseKey
-                     return (foldl' (.|.) 0 mods, k)
+parseKeyCombo c = do
+  mods <- many (parseModifier c)
+  k    <- parseKey
+  return (foldl' (.|.) 0 mods, k)
 
 -- | Parse a modifier: either M- (user-defined mod-key),
 --   C- (control), S- (shift), or M#- where # is an integer
 --   from 1 to 5 (mod1Mask through mod5Mask).
 parseModifier :: XConfig l -> ReadP KeyMask
-parseModifier c =  (string "M-" >> return (modMask c))
-               +++ (string "C-" >> return controlMask)
-               +++ (string "S-" >> return shiftMask)
-               +++ do _ <- char 'M'
-                      n <- satisfy (`elem` ['1'..'5'])
-                      _ <- char '-'
-                      return $ indexMod (read [n] - 1)
-    where indexMod = (!!) [mod1Mask,mod2Mask,mod3Mask,mod4Mask,mod5Mask]
+parseModifier c =
+  (string "M-" >> return (modMask c))
+    +++ (string "C-" >> return controlMask)
+    +++ (string "S-" >> return shiftMask)
+    +++ do
+          _ <- char 'M'
+          n <- satisfy (`elem` ['1' .. '5'])
+          _ <- char '-'
+          return $ indexMod (read [n] - 1)
+  where indexMod = (!!) [mod1Mask, mod2Mask, mod3Mask, mod4Mask, mod5Mask]
 
 -- | Parse an unmodified basic key, like @\"x\"@, @\"<F1>\"@, etc.
 parseKey :: ReadP KeySym
@@ -426,22 +449,23 @@ parseKey = parseRegular +++ parseSpecial
 
 -- | Parse a regular key name (represented by itself).
 parseRegular :: ReadP KeySym
-parseRegular = choice [ char s >> return k
-                      | (s,k) <- zip ['!'             .. '~'          ] -- ASCII
-                                     [xK_exclam       .. xK_asciitilde]
+parseRegular = choice
+  [ char s >> return k
+  | (s, k) <-
+    zip ['!' .. '~'] -- ASCII
+        [xK_exclam .. xK_asciitilde]
 
-                              ++ zip ['\xa0'          .. '\xff'       ] -- Latin1
-                                     [xK_nobreakspace .. xK_ydiaeresis]
-                      ]
+      ++ zip ['\xa0' .. '\xff'] -- Latin1
+             [xK_nobreakspace .. xK_ydiaeresis]
+  ]
 
 -- | Parse a special key name (one enclosed in angle brackets).
 parseSpecial :: ReadP KeySym
-parseSpecial = do _   <- char '<'
-                  key <- choice [ string name >> return k
-                                | (name,k) <- keyNames
-                                ]
-                  _   <- char '>'
-                  return key
+parseSpecial = do
+  _   <- char '<'
+  key <- choice [ string name >> return k | (name, k) <- keyNames ]
+  _   <- char '>'
+  return key
 
 -- | A list of all special key names and their associated KeySyms.
 keyNames :: [(String, KeySym)]
@@ -450,231 +474,235 @@ keyNames = functionKeys ++ specialKeys ++ multimediaKeys
 -- | A list pairing function key descriptor strings (e.g. @\"<F2>\"@) with
 --   the associated KeySyms.
 functionKeys :: [(String, KeySym)]
-functionKeys = [ ('F' : show n, k)
-               | (n,k) <- zip ([1..24] :: [Int]) [xK_F1..] ]
+functionKeys =
+  [ ('F' : show n, k) | (n, k) <- zip ([1 .. 24] :: [Int]) [xK_F1 ..] ]
 
 -- | A list of special key names and their corresponding KeySyms.
 specialKeys :: [(String, KeySym)]
-specialKeys = [ ("Backspace"  , xK_BackSpace)
-              , ("S"          , xK_Super_L)
-              , ("Tab"        , xK_Tab)
-              , ("Return"     , xK_Return)
-              , ("Pause"      , xK_Pause)
-              , ("Scroll_lock", xK_Scroll_Lock)
-              , ("Sys_Req"    , xK_Sys_Req)
-              , ("Print"      , xK_Print)
-              , ("Escape"     , xK_Escape)
-              , ("Esc"        , xK_Escape)
-              , ("Delete"     , xK_Delete)
-              , ("Home"       , xK_Home)
-              , ("Left"       , xK_Left)
-              , ("Up"         , xK_Up)
-              , ("Right"      , xK_Right)
-              , ("Down"       , xK_Down)
-              , ("L"          , xK_Left)
-              , ("U"          , xK_Up)
-              , ("R"          , xK_Right)
-              , ("D"          , xK_Down)
-              , ("Page_Up"    , xK_Page_Up)
-              , ("Page_Down"  , xK_Page_Down)
-              , ("End"        , xK_End)
-              , ("Insert"     , xK_Insert)
-              , ("Break"      , xK_Break)
-              , ("Space"      , xK_space)
-              , ("KP_Space"   , xK_KP_Space)
-              , ("KP_Tab"     , xK_KP_Tab)
-              , ("KP_Enter"   , xK_KP_Enter)
-              , ("KP_F1"      , xK_KP_F1)
-              , ("KP_F2"      , xK_KP_F2)
-              , ("KP_F3"      , xK_KP_F3)
-              , ("KP_F4"      , xK_KP_F4)
-              , ("KP_Home"    , xK_KP_Home)
-              , ("KP_Left"    , xK_KP_Left)
-              , ("KP_Up"      , xK_KP_Up)
-              , ("KP_Right"   , xK_KP_Right)
-              , ("KP_Down"    , xK_KP_Down)
-              , ("KP_Prior"   , xK_KP_Prior)
-              , ("KP_Page_Up" , xK_KP_Page_Up)
-              , ("KP_Next"    , xK_KP_Next)
-              , ("KP_Page_Down", xK_KP_Page_Down)
-              , ("KP_End"     , xK_KP_End)
-              , ("KP_Begin"   , xK_KP_Begin)
-              , ("KP_Insert"  , xK_KP_Insert)
-              , ("KP_Delete"  , xK_KP_Delete)
-              , ("KP_Equal"   , xK_KP_Equal)
-              , ("KP_Multiply", xK_KP_Multiply)
-              , ("KP_Add"     , xK_KP_Add)
-              , ("KP_Separator", xK_KP_Separator)
-              , ("KP_Subtract", xK_KP_Subtract)
-              , ("KP_Decimal" , xK_KP_Decimal)
-              , ("KP_Divide"  , xK_KP_Divide)
-              , ("KP_0"       , xK_KP_0)
-              , ("KP_1"       , xK_KP_1)
-              , ("KP_2"       , xK_KP_2)
-              , ("KP_3"       , xK_KP_3)
-              , ("KP_4"       , xK_KP_4)
-              , ("KP_5"       , xK_KP_5)
-              , ("KP_6"       , xK_KP_6)
-              , ("KP_7"       , xK_KP_7)
-              , ("KP_8"       , xK_KP_8)
-              , ("KP_9"       , xK_KP_9)
-              ]
+specialKeys =
+  [ ("Backspace"   , xK_BackSpace)
+  , ("S"           , xK_Super_L)
+  , ("Tab"         , xK_Tab)
+  , ("Return"      , xK_Return)
+  , ("Pause"       , xK_Pause)
+  , ("Scroll_lock" , xK_Scroll_Lock)
+  , ("Sys_Req"     , xK_Sys_Req)
+  , ("Print"       , xK_Print)
+  , ("Escape"      , xK_Escape)
+  , ("Esc"         , xK_Escape)
+  , ("Delete"      , xK_Delete)
+  , ("Home"        , xK_Home)
+  , ("Left"        , xK_Left)
+  , ("Up"          , xK_Up)
+  , ("Right"       , xK_Right)
+  , ("Down"        , xK_Down)
+  , ("L"           , xK_Left)
+  , ("U"           , xK_Up)
+  , ("R"           , xK_Right)
+  , ("D"           , xK_Down)
+  , ("Page_Up"     , xK_Page_Up)
+  , ("Page_Down"   , xK_Page_Down)
+  , ("End"         , xK_End)
+  , ("Insert"      , xK_Insert)
+  , ("Break"       , xK_Break)
+  , ("Space"       , xK_space)
+  , ("KP_Space"    , xK_KP_Space)
+  , ("KP_Tab"      , xK_KP_Tab)
+  , ("KP_Enter"    , xK_KP_Enter)
+  , ("KP_F1"       , xK_KP_F1)
+  , ("KP_F2"       , xK_KP_F2)
+  , ("KP_F3"       , xK_KP_F3)
+  , ("KP_F4"       , xK_KP_F4)
+  , ("KP_Home"     , xK_KP_Home)
+  , ("KP_Left"     , xK_KP_Left)
+  , ("KP_Up"       , xK_KP_Up)
+  , ("KP_Right"    , xK_KP_Right)
+  , ("KP_Down"     , xK_KP_Down)
+  , ("KP_Prior"    , xK_KP_Prior)
+  , ("KP_Page_Up"  , xK_KP_Page_Up)
+  , ("KP_Next"     , xK_KP_Next)
+  , ("KP_Page_Down", xK_KP_Page_Down)
+  , ("KP_End"      , xK_KP_End)
+  , ("KP_Begin"    , xK_KP_Begin)
+  , ("KP_Insert"   , xK_KP_Insert)
+  , ("KP_Delete"   , xK_KP_Delete)
+  , ("KP_Equal"    , xK_KP_Equal)
+  , ("KP_Multiply" , xK_KP_Multiply)
+  , ("KP_Add"      , xK_KP_Add)
+  , ("KP_Separator", xK_KP_Separator)
+  , ("KP_Subtract" , xK_KP_Subtract)
+  , ("KP_Decimal"  , xK_KP_Decimal)
+  , ("KP_Divide"   , xK_KP_Divide)
+  , ("KP_0"        , xK_KP_0)
+  , ("KP_1"        , xK_KP_1)
+  , ("KP_2"        , xK_KP_2)
+  , ("KP_3"        , xK_KP_3)
+  , ("KP_4"        , xK_KP_4)
+  , ("KP_5"        , xK_KP_5)
+  , ("KP_6"        , xK_KP_6)
+  , ("KP_7"        , xK_KP_7)
+  , ("KP_8"        , xK_KP_8)
+  , ("KP_9"        , xK_KP_9)
+  ]
 
 -- | List of multimedia keys. If X server does not know about some
 -- | keysym it's omitted from list. (stringToKeysym returns noSymbol in this case)
 multimediaKeys :: [(String, KeySym)]
-multimediaKeys = filter ((/= noSymbol) . snd) . map (id &&& stringToKeysym) $
-                 [ "XF86ModeLock"
-                 , "XF86MonBrightnessUp"
-                 , "XF86MonBrightnessDown"
-                 , "XF86KbdLightOnOff"
-                 , "XF86KbdBrightnessUp"
-                 , "XF86KbdBrightnessDown"
-                 , "XF86Standby"
-                 , "XF86AudioLowerVolume"
-                 , "XF86AudioMute"
-                 , "XF86AudioRaiseVolume"
-                 , "XF86AudioPlay"
-                 , "XF86AudioStop"
-                 , "XF86AudioPrev"
-                 , "XF86AudioNext"
-                 , "XF86HomePage"
-                 , "XF86Mail"
-                 , "XF86Start"
-                 , "XF86Search"
-                 , "XF86AudioRecord"
-                 , "XF86Calculator"
-                 , "XF86Memo"
-                 , "XF86ToDoList"
-                 , "XF86Calendar"
-                 , "XF86PowerDown"
-                 , "XF86ContrastAdjust"
-                 , "XF86RockerUp"
-                 , "XF86RockerDown"
-                 , "XF86RockerEnter"
-                 , "XF86Back"
-                 , "XF86Forward"
-                 , "XF86Stop"
-                 , "XF86Refresh"
-                 , "XF86PowerOff"
-                 , "XF86WakeUp"
-                 , "XF86Eject"
-                 , "XF86ScreenSaver"
-                 , "XF86WWW"
-                 , "XF86Sleep"
-                 , "XF86Favorites"
-                 , "XF86AudioPause"
-                 , "XF86AudioMedia"
-                 , "XF86MyComputer"
-                 , "XF86VendorHome"
-                 , "XF86LightBulb"
-                 , "XF86Shop"
-                 , "XF86History"
-                 , "XF86OpenURL"
-                 , "XF86AddFavorite"
-                 , "XF86HotLinks"
-                 , "XF86BrightnessAdjust"
-                 , "XF86Finance"
-                 , "XF86Community"
-                 , "XF86AudioRewind"
-                 , "XF86BackForward"
-                 , "XF86Launch0"
-                 , "XF86Launch1"
-                 , "XF86Launch2"
-                 , "XF86Launch3"
-                 , "XF86Launch4"
-                 , "XF86Launch5"
-                 , "XF86Launch6"
-                 , "XF86Launch7"
-                 , "XF86Launch8"
-                 , "XF86Launch9"
-                 , "XF86LaunchA"
-                 , "XF86LaunchB"
-                 , "XF86LaunchC"
-                 , "XF86LaunchD"
-                 , "XF86LaunchE"
-                 , "XF86LaunchF"
-                 , "XF86ApplicationLeft"
-                 , "XF86ApplicationRight"
-                 , "XF86Book"
-                 , "XF86CD"
-                 , "XF86Calculater"
-                 , "XF86Clear"
-                 , "XF86Close"
-                 , "XF86Copy"
-                 , "XF86Cut"
-                 , "XF86Display"
-                 , "XF86DOS"
-                 , "XF86Documents"
-                 , "XF86Excel"
-                 , "XF86Explorer"
-                 , "XF86Game"
-                 , "XF86Go"
-                 , "XF86iTouch"
-                 , "XF86LogOff"
-                 , "XF86Market"
-                 , "XF86Meeting"
-                 , "XF86MenuKB"
-                 , "XF86MenuPB"
-                 , "XF86MySites"
-                 , "XF86New"
-                 , "XF86News"
-                 , "XF86OfficeHome"
-                 , "XF86Open"
-                 , "XF86Option"
-                 , "XF86Paste"
-                 , "XF86Phone"
-                 , "XF86Q"
-                 , "XF86Reply"
-                 , "XF86Reload"
-                 , "XF86RotateWindows"
-                 , "XF86RotationPB"
-                 , "XF86RotationKB"
-                 , "XF86Save"
-                 , "XF86ScrollUp"
-                 , "XF86ScrollDown"
-                 , "XF86ScrollClick"
-                 , "XF86Send"
-                 , "XF86Spell"
-                 , "XF86SplitScreen"
-                 , "XF86Support"
-                 , "XF86TaskPane"
-                 , "XF86Terminal"
-                 , "XF86Tools"
-                 , "XF86Travel"
-                 , "XF86UserPB"
-                 , "XF86User1KB"
-                 , "XF86User2KB"
-                 , "XF86Video"
-                 , "XF86WheelButton"
-                 , "XF86Word"
-                 , "XF86Xfer"
-                 , "XF86ZoomIn"
-                 , "XF86ZoomOut"
-                 , "XF86Away"
-                 , "XF86Messenger"
-                 , "XF86WebCam"
-                 , "XF86MailForward"
-                 , "XF86Pictures"
-                 , "XF86Music"
-                 , "XF86TouchpadToggle"
-                 , "XF86AudioMicMute"
-                 , "XF86_Switch_VT_1"
-                 , "XF86_Switch_VT_2"
-                 , "XF86_Switch_VT_3"
-                 , "XF86_Switch_VT_4"
-                 , "XF86_Switch_VT_5"
-                 , "XF86_Switch_VT_6"
-                 , "XF86_Switch_VT_7"
-                 , "XF86_Switch_VT_8"
-                 , "XF86_Switch_VT_9"
-                 , "XF86_Switch_VT_10"
-                 , "XF86_Switch_VT_11"
-                 , "XF86_Switch_VT_12"
-                 , "XF86_Ungrab"
-                 , "XF86_ClearGrab"
-                 , "XF86_Next_VMode"
-                 , "XF86_Prev_VMode" ]
+multimediaKeys =
+  filter ((/= noSymbol) . snd)
+    . map (id &&& stringToKeysym)
+    $ [ "XF86ModeLock"
+      , "XF86MonBrightnessUp"
+      , "XF86MonBrightnessDown"
+      , "XF86KbdLightOnOff"
+      , "XF86KbdBrightnessUp"
+      , "XF86KbdBrightnessDown"
+      , "XF86Standby"
+      , "XF86AudioLowerVolume"
+      , "XF86AudioMute"
+      , "XF86AudioRaiseVolume"
+      , "XF86AudioPlay"
+      , "XF86AudioStop"
+      , "XF86AudioPrev"
+      , "XF86AudioNext"
+      , "XF86HomePage"
+      , "XF86Mail"
+      , "XF86Start"
+      , "XF86Search"
+      , "XF86AudioRecord"
+      , "XF86Calculator"
+      , "XF86Memo"
+      , "XF86ToDoList"
+      , "XF86Calendar"
+      , "XF86PowerDown"
+      , "XF86ContrastAdjust"
+      , "XF86RockerUp"
+      , "XF86RockerDown"
+      , "XF86RockerEnter"
+      , "XF86Back"
+      , "XF86Forward"
+      , "XF86Stop"
+      , "XF86Refresh"
+      , "XF86PowerOff"
+      , "XF86WakeUp"
+      , "XF86Eject"
+      , "XF86ScreenSaver"
+      , "XF86WWW"
+      , "XF86Sleep"
+      , "XF86Favorites"
+      , "XF86AudioPause"
+      , "XF86AudioMedia"
+      , "XF86MyComputer"
+      , "XF86VendorHome"
+      , "XF86LightBulb"
+      , "XF86Shop"
+      , "XF86History"
+      , "XF86OpenURL"
+      , "XF86AddFavorite"
+      , "XF86HotLinks"
+      , "XF86BrightnessAdjust"
+      , "XF86Finance"
+      , "XF86Community"
+      , "XF86AudioRewind"
+      , "XF86BackForward"
+      , "XF86Launch0"
+      , "XF86Launch1"
+      , "XF86Launch2"
+      , "XF86Launch3"
+      , "XF86Launch4"
+      , "XF86Launch5"
+      , "XF86Launch6"
+      , "XF86Launch7"
+      , "XF86Launch8"
+      , "XF86Launch9"
+      , "XF86LaunchA"
+      , "XF86LaunchB"
+      , "XF86LaunchC"
+      , "XF86LaunchD"
+      , "XF86LaunchE"
+      , "XF86LaunchF"
+      , "XF86ApplicationLeft"
+      , "XF86ApplicationRight"
+      , "XF86Book"
+      , "XF86CD"
+      , "XF86Calculater"
+      , "XF86Clear"
+      , "XF86Close"
+      , "XF86Copy"
+      , "XF86Cut"
+      , "XF86Display"
+      , "XF86DOS"
+      , "XF86Documents"
+      , "XF86Excel"
+      , "XF86Explorer"
+      , "XF86Game"
+      , "XF86Go"
+      , "XF86iTouch"
+      , "XF86LogOff"
+      , "XF86Market"
+      , "XF86Meeting"
+      , "XF86MenuKB"
+      , "XF86MenuPB"
+      , "XF86MySites"
+      , "XF86New"
+      , "XF86News"
+      , "XF86OfficeHome"
+      , "XF86Open"
+      , "XF86Option"
+      , "XF86Paste"
+      , "XF86Phone"
+      , "XF86Q"
+      , "XF86Reply"
+      , "XF86Reload"
+      , "XF86RotateWindows"
+      , "XF86RotationPB"
+      , "XF86RotationKB"
+      , "XF86Save"
+      , "XF86ScrollUp"
+      , "XF86ScrollDown"
+      , "XF86ScrollClick"
+      , "XF86Send"
+      , "XF86Spell"
+      , "XF86SplitScreen"
+      , "XF86Support"
+      , "XF86TaskPane"
+      , "XF86Terminal"
+      , "XF86Tools"
+      , "XF86Travel"
+      , "XF86UserPB"
+      , "XF86User1KB"
+      , "XF86User2KB"
+      , "XF86Video"
+      , "XF86WheelButton"
+      , "XF86Word"
+      , "XF86Xfer"
+      , "XF86ZoomIn"
+      , "XF86ZoomOut"
+      , "XF86Away"
+      , "XF86Messenger"
+      , "XF86WebCam"
+      , "XF86MailForward"
+      , "XF86Pictures"
+      , "XF86Music"
+      , "XF86TouchpadToggle"
+      , "XF86AudioMicMute"
+      , "XF86_Switch_VT_1"
+      , "XF86_Switch_VT_2"
+      , "XF86_Switch_VT_3"
+      , "XF86_Switch_VT_4"
+      , "XF86_Switch_VT_5"
+      , "XF86_Switch_VT_6"
+      , "XF86_Switch_VT_7"
+      , "XF86_Switch_VT_8"
+      , "XF86_Switch_VT_9"
+      , "XF86_Switch_VT_10"
+      , "XF86_Switch_VT_11"
+      , "XF86_Switch_VT_12"
+      , "XF86_Ungrab"
+      , "XF86_ClearGrab"
+      , "XF86_Next_VMode"
+      , "XF86_Prev_VMode"
+      ]
 
 -- | Given a configuration record and a list of (key sequence
 --   description, action) pairs, check the key sequence descriptions
@@ -709,26 +737,33 @@ multimediaKeys = filter ((/= noSymbol) . snd) . map (id &&& stringToKeysym) $
 --
 checkKeymap :: XConfig l -> [(String, a)] -> X ()
 checkKeymap conf km = warn (doKeymapCheck conf km)
-  where warn ([],[])   = return ()
-        warn (bad,dup) = spawn $ "xmessage 'Warning:\n"
-                            ++ msg "bad" bad ++ "\n"
-                            ++ msg "duplicate" dup ++ "'"
-        msg _ [] = ""
-        msg m xs = m ++ " keybindings detected: " ++ showBindings xs
-        showBindings = unwords . map (("\""++) . (++"\""))
+ where
+  warn ([], []) = return ()
+  warn (bad, dup) =
+    spawn
+      $  "xmessage 'Warning:\n"
+      ++ msg "bad" bad
+      ++ "\n"
+      ++ msg "duplicate" dup
+      ++ "'"
+  msg _ [] = ""
+  msg m xs = m ++ " keybindings detected: " ++ showBindings xs
+  showBindings = unwords . map (("\"" ++) . (++ "\""))
 
 -- | Given a config and a list of (key sequence description, action)
 --   pairs, check the key sequence descriptions for validity,
 --   returning a list of unparseable key sequences, and a list of
 --   duplicate key sequences.
-doKeymapCheck :: XConfig l -> [(String,a)] -> ([String], [String])
-doKeymapCheck conf km = (bad,dups)
-  where ks = map ((readKeySequence conf &&& id) . fst) km
-        bad = nub . map snd . filter (isNothing . fst) $ ks
-        dups = map (snd . head)
-             . filter ((>1) . length)
-             . groupBy ((==) `on` fst)
-             . sortBy (comparing fst)
-             . map (first fromJust)
-             . filter (isJust . fst)
-             $ ks
+doKeymapCheck :: XConfig l -> [(String, a)] -> ([String], [String])
+doKeymapCheck conf km = (bad, dups)
+ where
+  ks  = map ((readKeySequence conf &&& id) . fst) km
+  bad = nub . map snd . filter (isNothing . fst) $ ks
+  dups =
+    map (snd . head)
+      . filter ((> 1) . length)
+      . groupBy ((==) `on` fst)
+      . sortBy (comparing fst)
+      . map (first fromJust)
+      . filter (isJust . fst)
+      $ ks

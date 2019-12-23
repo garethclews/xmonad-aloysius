@@ -15,26 +15,26 @@ ____             _    _                 _
 -}
 
 -- Imports ----------------------------------------------------------------------
-import Control.Monad
+import           Control.Monad
 
-import XMonad
+import           XMonad
 
-import XMonad.Actions.DynamicProjects
+import           XMonad.Actions.DynamicProjects
 
-import XMonad.Hooks.EwmhDesktops
-import XMonad.Hooks.ManageDocks
+import           XMonad.Hooks.EwmhDesktops
+import           XMonad.Hooks.ManageDocks
 
-import XMonad.Util.Replace
-import XMonad.Util.Run
+import           XMonad.Util.Replace
+import           XMonad.Util.Run
 
 -- Personal imports (./lib/)
-import Bind.Master
-import Bus.Events
-import Bus.Hooks
-import Config.Options
-import Config.Projects
-import Container.Layout
-import Container.Navigation
+import           Bind.Master
+import           Bus.Events
+import           Bus.Hooks
+import           Config.Options
+import           Config.Projects
+import           Container.Layout
+import           Container.Navigation
 
 
 -- Configuration ----------------------------------------------------------------
@@ -43,44 +43,35 @@ import Container.Navigation
 -- use the defaults defined in xmonad/XMonad/Config.hs
 defaults = def {
   -- simple stuff
-  terminal           = term options,
-  focusFollowsMouse  = ffm options,
-  modMask            = mask options,
-  workspaces         = spaces options,
-
-  normalBorderColor  = unfocused theme,
-  focusedBorderColor = focused theme,
-  borderWidth        = border theme,
+                 terminal           = term options
+               , focusFollowsMouse  = ffm options
+               , modMask            = mask options
+               , workspaces         = spaces options
+               , normalBorderColor  = unfocused theme
+               , focusedBorderColor = focused theme
+               , borderWidth        = border theme
 
   -- key bindings
-  keys               = defaultKeys,
-  mouseBindings      = mouseBindings',
+               , keys               = defaultKeys
+               , mouseBindings      = mouseBindings'
 
   -- hooks, layouts
-  layoutHook         = layout,
-  manageHook         = hooks,
-  handleEventHook    = events options,
-  logHook            = logHook',
-  startupHook        = starts options
-}
+               , layoutHook         = layout
+               , manageHook         = hooks
+               , handleEventHook    = events options
+               , logHook            = logHook'
+               , startupHook        = starts options
+               }
 
 
 -- Main -------------------------------------------------------------------------
 main :: IO ()
 main = do
-    replace
+  replace
 
-    -- pipes
-    forM_ [ "xmonad-ws"
-          , "xmonad-layout"
-          , "caffeine"
-          ]
-          $ \file -> safeSpawn "mkfifo" ["/tmp/"++file]
+  -- pipes
+  forM_ ["xmonad-ws", "xmonad-layout", "xmonad-tray", "caffeine"]
+    $ \file -> safeSpawn "mkfifo" ["/tmp/" ++ file]
 
-    -- set up our ewmh-based desktop
-    xmonad
-      . docks
-      . ewmh
-      . navigate
-      . dynamicProjects projects
-      $ defaults
+  -- set up our ewmh-based desktop
+  xmonad . docks . ewmh . navigate . dynamicProjects projects $ defaults

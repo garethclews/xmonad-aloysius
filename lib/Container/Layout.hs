@@ -4,26 +4,26 @@ module Container.Layout where
 
 
 -- Imports ----------------------------------------------------------------------
-import XMonad
-import XMonad.Hooks.ManageDocks
+import           XMonad
+import           XMonad.Hooks.ManageDocks
 
-import XMonad.Layout.BinarySpacePartition
-import XMonad.Layout.DwmStyle
-import XMonad.Layout.Fullscreen
-import XMonad.Layout.Gaps
-import XMonad.Layout.IfMax
-import XMonad.Layout.LayoutModifier (ModifiedLayout)
-import XMonad.Layout.Named
-import XMonad.Layout.NoBorders
-import XMonad.Layout.PerWorkspace
-import XMonad.Layout.ResizableTile
-import XMonad.Layout.SimpleFloat
-import XMonad.Layout.Spacing
-import XMonad.Layout.Tabbed
-import XMonad.Layout.ThreeColumns
+import           XMonad.Layout.BinarySpacePartition
+import           XMonad.Layout.DwmStyle
+import           XMonad.Layout.Fullscreen
+import           XMonad.Layout.Gaps
+import           XMonad.Layout.IfMax
+import           XMonad.Layout.LayoutModifier   ( ModifiedLayout )
+import           XMonad.Layout.Named
+import           XMonad.Layout.NoBorders
+import           XMonad.Layout.PerWorkspace
+import           XMonad.Layout.ResizableTile
+import           XMonad.Layout.SimpleFloat
+import           XMonad.Layout.Spacing
+import           XMonad.Layout.Tabbed
+import           XMonad.Layout.ThreeColumns
 
-import Config.Projects
-import Config.Options
+import           Config.Projects
+import           Config.Options
 ------------------------------------------------------------------------
 --
 -- Layouts:
@@ -44,57 +44,47 @@ data Gaps' = Gaps'
   }
 
 gs :: Gaps'
-gs = Gaps'
-  { u  = 20
-  , d  = 20
-  , x  = 20
-  , x' = 20
-  }
+gs = Gaps' { u = 20, d = 20, x = 20, x' = 20 }
 
 
 gapses :: l a -> ModifiedLayout Gaps l a
-gapses     = gaps [(U, u gs), (R, x gs), (L, x gs), (D, d gs)]
+gapses = gaps [(U, u gs), (R, x gs), (L, x gs), (D, d gs)]
 
 spacingses :: l a -> ModifiedLayout Spacing l a
-spacingses = spacingRaw True (Border      0  (x' gs) (x' gs) (x' gs))
-                        True (Border (x' gs) (x' gs) (x' gs) (x' gs))
+spacingses = spacingRaw True
+                        (Border 0 (x' gs) (x' gs) (x' gs))
+                        True
+                        (Border (x' gs) (x' gs) (x' gs) (x' gs))
                         True
 
 
 -- customised layouts
-full = named "Fullscreen"
-     $ noBorders (fullscreenFull Full)
+full = named "Fullscreen" $ noBorders (fullscreenFull Full)
 
-bsp  = named "Binary Partition"
-     $ IfMax 1 full
-     $ gapses
-     . spacingses
-     $ emptyBSP
+bsp = named "Binary Partition" $ IfMax 1 full $ gapses . spacingses $ emptyBSP
 
-tall = named "Tall"
-     $ IfMax 1 full
-     $ gapses
-     . spacingses
-     $ ResizableTall 1 (2/100) (1/2) []
+tall = named "Tall" $ IfMax 1 full $ gapses . spacingses $ ResizableTall
+  1
+  (2 / 100)
+  (1 / 2)
+  []
 
-tcm  = named "Three Columns"
-     $ IfMax 1 full
-     $ gapses
-     . spacingses
-     $ ThreeColMid 1 (1/10) (1/2)
+tcm = named "Three Columns" $ IfMax 1 full $ gapses . spacingses $ ThreeColMid
+  1
+  (1 / 10)
+  (1 / 2)
 
-tabs = named "Tabbed"
-     $ tabbedBottom shrinkText tabTheme
+tabs = named "Tabbed" $ tabbedBottom shrinkText tabTheme
 
-flt  = named "Float"
-     $ simpleFloat' shrinkText decoTheme
+flt = named "Float" $ simpleFloat' shrinkText decoTheme
 
 
 -- layout --
-layout = avoidStruts
-       . smartBorders
-       . onWorkspace wsScratch flt
-       $ bsp
-     ||| tall
-     ||| tcm
-     ||| tabs
+layout =
+  avoidStruts
+    .   smartBorders
+    .   onWorkspace wsScratch flt
+    $   bsp
+    ||| tall
+    ||| tcm
+    ||| tabs

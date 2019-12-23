@@ -2,13 +2,13 @@
 
 module Bus.Hooks where
 
-import XMonad
+import           XMonad
 
-import XMonad.Hooks.InsertPosition
-import XMonad.Hooks.ManageDocks
-import XMonad.Hooks.ManageHelpers
+import           XMonad.Hooks.InsertPosition
+import           XMonad.Hooks.ManageDocks
+import           XMonad.Hooks.ManageHelpers
 
-import App.Scratchpad
+import           App.Scratchpad
 -- Window rules:
 
 -- Execute arbitrary actions and WindowSet manipulations when managing
@@ -24,21 +24,17 @@ import App.Scratchpad
 -- 'className' and 'resource' are used below.
 --
 hooks :: ManageHook
-hooks = composeOne
-  [ className =? "Places"
-              -?> doFloat
-  , isDialog  -?> doCenterFloat
-  , isDialog <&&> className =? "Firefox"
-              -?> doCenterFloat
-  , isRole =? "GtkFileChooserDialog"
-              -?> doCenterFloat
-  , isInProperty "_NET_WM_WINDOW_TYPE"
-                 "_NET_WM_WINDOW_TYPE_SPLASH"
-              -?> doCenterFloat
-  , transience
-  , pure True -?> insertPosition End Newer
-  ]
-  <+> manageDocks
-  <+> manageScratchpad
-  where
-    isRole = stringProperty "WM_WINDOW_ROLE"
+hooks =
+  composeOne
+      [ className =? "Places" -?> doFloat
+      , isDialog -?> doCenterFloat
+      , isDialog <&&> className =? "Firefox" -?> doCenterFloat
+      , isRole =? "GtkFileChooserDialog" -?> doCenterFloat
+      , isInProperty "_NET_WM_WINDOW_TYPE" "_NET_WM_WINDOW_TYPE_SPLASH"
+        -?> doCenterFloat
+      , transience
+      , pure True -?> insertPosition End Newer
+      ]
+    <+> manageDocks
+    <+> manageScratchpad
+  where isRole = stringProperty "WM_WINDOW_ROLE"

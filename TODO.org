@@ -21,6 +21,7 @@
 
 * STRT ACTIVE [0/1]
 - [ ] consider window decorations for float workspace
+- [ ] adding a 'system tray' based on notifications from DBus
 
 
 * WAIT DEFER [0/4]

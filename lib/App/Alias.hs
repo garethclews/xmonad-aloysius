@@ -19,7 +19,8 @@ compositor = "systemctl --user start compton"
 
 
 cursor :: String
-cursor = "xsetroot -cursor_name left_ptr"
+--cursor = "xsetroot -cursor_name left_ptr &"
+cursor = "xsetroot -cursor_name Vanilla-DMZ &"
 
 
 lang :: String
@@ -46,7 +47,8 @@ energyStar = "echo '%{F#eceff4}\xf0eb%{F-}\n' > /tmp/caffeine"
 
 
 xresource :: String
-xresource = "[[ -f ~/.Xresources ]] && nohup xrdb -merge -I$HOME ~/.Xresources >/dev/null"
+xresource =
+  "[[ -f ~/.Xresources ]] && nohup xrdb -merge -I$HOME ~/.Xresources >/dev/null"
 
 
 tty :: String
