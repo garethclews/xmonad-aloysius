@@ -23,6 +23,7 @@ import           XMonad.Actions.DynamicProjects
 
 import           XMonad.Hooks.EwmhDesktops
 import           XMonad.Hooks.ManageDocks
+import           XMonad.Hooks.UrgencyHook
 
 import           XMonad.Util.Replace
 import           XMonad.Util.Run
@@ -74,4 +75,10 @@ main = do
     $ \file -> safeSpawn "mkfifo" ["/tmp/" ++ file]
 
   -- set up our ewmh-based desktop
-  xmonad . docks . ewmh . navigate . dynamicProjects projects $ defaults
+  xmonad
+    . docks
+    . ewmh
+    . navigate
+    . dynamicProjects projects
+    . withUrgencyHook NoUrgencyHook
+    $ defaults

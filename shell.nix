@@ -4,8 +4,8 @@ let
 
   inherit (nixpkgs) pkgs;
 
-  f = { mkDerivation, base, Cabal, cabal-install, containers, stdenv, X11, xmonad
-      , xmonad-contrib, xmonad-extras, dbus
+  f = { mkDerivation, base, binary, Cabal, cabal-install, containers, stdenv, X11, xmonad
+      , xmonad-contrib, xmonad-extras, dbus, utf8-string
       }:
       mkDerivation {
         pname = "aloysius";
@@ -14,6 +14,7 @@ let
         isLibrary = false;
         isExecutable = true;
         executableHaskellDepends = [ base
+                                     binary
                                      Cabal
                                      cabal-install
                                      containers
@@ -22,6 +23,7 @@ let
                                      xmonad
                                      xmonad-contrib
                                      xmonad-extras
+                                     utf8-string
                                    ];
         homepage = "https://gitlab.com/karetsu/xmonad-aloysius";
         description = "xmonad config";

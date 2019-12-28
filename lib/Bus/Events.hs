@@ -3,14 +3,12 @@
 
 module Bus.Events where
 
-import           Data.List                      ( sortBy )
 import           Data.Function                  ( on )
+import           Data.List                      ( sortBy )
 import           Control.Monad                  ( join )
 
--- import           DBus
--- import           DBus.Client
-
 import           XMonad
+import           XMonad.Hooks.UrgencyHook       ( readUrgents )
 import qualified XMonad.StackSet               as W
 
 import           Theme.ChosenTheme
@@ -25,29 +23,6 @@ logHook' :: X ()
 logHook' = do
   winset <- gets windowset
 
-  -- focussed app
-  let currWin = head . W.index $ winset
-  apStr <- filter (/= '"') . show <$> runQuery title currWin
-  -- TODO:
-  -- this will be used to remove notifications on entry into the app
-  -- current plans are just for discord and geary and we need to abstract the
-  -- tray functionality out into another file
-
-  -- 'system tray'
-  let tray = email ++ discord
-       where
-        email   = "\xf0e0"
-        discord = "\xf086"
-  -- io $ appendFile "/tmp/xmonad-tray" (tray ++ "\n")
-  -- operations should be like this:
-  -- 1. both are set to no notification
-  -- 2. on the event that a org.freedesktop.Notification event for the apps
-  --    specified is received then the icon for that app changes
-  --    to the notification colour
-  -- 3. on the event that a window changes we check to see if it has the correct name
-  --    and if it does we revert the icon colour for that app to default
-
-
   -- workspaces
   let currWs = W.currentTag winset
   -- blocking named scratchpad appearing
@@ -58,9 +33,13 @@ logHook' = do
   let currLt = description . W.layout . W.workspace . W.current $ winset
   let ltStr  = layoutParse currLt
 
+  urgents <- readUrgents
+  let urStr = urgentParse $ getWinNames urgents
+
   -- fifo
   io $ appendFile "/tmp/xmonad-ws" (wsStr ++ "\n")
   io $ appendFile "/tmp/xmonad-layout" (ltStr ++ "\n")
+  io $ appendFile "/tmp/xmonad-tray" (urStr ++ "\n")
 
 
 fmt :: String -> String -> String
@@ -82,3 +61,14 @@ layoutParse s | s == "Three Columns"    = "%{T2}+|+%{T-} TCM "
               | s == "Float"            = "%{T2}+++%{T-} FLT "
               | s == "Fullscreen"       = "%{T2}| |%{T-} Full"
               | otherwise               = s -- fallback for changes in C.Layout
+
+
+urgentParse :: [String] -> String
+urgentParse = show
+ where
+  email _ = "mail"
+  discord _ = "discord"
+
+
+getWinNames :: [Window] -> [String]
+getWinNames _ = []

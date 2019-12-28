@@ -40,10 +40,12 @@ executable xmonad
   build-depends:       Cabal
                      , X11
                      , base ^>=4.12.0.0
+                     , binary
                      , containers ^>=0.6.0.1
                      , dbus ^>=1.2.11
                      , xmonad ^>=0.15
                      , xmonad-contrib ^>=0.15
                      , xmonad-extras ^>=0.15
+                     , utf8-string ^>=1.0
   hs-source-dirs:      lib
   default-language:    Haskell2010
