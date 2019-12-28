@@ -5,7 +5,6 @@ module Bus.Events where
 
 import           Data.Function                  ( on )
 import           Data.List                      ( sortBy )
-import           Control.Monad                  ( join )
 
 import           XMonad
 import           XMonad.Hooks.UrgencyHook       ( readUrgents )
@@ -26,15 +25,14 @@ logHook' = do
   -- workspaces
   let currWs = W.currentTag winset
   -- blocking named scratchpad appearing
-  let wss = filter (/= "NSP") $ map W.tag $ W.workspaces winset
-  let wsStr  = join $ map (fmt currWs) $ sort' wss
+  let wss    = filter (/= "NSP") $ W.tag <$> W.workspaces winset
+  let wsStr  = fmt currWs =<< sort' wss
 
   -- layout
-  let currLt = description . W.layout . W.workspace . W.current $ winset
-  let ltStr  = layoutParse currLt
+  let ltStr =
+        layoutParse . description . W.layout . W.workspace . W.current $ winset
 
-  urgents <- readUrgents
-  let urStr = urgentParse $ getWinNames urgents
+  urStr <- urgentParse <$> readUrgents
 
   -- fifo
   io $ appendFile "/tmp/xmonad-ws" (wsStr ++ "\n")
@@ -63,12 +61,8 @@ layoutParse s | s == "Three Columns"    = "%{T2}+|+%{T-} TCM "
               | otherwise               = s -- fallback for changes in C.Layout
 
 
-urgentParse :: [String] -> String
-urgentParse = show
+urgentParse :: [Window] -> String
+urgentParse ws = "[ \xf0e0 \xf004 ]"
  where
   email _ = "mail"
   discord _ = "discord"
-
-
-getWinNames :: [Window] -> [String]
-getWinNames _ = []
