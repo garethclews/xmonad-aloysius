@@ -71,8 +71,9 @@ main = do
   replace
 
   -- pipes
-  forM_ ["xmonad-ws", "xmonad-layout", "xmonad-tray", "caffeine"]
-    $ \file -> safeSpawn "mkfifo" ["/tmp/" ++ file]
+  safeSpawn "mkfifo" [ "/tmp/xmonad-wspace"
+                     , "/tmp/xmonad-layout"
+                     , "/tmp/xmonad-notice" ]
 
   -- set up our ewmh-based desktop
   xmonad

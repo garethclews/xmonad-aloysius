@@ -3,6 +3,8 @@
 
 module Bus.Events where
 
+import           Control.Monad                  ( forM_ )
+
 import           Data.Function                  ( on )
 import           Data.List                      ( sortBy )
 
@@ -18,35 +20,8 @@ import           Theme.ChosenTheme
   -- %{T-} resets it back to font-0
   -- this module then depends on +THEME+
 
-logHook' :: X ()
-logHook' = do
-  winset <- gets windowset
 
-  -- workspaces
-  let currWs = W.currentTag winset
-  -- blocking named scratchpad appearing
-  let wss    = filter (/= "NSP") $ W.tag <$> W.workspaces winset
-  let wsStr  = fmt currWs =<< sort' wss
-
-  -- layout
-  let ltStr =
-        layoutParse . description . W.layout . W.workspace . W.current $ winset
-
-  urStr <- urgentParse <$> readUrgents
-
-  -- fifo
-  io $ appendFile "/tmp/xmonad-ws" (wsStr ++ "\n")
-  io $ appendFile "/tmp/xmonad-layout" (ltStr ++ "\n")
-  io $ appendFile "/tmp/xmonad-tray" (urStr ++ "\n")
-
-
-fmt :: String -> String -> String
-fmt currWs ws
-  | currWs == ws
-  = " [%{F" ++ base06 ++ "}%{T1}" ++ ws ++ "%{T-}%{F" ++ base02 ++ "}] "
-  | otherwise
-  = "  " ++ ws ++ "  "
-
+-- Supporting functions --------------------------------------------------------
 sort' :: Ord a => [[a]] -> [[a]]
 sort' = sortBy (compare `on` (!! 0))
 
@@ -61,8 +36,48 @@ layoutParse s | s == "Three Columns"    = "%{T2}+|+%{T-} TCM "
               | otherwise               = s -- fallback for changes in C.Layout
 
 
+-- TODO: add the functionality here
 urgentParse :: [Window] -> String
-urgentParse ws = "[ \xf0e0 \xf004 ]"
- where
-  email _ = "mail"
-  discord _ = "discord"
+urgentParse _ = "[ \xf0e0 \xf004 ]"
+
+
+write :: (String, String) -> X ()
+write (x, y) = io $ appendFile x y
+
+
+fmt :: String -> String -> String
+fmt currWs ws
+  | currWs == ws = concat [" [%{F", base06, "}%{T1}", ws, "%{T-}%{F", base02, "}] "]
+  | otherwise    = "  " ++ ws ++ "  "
+
+
+-- Hook ------------------------------------------------------------------------
+logHook' :: X ()
+logHook' = do
+  winset <- gets windowset
+
+  -- workspaces
+  let currWs = W.currentTag winset
+  -- blocking named scratchpad appearing
+  let wss    = filter (/= "NSP") $ W.tag <$> W.workspaces winset
+  let wsStr  = fmt currWs =<< sort' wss
+
+  -- layout
+  let ltStr = layoutParse
+            . description
+            . W.layout
+            . W.workspace
+            . W.current
+            $ winset
+
+  -- parse urgent windows for a 'system tray'
+  urStr <- urgentParse <$> readUrgents
+
+  -- pushing logs to pipes, note all files are FIFO specials
+  -- done this way to 'future-proof' against any stupid ideas I have
+  forM_
+    [ ("/tmp/xmonad-wspace", wsStr ++ "\n")
+    , ("/tmp/xmonad-layout", ltStr ++ "\n")
+    , ("/tmp/xmonad-notice", urStr ++ "\n")
+    ]
+    write
