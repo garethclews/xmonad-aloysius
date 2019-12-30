@@ -9,8 +9,9 @@ import           Data.Function                  ( on )
 import           Data.List                      ( sortBy )
 
 import           XMonad
-import           XMonad.Hooks.UrgencyHook       ( readUrgents )
+import           XMonad.Hooks.UrgencyHook
 import qualified XMonad.StackSet               as W
+import           XMonad.Util.NamedWindows       ( getName )
 
 import           Theme.ChosenTheme
 
@@ -19,6 +20,15 @@ import           Theme.ChosenTheme
   -- %{T3} changes font to bold in polybar
   -- %{T-} resets it back to font-0
   -- this module then depends on +THEME+
+
+newtype AloyUrgencyHook = AloyUrgencyHook { hooklog :: String -- ^ location to write to
+                                          }
+instance UrgencyHook AloyUrgencyHook where
+  urgencyHook AloyUrgencyHook { hooklog = l } w = do
+    name <- getName w
+    ws   <- gets windowset
+    whenJust (W.findTag w ws) (flash name)
+    where flash name _ = write (l, show name ++ "\n")
 
 
 -- Supporting functions --------------------------------------------------------
@@ -36,9 +46,8 @@ layoutParse s | s == "Three Columns"    = "%{T2}+|+%{T-} TCM "
               | otherwise               = s -- fallback for changes in C.Layout
 
 
--- TODO: add the functionality here
-urgentParse :: [Window] -> String
-urgentParse _ = "[ \xf0e0 \xf004 ]"
+aloyUrgencyHook :: AloyUrgencyHook
+aloyUrgencyHook = AloyUrgencyHook { hooklog = "/tmp/xmonad-notice" }
 
 
 write :: (String, String) -> X ()
@@ -47,8 +56,9 @@ write (x, y) = io $ appendFile x y
 
 fmt :: String -> String -> String
 fmt currWs ws
-  | currWs == ws = concat [" [%{F", base06, "}%{T1}", ws, "%{T-}%{F", base02, "}] "]
-  | otherwise    = "  " ++ ws ++ "  "
+  | currWs == ws = concat
+    [" [%{F", base06, "}%{T1}", ws, "%{T-}%{F", base02, "}] "]
+  | otherwise = "  " ++ ws ++ "  "
 
 
 -- Hook ------------------------------------------------------------------------
@@ -63,21 +73,13 @@ logHook' = do
   let wsStr  = fmt currWs =<< sort' wss
 
   -- layout
-  let ltStr = layoutParse
-            . description
-            . W.layout
-            . W.workspace
-            . W.current
-            $ winset
-
-  -- parse urgent windows for a 'system tray'
-  urStr <- urgentParse <$> readUrgents
+  let ltStr =
+        layoutParse . description . W.layout . W.workspace . W.current $ winset
 
   -- pushing logs to pipes, note all files are FIFO specials
   -- done this way to 'future-proof' against any stupid ideas I have
   forM_
     [ ("/tmp/xmonad-wspace", wsStr ++ "\n")
     , ("/tmp/xmonad-layout", ltStr ++ "\n")
-    , ("/tmp/xmonad-notice", urStr ++ "\n")
     ]
     write

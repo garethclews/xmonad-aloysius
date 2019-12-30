@@ -15,8 +15,6 @@ ____             _    _                 _
 -}
 
 -- Imports ----------------------------------------------------------------------
-import           Control.Monad
-
 import           XMonad
 
 import           XMonad.Actions.DynamicProjects
@@ -73,7 +71,8 @@ main = do
   -- pipes
   safeSpawn "mkfifo" [ "/tmp/xmonad-wspace"
                      , "/tmp/xmonad-layout"
-                     , "/tmp/xmonad-notice" ]
+                     , "/tmp/xmonad-notice"
+                     , "/tmp/caffeine"]
 
   -- set up our ewmh-based desktop
   xmonad
@@ -81,5 +80,5 @@ main = do
     . ewmh
     . navigate
     . dynamicProjects projects
-    . withUrgencyHook NoUrgencyHook
+    . withUrgencyHook aloyUrgencyHook
     $ defaults

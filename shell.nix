@@ -4,7 +4,7 @@ let
 
   inherit (nixpkgs) pkgs;
 
-  f = { mkDerivation, base, binary, Cabal, cabal-install, containers, stdenv, X11, xmonad
+  f = { mkDerivation, base, Cabal, cabal-install, containers, stdenv, X11, xmonad
       , xmonad-contrib, xmonad-extras, dbus, utf8-string
       }:
       mkDerivation {
@@ -14,7 +14,6 @@ let
         isLibrary = false;
         isExecutable = true;
         executableHaskellDepends = [ base
-                                     binary
                                      Cabal
                                      cabal-install
                                      containers
