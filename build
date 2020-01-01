@@ -5,9 +5,9 @@ set -e
 
 local -a help clean force
 zparseopts -D --\
-  h:=help   -help:=help\
-  c:=clean  -clean:=clean\
-  f:=force  -force:=force\
+  h=help   -help=help\
+  c=clean  -clean=clean\
+  f=force  -force=force\
   t:=theme  -theme:=theme
 
 # installation target
