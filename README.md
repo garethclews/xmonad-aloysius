@@ -39,10 +39,32 @@ different repositories and it is not yet integrated. Some manual labour is
 required in order to co-ordinate the themes (across xmonad, those things managed
 by home-manager and kitty).
 
+
 | Laserwave                                      | Nord                                           |
 | ---                                            | ---                                            |
 | ![Screenshot](https://i.imgur.com/FWXxd19.png) | ![Screenshot](https://i.imgur.com/eRHOmQT.png) |
 
+
+XMonad-Aloysius includes a means by which you can specify which theme you want
+through the build script. Please note that specifying the theme automatically
+produces a build call so you **do not need both** `-b` and `-t [themename]`.
+
+To switch all of your xmonad features (dmenu, dzen, containers etc.) to your
+choice of theme then its as easy as
+
+``` sh
+./build -t [nord|laserwave|dracula|ephemeral]
+```
+
+
+We currently have four themes available across XMonad, nix overlay and kitty:
+
+* [Nord](https://www.nordtheme.com/)
+* [Laserwave](https://github.com/Jaredk3nt/laserwave)
+* [Dracula](https://draculatheme.com)
+* [Ephemeral](https://github.com/elenapan/dotfiles)
+
+Note: Screenshots will become available when I get time.
 
 ## Features
 
@@ -68,7 +90,7 @@ plus whatever follows it
 | Search prompt                       | Launch a dmenu prompt to launch a web search*                                                                       | <kbd>M</kbd> <kbd>/</kbd> <kbd>p</kbd> \<search option\>                 |
 | Toggling DPMS                       | Polybar clickable icon to toggle `xset +-dpms` and `xset s on/off`                                                  | click on lightbulb                                                       |
 | Lock screen                         | Provided by i3lock-color & used in lock and suspend                                                                 | <kbd>M</kbd> <kbd>q</kbd> <kbd>l</kbd> or lock in polybar                |
-| Dedicated floating window workspace | A workspace where all windows float (workspace 7 by default)                                                        | <kbd>M</kbd> <kbd>7</kbd>                                                |
+| Dedicated floating window workspace | A workspace where all windows float (workspace 8 by default)                                                        | <kbd>M</kbd> <kbd>8</kbd>                                                |
 | Navigation2D                        | Swap windows on workspaces, go to windows and go to screens with keyboard shortcuts                                 | <kbd>M</kbd> { ,<kbd>S-</kbd>,<kbd>C-</kbd>} \<arrow keys\>              |
 | XMonad prompt                       | Prompt to run lesser used xmonad actions                                                                            | <kbd>M</kbd> <kbd>/</kbd> <kbd>/</kbd>                                   |
 
@@ -147,8 +169,8 @@ cd xmonad-aloysius
 ./build -h
 ```
 
-This will print the build help documentation. Follow the options presented here
-to build the binary to your needs.
+This will print the build help documentation. Follow the options presented to
+build the binary to your needs.
 
 
 ## Key Bindings
@@ -169,6 +191,6 @@ been changed to) and <kbd>S</kbd> is Shift.
 | <kbd>M</kbd> <kbd>S</kbd>-<kbd>Tab</kbd> | Move to previous window            |
 | <kbd>M</kbd> <kbd>q</kbd> <kbd>q</kbd>   | Quit XMonad                        |
 | <kbd>M</kbd> <kbd>q</kbd> <kbd>m</kbd>   | Open the power menu                |
-| <kbd>M</kbd> <kbd>1</kbd>..<kbd>7</kbd>  | Change to workspace 1 thro' 7      |
+| <kbd>M</kbd> <kbd>1</kbd>..<kbd>8</kbd>  | Change to workspace 1 thro' 8      |
 | <kbd>M</kbd> <kbd>\`</kbd>               | Launch scratchpad terminal         |
-| <kbd>M</kbd> <kbd>a</kbd> <kbd>k</kbd>   | Close application                  |
+| <kbd>M</kbd> <kbd>a</kbd> <kbd>q</kbd>   | Close application                  |

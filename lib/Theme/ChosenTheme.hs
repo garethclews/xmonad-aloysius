@@ -7,11 +7,12 @@ module Theme.ChosenTheme where
 -- > Change this to your colour preference of choice
 --   NOTE: the polybar colour and screen lock are handled elsewhere
 --         as is Xresources
--- import qualified Theme.Dracula   as T
--- import qualified Theme.Ephemeral as T
--- import qualified Theme.Laserwave as T
-import qualified Theme.Nord as T
-
+import qualified Theme.Laserwave as T
+-- available themes:
+-- Laserwave
+-- Nord
+-- Dracula
+-- Ephemeral
 
 basebg = T.basebg
 basefg = T.basefg

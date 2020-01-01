@@ -1,6 +1,6 @@
 #+TITLE: XMonad-Aloysius
 
-* TODO GENERAL [0/5]
+* TODO GENERAL [0/6]
 - [ ] use urgencyhook to either change the colour of the workspace in polybar
 - [ ] work through https://hackage.haskell.org/package/xmonad-contrib-0.15/docs/XMonad-Doc-Extending.html
 - [ ] make window decoration clickable on floating workspace

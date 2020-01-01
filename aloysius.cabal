@@ -40,7 +40,6 @@ executable xmonad
   build-depends:       Cabal
                      , X11
                      , base ^>=4.12.0.0
-                     , binary
                      , containers ^>=0.6.0.1
                      , dbus ^>=1.2.11
                      , xmonad ^>=0.15

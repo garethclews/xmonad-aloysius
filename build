@@ -4,10 +4,11 @@
 set -e
 
 local -a help clean force
-zparseopts \
-  h=help   -help=help\
-  c=clean  -clean=clean\
-  f=force  -force=force
+zparseopts -D --\
+  h:=help   -help:=help\
+  c:=clean  -clean:=clean\
+  f:=force  -force:=force\
+  t:=theme  -theme:=theme
 
 # installation target
 ILOC=$HOME/.xmonad/xmonad-x86_64-linux
@@ -29,6 +30,9 @@ help () {
       -c --clean   compile then remove build content
       -C --tidy    only remove previous build content
       -a --all     get all of the supplementary content
+
+      -t --theme [nord|dracula|ephemeral|laserwave]
+             sets a theme and recompiles xmonad with that theme
 
       No flag causes a standard compile with no cleaning
 
@@ -96,8 +100,37 @@ all () {
   echo "   Overlay installed   "
 }
 
+
+themeset () {
+  theme=("${(@)theme:#-t}")
+  echo "  setting new theme: $theme[@]"
+
+  case $theme[@] in
+    nord)
+      sed 's/import qualified Theme.*/import qualified Theme.Nord as T/' \
+        -i lib/Theme/ChosenTheme.hs
+    ;;
+    laserwave)
+      sed 's/import qualified Theme.*/import qualified Theme.Laserwave as T/' \
+        -i lib/Theme/ChosenTheme.hs
+      ;;
+    ephemeral)
+      sed 's/import qualified Theme.*/import qualified Theme.Ephemeral as T/' \
+        -i lib/Theme/ChosenTheme.hs
+      ;;
+    dracula)
+      sed 's/import qualified Theme.*/import qualified Theme.Dracula as T/' \
+        -i lib/Theme/ChosenTheme.hs
+      ;;
+    *)
+      echo "  You have incorrectly specified a theme, please see the help"
+      ;;
+  esac
+}
+
 # -- Runtime --------------------------------------------------------------------
-[[ -n $help  ]] && help  && exit
-[[ -n $clean ]] && clean && exit
-[[ -n $force ]] && build && exit
+[[ -n $help  ]] && help     && exit
+[[ -n $clean ]] && clean    && exit
+[[ -n $force ]] && build    && exit
+[[ -n $theme ]] && themeset && build && exit
 [[ $OLD > 1  ]] && build || echo "   No compilation required"
