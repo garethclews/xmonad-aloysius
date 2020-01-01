@@ -5,9 +5,9 @@ set -e
 
 local -a help clean force
 zparseopts -D --\
-  h:=help   -help:=help\
-  c:=clean  -clean:=clean\
-  f:=force  -force:=force\
+  h=help   -help=help\
+  c=clean  -clean=clean\
+  f=force  -force=force\
   t:=theme  -theme:=theme
 
 # installation target
@@ -101,36 +101,64 @@ all () {
 }
 
 
-themeset () {
+themeCompile () {
   theme=("${(@)theme:#-t}")
-  echo "  setting new theme: $theme[@]"
+  echo "  Setting new theme: $theme[@]"
 
   case $theme[@] in
-    nord)
-      sed 's/import qualified Theme.*/import qualified Theme.Nord as T/' \
-        -i lib/Theme/ChosenTheme.hs
-    ;;
-    laserwave)
-      sed 's/import qualified Theme.*/import qualified Theme.Laserwave as T/' \
-        -i lib/Theme/ChosenTheme.hs
-      ;;
-    ephemeral)
-      sed 's/import qualified Theme.*/import qualified Theme.Ephemeral as T/' \
-        -i lib/Theme/ChosenTheme.hs
-      ;;
-    dracula)
-      sed 's/import qualified Theme.*/import qualified Theme.Dracula as T/' \
-        -i lib/Theme/ChosenTheme.hs
-      ;;
+    nord)      setTheme $theme[@];;
+    laserwave) setTheme $theme[@];;
+    ephemeral) setTheme $theme[@];;
+    dracula)   setTheme $theme[@];;
     *)
-      echo "  You have incorrectly specified a theme, please see the help"
+      echo "   You have incorrectly specified a theme, please see the help"
       ;;
   esac
 }
 
-# -- Runtime --------------------------------------------------------------------
-[[ -n $help  ]] && help     && exit
-[[ -n $clean ]] && clean    && exit
-[[ -n $force ]] && build    && exit
-[[ -n $theme ]] && themeset && build && exit
-[[ $OLD > 1  ]] && build || echo "   No compilation required"
+
+setTheme () {
+  THEME=$theme[@]
+  PROPER=$(echo $theme[@] | sed 's/^\s*./\U&\E/g')
+
+  sed "s/import qualified Theme.*/import qualified Theme.$PROPER as T/" \
+    -i lib/Theme/ChosenTheme.hs
+
+  # kitty
+  [[ -a ~/.config/kitty/themes/$THEME.conf ]] &&
+    sed "s/include themes\/.*/include themes\/$THEME.conf/" \
+      -i ~/.config/kitty/kitty.conf
+
+  # everything under home-manager
+  [[ -a ~/.config/nixpkgs/etc/dunst.nix ]] && \
+    sed "s/\(let colours = import .\/themes\/\).*;/\1$THEME.nix;/" \
+    -i ~/.config/nixpkgs/etc/dunst.nix
+
+
+  [[ -a ~/.config/nixpkgs/etc/dunst.nix ]] && \
+    sed "s/\(let colours = import .\/themes\/\).*;/\1$THEME.nix;/" \
+      -i ~/.config/nixpkgs/etc/dunst.nix
+
+
+  [[ -a ~/.config/nixpkgs/etc/polybar-xmonad.nix ]] && \
+    sed "s/\(colours = import .\/themes\/\).*;/\1$THEME.nix;/" \
+      -i ~/.config/nixpkgs/etc/polybar-xmonad.nix
+
+
+  [[ -a ~/.config/nixpkgs/etc/xresources.nix ]] && \
+    sed "s/\(colours = import .\/themes\/\).*;/\1$THEME.nix;/" \
+      -i ~/.config/nixpkgs/etc/xresources.nix
+
+  home-manager switch 2>> install.log 1>/dev/null
+  pkill -USR1 polybar
+
+  echo "   Additional theme elements applied"
+}
+
+
+# Runtime --------------------------------------------------------------------
+[[ -n $help  ]] && help         && exit
+[[ -n $clean ]] && clean        && exit
+[[ -n $force ]] && build        && exit
+[[ -n $theme ]] && themeCompile && build && ~/.scripts/caffeine && exit
+[[ $OLD > 1  ]] && build        || echo " No compilation required"
