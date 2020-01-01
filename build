@@ -103,7 +103,7 @@ all () {
 
 themeset () {
   theme=("${(@)theme:#-t}")
-  echo "  setting new theme: $theme[@]"
+  echo " setting new theme: $theme[@]"
 
   case $theme[@] in
     nord)
@@ -123,7 +123,7 @@ themeset () {
         -i lib/Theme/ChosenTheme.hs
       ;;
     *)
-      echo "  You have incorrectly specified a theme, please see the help"
+      echo "   You have incorrectly specified a theme, please see the help"
       ;;
   esac
 }

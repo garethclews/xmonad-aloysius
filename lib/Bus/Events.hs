@@ -57,7 +57,7 @@ write (x, y) = io $ appendFile x y
 fmt :: String -> String -> String
 fmt currWs ws
   | currWs == ws = concat
-    [" [%{F", base06, "}%{T1}", ws, "%{T-}%{F", base02, "}] "]
+    [" [%{F", base06, "}%{T1}", ws, "%{T-}%{F" ++ base02 ++ "}] "]
   | otherwise = "  " ++ ws ++ "  "
 
 
