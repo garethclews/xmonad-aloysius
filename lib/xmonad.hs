@@ -80,5 +80,5 @@ main = do
     . ewmh
     . navigate
     . dynamicProjects projects
-    . withUrgencyHook aloyUrgencyHook
+    . withUrgencyHook NoUrgencyHook
     $ defaults
