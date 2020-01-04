@@ -16,26 +16,56 @@ import           Theme.ChosenTheme
 powerMenu :: X ()
 powerMenu =
   dzenConfig
-      (   font "Font Awesome:size=12"
-      >=> timeout 5
+      (   font "Iosevka Nerd Font:style=Regular:size=12"
       >=> xScreen 1
-      >=> x 2370
-      >=> y 0
+      >=> x 2352
+      >=> y 52
       >=> align AlignCenter
       >=> bgColor basebg
-      >=> addArgs ["-h", "52", "-w", "180"]
+      >=> addArgs
+            [ "-h"
+            , "52"
+            , "-w"
+            , "208"
+            , "-l"
+            , "3"
+            , "-m"
+            , "-e"
+            , "onstart=uncollapse,grabkeys;"
+            ++ "button3=exit:1;"
+            ++ "key_Escape=ungrabkeys,exit;"
+            ++ "key_Left=scrollup;"
+            ++ "key_Right=scrolldown;"
+            ++ "key_Enter=menuexec;"
+            ++ "key_s=exec:"
+            ++ suspend
+            ++ ";"
+            ++ "key_r=exec:systemctl reboot;"
+            ++ "key_p=exec:systemctl poweroff;"
+            , "-p"
+            ]
       )
-    $  "^fg("
+    $  "\xf444 Power Menu \xf444\n"
+    ++ "    ^fg("
     ++ base14
     ++ ")^ca(1, "
     ++ suspend
-    ++ ")\xf04c^ca() \
-        \^p(20)^fg("
+    ++ ")\xf04c^fg()   Suspend    "
+    ++ "^fg("
+    ++ base02
+    ++ ")(s)^fg()^ca()\n"
+    ++ "    ^fg("
     ++ base08
-    ++ ")^ca(1, systemctl reboot)\xf021^ca() \
-                       \^p(20)^fg("
+    ++ ")^ca(1, systemctl reboot)\xf021^fg()   Reboot     "
+    ++ "^fg("
+    ++ base02
+    ++ ")(r)^fg()^ca()\n"
+    ++ "    ^fg("
     ++ base11
-    ++ ")^ca(1, systemctl poweroff)\xf011^ca()"
+    ++ ")^ca(1, systemctl poweroff)\xf011^fg()   Power off  "
+    ++ "^fg("
+    ++ base02
+    ++ ")(p)^fg()^ca()"
 
 
 appLauncher :: String
