@@ -6,6 +6,11 @@
 module App.Alias where
 
 
+audioSink :: String
+audioSink =
+  "pactl set-default-sink alsa_output.pci-0000_01_00.1.hdmi-stereo-extra2"
+
+
 panel :: String
 panel = "~/.scripts/polybar/launch"
 
@@ -19,8 +24,7 @@ compositor = "systemctl --user start compton"
 
 
 cursor :: String
---cursor = "xsetroot -cursor_name left_ptr &"
-cursor = "xsetroot -cursor_name Vanilla-DMZ &"
+cursor = "xsetroot -cursor_name left_ptr &"
 
 
 lang :: String
@@ -29,10 +33,6 @@ lang = "export LANG=en_GB.UTF-8"
 
 numlock :: String
 numlock = "numlockx"
-
-
-notifications :: String
-notifications = "dunst"
 
 
 screensaver :: String

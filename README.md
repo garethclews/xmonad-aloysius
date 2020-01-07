@@ -3,6 +3,8 @@
 A multi-themed XMonad configuration by Aloysius.
 
 
+
+
 ## Details
 
 This XMonad configuration is my attempt at making it feel more like a desktop
@@ -65,6 +67,40 @@ We currently have four themes available across XMonad, nix overlay and kitty:
 * [Ephemeral](https://github.com/elenapan/dotfiles)
 
 Note: Screenshots will become available when I get time.
+
+
+## Quick-start
+
+If you already have this installed and lose your way or don't remember bindings
+then press <kbd>Win</kbd><kbd>/</kbd><kbd>/</kbd> to bring up the 'xmonad
+prompt' and use this handy list of aliased actions. If you use this a lot and
+would like to request additional actions for this menu then raise an issue.
+
+
+#### WM Commands
+
+| Command | What it does                                                     |
+|---------|------------------------------------------------------------------|
+| inc-win | increases the count of possible windows in the master area       |
+| dec-win | the opposite of `inc-win`                                        |
+| struts  | toggles any 'struts', this is used to remove polybar from screen |
+| lock    | activates the screensaver                                        |
+| kill    | close the currently focused application                         |
+
+
+#### Media Commands
+
+| Command | Media action taken       |
+|---------|--------------------------|
+| mplay   | toggle play-pause state  |
+| mpause  | toggle play-pause state* |
+| mstop   | stop player              |
+| mnext   | skip to next song        |
+| mprev   | skip backward            |
+| mdown   | decrease volume by 5%    |
+| mup     | increase volume by 5%    |
+| mmute   | mutes the sink           |
+
 
 ## Features
 
@@ -194,3 +230,4 @@ been changed to) and <kbd>S</kbd> is Shift.
 | <kbd>M</kbd> <kbd>1</kbd>..<kbd>8</kbd>  | Change to workspace 1 thro' 8      |
 | <kbd>M</kbd> <kbd>\`</kbd>               | Launch scratchpad terminal         |
 | <kbd>M</kbd> <kbd>a</kbd> <kbd>q</kbd>   | Close application                  |
+

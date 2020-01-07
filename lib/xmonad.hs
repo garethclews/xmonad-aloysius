@@ -69,10 +69,13 @@ main = do
   replace
 
   -- pipes
-  safeSpawn "mkfifo" [ "/tmp/xmonad-wspace"
-                     , "/tmp/xmonad-layout"
-                     , "/tmp/xmonad-notice"
-                     , "/tmp/caffeine"]
+  safeSpawn
+    "mkfifo"
+    [ "/tmp/xmonad-wspace"
+    , "/tmp/xmonad-layout"
+    , "/tmp/xmonad-notice"
+    , "/tmp/caffeine"
+    ]
 
   -- set up our ewmh-based desktop
   xmonad
