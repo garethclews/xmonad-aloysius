@@ -52,17 +52,15 @@ options = Options
   , events = ewmhDesktopsEventHook
   , starts = ewmhDesktopsStartup
              >> setWMName "XMonad"
-             -- apps from alias
+             >> spawnOnce audioSink
              >> spawnOnce panel
              >> spawnOnce numlock
              >> spawnOnce wallpaper
              >> spawnOnce compositor
              >> spawnOnce cursor
              >> spawnOnce lang
-             -- >> spawnOnce notifications
              >> spawnOnce energyStar
              >> spawnOnce xresource
-             -- return ()
   }
 
 
@@ -83,7 +81,7 @@ promptConfig = P.def { P.fgColor           = base04
                      , P.font              = sansserif
                      , P.promptBorderWidth = 0
                      , P.height            = 52
-                     , P.defaultText       = " "
+                     , P.defaultText       = ""
                      , P.historySize       = 0
                      , P.maxComplRows      = Just 0
                      , P.position          = P.Top
@@ -133,7 +131,7 @@ decoTheme = def { activeColor         = base00
                 , urgentBorderColor   = basebg
                 , urgentTextColor     = base12
                 , fontName            = monospace
-                , windowTitleAddons   = [("\xf005", AlignRightOffset 12)]
+                , windowTitleAddons   = [("\xf004", AlignRightOffset 24)]
                 , decoHeight          = 40
                 , decoWidth           = 2560
                 }

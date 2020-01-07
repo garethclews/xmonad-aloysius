@@ -53,13 +53,12 @@ defaultKeys c =
          , spawn code
          )
 
-
   -- window manipulation
        , ("<S> w g", gotoMenuArgs $ dmenuTheme base12 "Go to window:  ")
        , ( "<S> w b"
          , bringMenuArgs $ dmenuTheme base12 "Bring window:  "
          )
---  , ("<S> w ?"       , layoutMenu)
+       -- , ("<S> w ?", layoutMenu)
        , ("<S> w h", sendMessage Shrink)
        , ("<S> w l", sendMessage Expand)
        , ("<S> w .", sendMessage $ IncMasterN 1)
@@ -115,14 +114,22 @@ defaultKeys c =
        ]
   -- @end keys
 
--- Menu for less common actions
+-- Menu for less common actions or those without media keys
 actions :: [(String, X ())]
 actions =
-  [ ("increaseM"   , sendMessage (IncMasterN 1))
-  , ("decreaseM"   , sendMessage (IncMasterN (-1)))
-  , ("toggleStruts", sendMessage ToggleStruts)
-  , ("screensaver" , spawn screensaver)
-  , ("kill"        , kill1)
+  [ ("inc-win", sendMessage (IncMasterN 1))
+  , ("dec-win", sendMessage (IncMasterN (-1)))
+  , ("struts" , sendMessage ToggleStruts)
+  , ("lock"   , spawn screensaver)
+  , ("kill"   , kill1)
+  , ("mplay"  , spawn "playerctl play-pause")
+  , ("mpause" , spawn "playerctl play-pause")
+  , ("mstop"  , spawn "playerctl stop")
+  , ("mnext"  , spawn "playerctl next")
+  , ("mprev"  , spawn "playerctl previous")
+  , ("mdown"  , spawn "pactl set-sink-volume 0 -5%")
+  , ("mup"    , spawn "pactl set-sink-volume 0 +5%")
+  , ("mmute", spawn "pactl set-sink-mute 0 toggle")
   ]
 
 
@@ -153,16 +160,17 @@ numPadKeys =
 mouseBindings' :: XConfig l -> M.Map (KeyMask, Button) (Window -> X ())
 mouseBindings' XConfig { XMonad.modMask = modm } = M.fromList
     -- mod-button1, flexible linear scale
-  [ ( (mod4Mask, button1)
+  [ ( (modm, button1)
     , \w -> focus w >> F.mouseWindow F.discrete w
     )
-    -- mod-button2, Raise the window to the top of the stack
-  , ( (mod4Mask, button2)
+    -- mod-button4, Raise the window to the top of the stack
+  , ( (modm, button4)
     , \w -> focus w >> windows W.shiftMaster
     )
     -- mod-button3, Set the window to floating mode and resize by dragging
-  , ( (mod4Mask, button3)
+  , ( (modm, button3)
     , \w -> focus w >> mouseResizeWindow w >> windows W.shiftMaster
     )
     -- you may also bind events to the mouse scroll wheel (button4 and button5)
+    -- and middle click (button3)
   ]

@@ -34,9 +34,6 @@ powerMenu =
             , "onstart=uncollapse,grabkeys;"
             ++ "button3=exit:1;"
             ++ "key_Escape=ungrabkeys,exit;"
-            ++ "key_Left=scrollup;"
-            ++ "key_Right=scrolldown;"
-            ++ "key_Enter=menuexec;"
             ++ "key_s=exec:"
             ++ suspend
             ++ ";"
@@ -45,7 +42,11 @@ powerMenu =
             , "-p"
             ]
       )
-    $  "\xf444 Power Menu \xf444\n"
+    $  "^fg("
+    ++ base12
+    ++ ")\xf0e7^fg()   Power Menu   ^fg("
+    ++ base12
+    ++ ")\xf0e7^fg()\n"
     ++ "    ^fg("
     ++ base14
     ++ ")^ca(1, "
