@@ -21,16 +21,6 @@ import           Theme.ChosenTheme
   -- %{T-} resets it back to font-0
   -- this module then depends on +THEME+
 
-newtype AloyUrgencyHook = AloyUrgencyHook { hooklog :: String -- ^ location to write to
-                                          }
-instance UrgencyHook AloyUrgencyHook where
-  urgencyHook AloyUrgencyHook { hooklog = l } w = do
-    name <- getName w
-    ws   <- gets windowset
-    whenJust (W.findTag w ws) (flash name)
-    where flash name _ = write (l, show name ++ "\n")
-
-
 -- Supporting functions --------------------------------------------------------
 sort' :: Ord a => [[a]] -> [[a]]
 sort' = sortBy (compare `on` (!! 0))
@@ -44,10 +34,6 @@ layoutParse s | s == "Three Columns"    = "%{T2}+|+%{T-} TCM "
               | s == "Float"            = "%{T2}+++%{T-} FLT "
               | s == "Fullscreen"       = "%{T2}| |%{T-} Full"
               | otherwise               = s -- fallback for changes in C.Layout
-
-
-aloyUrgencyHook :: AloyUrgencyHook
-aloyUrgencyHook = AloyUrgencyHook { hooklog = "/tmp/xmonad-notice" }
 
 
 write :: (String, String) -> X ()

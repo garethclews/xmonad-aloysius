@@ -8,6 +8,7 @@ import           XMonad
 
 import           XMonad.Hooks.EwmhDesktops
 import           XMonad.Hooks.SetWMName
+import           XMonad.Hooks.UrgencyHook
 
 import           XMonad.Layout.Tabbed
 
@@ -90,20 +91,13 @@ promptConfig = P.def { P.fgColor           = base04
 
 dmenuTheme :: String -> String -> [String]
 dmenuTheme colour s =
-  [ "-fn"
-  , sansserif'
-  , "-nb"
-  , basebg
-  , "-nf"
-  , base04
-  , "-sf"
-  , base00
-  , "-sb"
-  , colour
-  , "-h"
-  , "52"
-  , "-p"
-  , s
+  [ "-fn", sansserif'
+  , "-nb", basebg
+  , "-nf", base04
+  , "-sf", base00
+  , "-sb", colour
+  , "-h", "52"
+  , "-p", s
   ]
 
 

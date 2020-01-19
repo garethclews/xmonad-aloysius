@@ -34,7 +34,7 @@ import           Config.Options
 import           Config.Projects
 import           Container.Layout
 import           Container.Navigation
-
+import           Theme.ChosenTheme
 
 -- Configuration ----------------------------------------------------------------
 -- A structure containing your configuration settings, overriding
@@ -73,7 +73,6 @@ main = do
     "mkfifo"
     [ "/tmp/xmonad-wspace"
     , "/tmp/xmonad-layout"
-    , "/tmp/xmonad-notice"
     , "/tmp/caffeine"
     ]
 
@@ -83,5 +82,5 @@ main = do
     . ewmh
     . navigate
     . dynamicProjects projects
-    . withUrgencyHook aloyUrgencyHook
+    . withUrgencyHook NoUrgencyHook
     $ defaults

@@ -8,7 +8,7 @@ let
     , xmonad, xmonad-contrib, xmonad-extras }:
     mkDerivation {
       pname = "aloysius";
-      version = "1.0.0.1";
+      version = "1.0.1.0";
       src = ./.;
       isLibrary = false;
       isExecutable = true;
