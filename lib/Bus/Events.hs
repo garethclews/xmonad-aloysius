@@ -9,9 +9,7 @@ import           Data.Function                  ( on )
 import           Data.List                      ( sortBy )
 
 import           XMonad
-import           XMonad.Hooks.UrgencyHook
 import qualified XMonad.StackSet               as W
-import           XMonad.Util.NamedWindows       ( getName )
 
 import           Theme.ChosenTheme
 

@@ -34,7 +34,7 @@ import           Config.Options
 import           Config.Projects
 import           Container.Layout
 import           Container.Navigation
-import           Theme.ChosenTheme
+
 
 -- Configuration ----------------------------------------------------------------
 -- A structure containing your configuration settings, overriding
@@ -69,12 +69,8 @@ main = do
   replace
 
   -- pipes
-  safeSpawn
-    "mkfifo"
-    [ "/tmp/xmonad-wspace"
-    , "/tmp/xmonad-layout"
-    , "/tmp/caffeine"
-    ]
+  safeSpawn "mkfifo"
+            ["/tmp/xmonad-wspace", "/tmp/xmonad-layout", "/tmp/caffeine"]
 
   -- set up our ewmh-based desktop
   xmonad
