@@ -53,7 +53,8 @@ options = Options
   , events = ewmhDesktopsEventHook
   , starts = ewmhDesktopsStartup
              >> setWMName "XMonad"
-             >> spawnOnce audioSink
+             >> spawnOnce gnomeSession
+             -- >> spawnOnce audioSink
              >> spawnOnce panel
              >> spawnOnce numlock
              >> spawnOnce wallpaper
@@ -91,13 +92,20 @@ promptConfig = P.def { P.fgColor           = base04
 
 dmenuTheme :: String -> String -> [String]
 dmenuTheme colour s =
-  [ "-fn", sansserif'
-  , "-nb", basebg
-  , "-nf", base04
-  , "-sf", base00
-  , "-sb", colour
-  , "-h", "52"
-  , "-p", s
+  [ "-fn"
+  , sansserif'
+  , "-nb"
+  , basebg
+  , "-nf"
+  , base04
+  , "-sf"
+  , base00
+  , "-sb"
+  , colour
+  , "-h"
+  , "52"
+  , "-p"
+  , s
   ]
 
 
