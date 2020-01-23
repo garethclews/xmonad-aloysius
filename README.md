@@ -152,6 +152,7 @@ can be updated.
 | `xmonad-contrib` | Contributed additional functionality for xmonad                        | Everywhere, so much of the code base is these extras                                     |
 | `dzen2`          | General purpose messaging and notification program                     | Power menu                                                                               |
 | `dmenu2`         | General purpose menu                                                   | Application launcher, jump to window, bring window                                       |
+| `gnome-session`  | Enables keyring and appearance                                         | Loading all gnome session preferences (gtk appearance etc.)                              |
 | `xset`           | User preference utility for X                                          | Enabling/Disabling DPMS and screensaver                                                  |
 | `feh`            | Image viewer and wallpaper setter                                      | Wallpaper                                                                                |
 | `polybar`        | Status bar                                                             | Workspace info, layout info, launchers, DPMS toggling, spotify info, time, volume, power |

@@ -12,7 +12,7 @@ audioSink =
 
 
 gnomeSession :: String
-gnomeSession = "gnome-session --disable-acceleration-check -f"
+gnomeSession = "gnome-session --disable-acceleration-check -f &"
 
 
 panel :: String
