@@ -43,7 +43,7 @@ and kitty).
 | Laserwave                                      | Nord                                           |
 | ---                                            | ---                                            |
 | ![Screenshot](https://i.imgur.com/FWXxd19.png) | ![Screenshot](https://i.imgur.com/eRHOmQT.png) |
-|                                                |                                                |
+
 | Ephemeral                                      |                                                |
 |------------------------------------------------|------------------------------------------------|
 | [!Screenshot](https://i.imgur.com/g2z5dB1.png) |                                                |
