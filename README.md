@@ -53,11 +53,11 @@ and kitty).
 
 | Dracula                                        |
 |------------------------------------------------|
-| ![Screenshot](https://i.imgur.com/g2z5dB1.png) |
+| ![Screenshot]() |
 
 | Lovelace                                       |
 |------------------------------------------------|
-| ![Screenshot](https://i.imgur.com/g2z5dB1.png) |
+| ![Screenshot]() |
 
 
 XMonad-Aloysius includes a means by which you can specify which theme you want

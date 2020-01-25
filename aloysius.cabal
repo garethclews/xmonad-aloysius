@@ -36,6 +36,7 @@ executable xmonad
                      , Theme.Ephemeral
                      , Theme.Nord
                      , Theme.Laserwave
+                     , Theme.Lovelace
   -- other-extensions:
   build-depends:       Cabal
                      , X11
