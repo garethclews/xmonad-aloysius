@@ -39,16 +39,23 @@ different repositories and it is not yet integrated. There's some manual labour
 to co-ordinate the themes (across xmonad, those things managed by home-manager
 and kitty).
 
-
-| Laserwave                                      |
-| ---                                            |
-| ![Screenshot](https://i.imgur.com/FWXxd19.png) |
-
 | Nord                                           |
-| ---                                            |
+|------------------------------------------------|
 | ![Screenshot](https://i.imgur.com/eRHOmQT.png) |
 
-| Ephemeral
+| Laserwave                                      |
+|------------------------------------------------|
+| ![Screenshot](https://i.imgur.com/FWXxd19.png) |
+
+| Ephemeral                                      |
+|------------------------------------------------|
+| ![Screenshot](https://i.imgur.com/g2z5dB1.png) |
+
+| Dracula                                        |
+|------------------------------------------------|
+| ![Screenshot](https://i.imgur.com/g2z5dB1.png) |
+
+| Lovelace                                       |
 |------------------------------------------------|
 | ![Screenshot](https://i.imgur.com/g2z5dB1.png) |
 
@@ -166,7 +173,7 @@ can update.
 | `dunst`          | Notification daemon                                                    | self-explanatory                                                                         |
 | `pulseaudio`     | Sound system                                                           | Liberal use made of pacmd and pactl, anything audio related                              |
 | Iosevka Custom   | Fonts (see [here](https://github.com/elenapan/dotfiles))               | self-explanatory                                                                         |
-| Deadhead Script  | Lock screen font - [here](https://www.dafont.com/deadhead-script.font) | self-explanatory                                                                         |
+| Deadhead Script  | Lock screen font ([here](https://www.dafont.com/deadhead-script.font)) | self-explanatory                                                                         |
 | FontAwesome      | Icons                                                                  | self-explanatory                                                                         |
 | `nix`            | A purely functional package manager                                    | Compilation of the xmonad binary                                                         |
 | `fd`             | A replacement for `find`                                               | It is in the `build` script to find the compiled xmonad version                          |
