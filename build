@@ -110,6 +110,7 @@ themeCompile () {
     laserwave) setTheme $theme[@];;
     ephemeral) setTheme $theme[@];;
     dracula)   setTheme $theme[@];;
+    lovelace)  setTheme $theme[@];;
     *)
       echo "   You have incorrectly specified a theme, please see the help"
       ;;

@@ -65,14 +65,13 @@ choice of theme then its as easy as
 ```
 
 
-We currently have four themes available across XMonad, nix overlay and kitty:
+We currently have five themes available across XMonad
 
 * [Nord](https://www.nordtheme.com/)
 * [Laserwave](https://github.com/Jaredk3nt/laserwave)
 * [Dracula](https://draculatheme.com)
 * [Ephemeral](https://github.com/elenapan/dotfiles)
-
-Note: Screenshots will become available when I get time.
+* [Lovelace](https://github.com/elenapan/dotfiles)
 
 
 ## Quick-start
@@ -237,4 +236,3 @@ and <kbd>S</kbd> is Shift.
 | <kbd>M</kbd> <kbd>1</kbd>..<kbd>8</kbd>  | Change to workspace 1 thro' 8      |
 | <kbd>M</kbd> <kbd>\`</kbd>               | Launch scratchpad terminal         |
 | <kbd>M</kbd> <kbd>a</kbd> <kbd>q</kbd>   | Close application                  |
-
