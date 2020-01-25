@@ -40,13 +40,17 @@ to co-ordinate the themes (across xmonad, those things managed by home-manager
 and kitty).
 
 
-| Laserwave                                      | Nord                                           |
-| ---                                            | ---                                            |
-| ![Screenshot](https://i.imgur.com/FWXxd19.png) | ![Screenshot](https://i.imgur.com/eRHOmQT.png) |
+| Laserwave                                      |
+| ---                                            |
+| ![Screenshot](https://i.imgur.com/FWXxd19.png) |
 
-| Ephemeral                                      |                                                |
-|------------------------------------------------|------------------------------------------------|
-| ![Screenshot](https://i.imgur.com/g2z5dB1.png) |                                                |
+| Nord                                           |
+| ---                                            |
+| ![Screenshot](https://i.imgur.com/eRHOmQT.png) |
+
+| Ephemeral
+|------------------------------------------------|
+| ![Screenshot](https://i.imgur.com/g2z5dB1.png) |
 
 
 XMonad-Aloysius includes a means by which you can specify which theme you want
