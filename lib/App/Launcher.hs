@@ -17,7 +17,7 @@ powerMenu :: X ()
 powerMenu =
   dzenConfig
       (   font "Iosevka Nerd Font:style=Regular:size=12"
-      >=> xScreen 1
+      >=> xScreen 0
       >=> x 2352
       >=> y 0
       >=> align AlignCenter

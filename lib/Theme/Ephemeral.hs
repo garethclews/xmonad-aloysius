@@ -2,8 +2,8 @@
 
 module Theme.Ephemeral where
 
-basebg = "#323F4E"
-basefg = "#F8F8F2"
+basebg = "#323f4e"
+basefg = "#f8f8f2"
 base00 = "#3D4C5F"
 base01 = "#F48FB1"
 base02 = "#A1EFD3"
@@ -31,5 +31,4 @@ sansserif' :: String
 sansserif' = "Fira Sans-" ++ fontsize
 
 monospace :: String
-monospace = "xft:Fira Mono:size=" ++ fontsize
-
+monospace = "xft:Iosevka Nerd Font:size=" ++ fontsize

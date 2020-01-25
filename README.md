@@ -3,7 +3,6 @@
 A multi-themed XMonad configuration by Aloysius.
 
 
-
 ## Details
 
 This XMonad configuration is my attempt at making it feel more like a desktop
@@ -44,6 +43,10 @@ and kitty).
 | Laserwave                                      | Nord                                           |
 | ---                                            | ---                                            |
 | ![Screenshot](https://i.imgur.com/FWXxd19.png) | ![Screenshot](https://i.imgur.com/eRHOmQT.png) |
+|                                                |                                                |
+| Ephemeral                                      |                                                |
+|------------------------------------------------|------------------------------------------------|
+| [!Screenshot](https://i.imgur.com/g2z5dB1.png) |                                                |
 
 
 XMonad-Aloysius includes a means by which you can specify which theme you want
@@ -54,7 +57,7 @@ To switch all of your xmonad features (dmenu, dzen, containers etc.) to your
 choice of theme then its as easy as
 
 ``` sh
-./build -t [nord|laserwave|dracula|ephemeral]
+./build -t [nord|laserwave|dracula|ephemeral|lovelace]
 ```
 
 
