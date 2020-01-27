@@ -32,7 +32,7 @@ issue. As the build uses a nix-shell then it should "just work".
 | ![Screenshot](https://i.imgur.com/eRHOmQT.png) | ![Screenshot](https://i.imgur.com/OC36W58.png) | ![Screenshot](https://i.imgur.com/MVvi8RU.png)                                  |
 
 
-## Themes!
+## Themes
 
 Please note that the theming mechanisms currently sit across three or so
 different repositories and it is not yet integrated. There's some manual labour
@@ -51,13 +51,13 @@ and kitty).
 |------------------------------------------------|
 | ![Screenshot](https://i.imgur.com/g2z5dB1.png) |
 
-| Dracula                                        |
-|------------------------------------------------|
-| ![Screenshot]() |
+| Dracula            |
+|--------------------|
+| Screenshot missing |
 
-| Lovelace                                       |
-|------------------------------------------------|
-| ![Screenshot]() |
+| Lovelace           |
+|--------------------|
+| Screenshot missing |
 
 
 XMonad-Aloysius includes a means by which you can specify which theme you want
