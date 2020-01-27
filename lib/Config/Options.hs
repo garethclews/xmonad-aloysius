@@ -54,7 +54,7 @@ options = Options
   , starts = ewmhDesktopsStartup
              >> setWMName "XMonad"
              >> spawnOnce gnomeSession
-             -- >> spawnOnce audioSink
+             >> spawnOnce audioSink
              >> spawnOnce panel
              >> spawnOnce numlock
              >> spawnOnce wallpaper
@@ -97,7 +97,7 @@ dmenuTheme colour s =
   , "-nb"
   , basebg
   , "-nf"
-  , base04
+  , basefg
   , "-sf"
   , base00
   , "-sb"

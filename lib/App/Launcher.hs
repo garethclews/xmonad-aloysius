@@ -79,7 +79,7 @@ appLauncher =
     ++ basebg
     ++ "\" "
     ++ "-nf \""
-    ++ base04
+    ++ basefg
     ++ "\" "
     ++ "-sb \""
     ++ base14

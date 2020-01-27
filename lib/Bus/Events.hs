@@ -54,7 +54,8 @@ logHook' = do
   let currWs = W.currentTag winset
   -- blocking named scratchpad appearing
   let wss    = filter (/= "NSP") $ W.tag <$> W.workspaces winset
-  let wsStr  = fmt currWs =<< sort' wss
+  let wsStr = "%{F" ++ base02 ++ "}" ++ (fmt currWs =<< sort' wss)
+  -- annoyingly for some themes it changes the colour of the initial string
   -- write another function which takes a workspace string and another
   -- string containing the desktop of the window seeking focus and then adjusts
   -- that string with the urgent notice and then a removal function as well

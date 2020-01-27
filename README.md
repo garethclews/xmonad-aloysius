@@ -49,7 +49,7 @@ and kitty).
 
 | Ephemeral                                      |
 |------------------------------------------------|
-| ![Screenshot](https://i.imgur.com/g2z5dB1.png) |
+| ![Screenshot](https://i.imgur.com/Ek4TTFy.png) |
 
 | Dracula            |
 |--------------------|
