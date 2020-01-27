@@ -8,6 +8,7 @@ import           XMonad
 
 import           XMonad.Hooks.EwmhDesktops
 import           XMonad.Hooks.SetWMName
+import           XMonad.Hooks.UrgencyHook
 
 import           XMonad.Layout.Tabbed
 
@@ -52,6 +53,7 @@ options = Options
   , events = ewmhDesktopsEventHook
   , starts = ewmhDesktopsStartup
              >> setWMName "XMonad"
+             >> spawnOnce gnomeSession
              >> spawnOnce audioSink
              >> spawnOnce panel
              >> spawnOnce numlock
@@ -95,7 +97,7 @@ dmenuTheme colour s =
   , "-nb"
   , basebg
   , "-nf"
-  , base04
+  , basefg
   , "-sf"
   , base00
   , "-sb"

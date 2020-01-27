@@ -3,8 +3,6 @@
 A multi-themed XMonad configuration by Aloysius.
 
 
-
-
 ## Details
 
 This XMonad configuration is my attempt at making it feel more like a desktop
@@ -24,7 +22,7 @@ My personal setup looks like:
 
 See below for how to change these for your preferred options. If the build
 instructions do not seem to work on your preference of OS then please raise an
-issue. As the build is managed in a nix-shell then it should "just work".
+issue. As the build uses a nix-shell then it should "just work".
 
 
 ## Latest Previews
@@ -34,17 +32,32 @@ issue. As the build is managed in a nix-shell then it should "just work".
 | ![Screenshot](https://i.imgur.com/eRHOmQT.png) | ![Screenshot](https://i.imgur.com/OC36W58.png) | ![Screenshot](https://i.imgur.com/MVvi8RU.png)                                  |
 
 
-## Themes!
+## Themes
 
 Please note that the theming mechanisms currently sit across three or so
-different repositories and it is not yet integrated. Some manual labour is
-required in order to co-ordinate the themes (across xmonad, those things managed
-by home-manager and kitty).
+different repositories and it is not yet integrated. There's some manual labour
+to co-ordinate the themes (across xmonad, those things managed by home-manager
+and kitty).
 
+| Nord                                           |
+|------------------------------------------------|
+| ![Screenshot](https://i.imgur.com/eRHOmQT.png) |
 
-| Laserwave                                      | Nord                                           |
-| ---                                            | ---                                            |
-| ![Screenshot](https://i.imgur.com/FWXxd19.png) | ![Screenshot](https://i.imgur.com/eRHOmQT.png) |
+| Laserwave                                      |
+|------------------------------------------------|
+| ![Screenshot](https://i.imgur.com/FWXxd19.png) |
+
+| Ephemeral                                      |
+|------------------------------------------------|
+| ![Screenshot](https://i.imgur.com/Ek4TTFy.png) |
+
+| Dracula            |
+|--------------------|
+| Screenshot missing |
+
+| Lovelace           |
+|--------------------|
+| Screenshot missing |
 
 
 XMonad-Aloysius includes a means by which you can specify which theme you want
@@ -55,18 +68,17 @@ To switch all of your xmonad features (dmenu, dzen, containers etc.) to your
 choice of theme then its as easy as
 
 ``` sh
-./build -t [nord|laserwave|dracula|ephemeral]
+./build -t [nord|laserwave|dracula|ephemeral|lovelace]
 ```
 
 
-We currently have four themes available across XMonad, nix overlay and kitty:
+We currently have five themes available across XMonad
 
 * [Nord](https://www.nordtheme.com/)
 * [Laserwave](https://github.com/Jaredk3nt/laserwave)
 * [Dracula](https://draculatheme.com)
 * [Ephemeral](https://github.com/elenapan/dotfiles)
-
-Note: Screenshots will become available when I get time.
+* [Lovelace](https://github.com/elenapan/dotfiles)
 
 
 ## Quick-start
@@ -79,13 +91,13 @@ would like to request additional actions for this menu then raise an issue.
 
 #### WM Commands
 
-| Command | What it does                                                     |
-|---------|------------------------------------------------------------------|
-| inc-win | increases the count of possible windows in the master area       |
-| dec-win | the opposite of `inc-win`                                        |
-| struts  | toggles any 'struts', this is used to remove polybar from screen |
-| lock    | activates the screensaver                                        |
-| kill    | close the currently focused application                         |
+| Command | What it does                                               |
+|---------|------------------------------------------------------------|
+| inc-win | increases the count of possible windows in the master area |
+| dec-win | the opposite of `inc-win`                                  |
+| struts  | toggles any 'struts', this will remove polybar from screen |
+| lock    | activates the screensaver                                  |
+| kill    | close the currently focused application                    |
 
 
 #### Media Commands
@@ -112,13 +124,13 @@ plus whatever follows it
 | Feature                             | Description                                                                                                         | Access                                                                   |
 | ---                                 | ---                                                                                                                 | ---                                                                      |
 | EWMH                                | Simpler control over X                                                                                              | always on                                                                |
-| Dynamic Projects                    | Each workspace is given as a 'project' with default applications launched on entry if empty                         | always on                                                                |
+| Dynamic Projects                    | Each workspace is a 'project' with default applications launched on entry if empty                                  | always on                                                                |
 | Easy theming                        | Nominate your 16 base colours and preferred fonts and they appear everywhere                                        | always on                                                                |
 | Modal keybindings                   | Vim style keybind sequences                                                                                         | always on                                                                |
 | Tabbed layout                       | For when you want lots of containers on one workspace and clickable tabs                                            | always on                                                                |
 | Custom event hooks                  | FIFO for easy piping of event text to outside applications                                                          | always on                                                                |
 | Media keys                          | Using media keys via playerctl                                                                                      | always on                                                                |
-| Maximise on single window           | Inspired by the i3-gaps treatment where gaps are disabled for single windows, this applies to all non-float layouts | always on                                                                |
+| Maximise on single window           | Inspired by the i3-gaps treatment where gaps don't appear for single windows, this applies to all non-float layouts | always on                                                                |
 | Named Scratchpad                    | Pop over terminal similar to quake/yakuake                                                                          | <kbd>M</kbd> <kbd>\`</kbd>                                               |
 | Go-to window                        | X.A.WindowBringer - go to windows dmenu prompt for quick jumping between workspaces                                 | <kbd>M</kbd> <kbd>w</kbd> <kbd>g</kbd> or click on workspaces on polybar |
 | Bring window                        | As above, but this time brings a window to your current workspace                                                   | <kbd>M</kbd> <kbd>w</kbd> <kbd>b</kbd>                                   |
@@ -144,7 +156,7 @@ are content editing the configuration files (which you will have to do
 eventually) then all of the following should be easily replaceable.
 
 If you notice any missing dependencies please raise an issue so that this table
-can be updated.
+can update.
 
 | Dependency       | Description                                                            | Why/Where is it needed?                                                                  |
 | ---              | ---                                                                    | ---                                                                                      |
@@ -152,6 +164,7 @@ can be updated.
 | `xmonad-contrib` | Contributed additional functionality for xmonad                        | Everywhere, so much of the code base is these extras                                     |
 | `dzen2`          | General purpose messaging and notification program                     | Power menu                                                                               |
 | `dmenu2`         | General purpose menu                                                   | Application launcher, jump to window, bring window                                       |
+| `gnome-session`  | Enables keyring and appearance                                         | Loading all gnome session preferences (gtk appearance etc.)                              |
 | `xset`           | User preference utility for X                                          | Enabling/Disabling DPMS and screensaver                                                  |
 | `feh`            | Image viewer and wallpaper setter                                      | Wallpaper                                                                                |
 | `polybar`        | Status bar                                                             | Workspace info, layout info, launchers, DPMS toggling, spotify info, time, volume, power |
@@ -160,13 +173,13 @@ can be updated.
 | `dunst`          | Notification daemon                                                    | self-explanatory                                                                         |
 | `pulseaudio`     | Sound system                                                           | Liberal use made of pacmd and pactl, anything audio related                              |
 | Iosevka Custom   | Fonts (see [here](https://github.com/elenapan/dotfiles))               | self-explanatory                                                                         |
-| Deadhead Script  | Lock screen font - [here](https://www.dafont.com/deadhead-script.font) | self-explanatory                                                                         |
+| Deadhead Script  | Lock screen font ([here](https://www.dafont.com/deadhead-script.font)) | self-explanatory                                                                         |
 | FontAwesome      | Icons                                                                  | self-explanatory                                                                         |
 | `nix`            | A purely functional package manager                                    | Compilation of the xmonad binary                                                         |
-| `fd`             | A replacement for `find`                                               | It is used in the `build` script to find the compiled xmonad version                     |
+| `fd`             | A replacement for `find`                                               | It is in the `build` script to find the compiled xmonad version                          |
 
 For the polybar configuration files please see
-[here](https://github.com/karetsu/nix-overlays). This is managed by home-manager and
+[here](https://github.com/karetsu/nix-overlays). It uses home-manager and
 contains an overlay for nixpkgs with additional software. You also need my
 custom scripts directory available [here](https://github.com/karetsu/scripts).
 
@@ -215,8 +228,8 @@ Installing is all well and good but if you log in and don't know how to launch
 anything there could be trouble. Familiarise yourself with some of these useful
 bindings. A full list will be available on the wiki.
 
-In all of the below, <kbd>M</kbd> is the Windows key (or whatever your Mod4 has
-been changed to) and <kbd>S</kbd> is Shift.
+In all of the below, <kbd>M</kbd> is the Windows key (or whatever your Mod4 is)
+and <kbd>S</kbd> is Shift.
 
 | Key Binding                              | Action                             |
 |------------------------------------------|------------------------------------|
@@ -230,4 +243,3 @@ been changed to) and <kbd>S</kbd> is Shift.
 | <kbd>M</kbd> <kbd>1</kbd>..<kbd>8</kbd>  | Change to workspace 1 thro' 8      |
 | <kbd>M</kbd> <kbd>\`</kbd>               | Launch scratchpad terminal         |
 | <kbd>M</kbd> <kbd>a</kbd> <kbd>q</kbd>   | Close application                  |
-

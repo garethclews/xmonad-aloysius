@@ -2,24 +2,24 @@
 
 module Theme.Ephemeral where
 
-basebg = "#323F4E"
-basefg = "#F8F8F2"
-base00 = "#3D4C5F"
-base01 = "#F48FB1"
-base02 = "#A1EFD3"
-base03 = "#F1FA8C"
-base04 = "#92B6F4"
-base05 = "#BD99FF"
-base06 = "#87DFEB"
-base07 = "#F8F8F2"
-base08 = "#56687E"
-base09 = "#EE4F84"
-base10 = "#53E2AE"
-base11 = "#F1FF52"
-base12 = "#6498EF"
-base13 = "#985EFF"
-base14 = "#24D1E7"
-base15 = "#E5E5E5"
+basebg = "#323f4e"
+basefg = "#f8f8f2"
+base00 = "#181e26"  -- darkest black
+base01 = "#1e262d"  -- dark black
+base02 = "#56687e"  -- black
+base03 = "#2a3542"  -- bright black
+base04 = "#242d39"  -- dark white
+base05 = "#f8f8f2"  -- white
+base06 = "#fdfdfd"  -- bright white
+base07 = "#a1efd3"  -- teal
+base08 = "#87dfeb"  -- cyan
+base09 = "#92b6f4"  -- blue
+base10 = "#6498ef"  -- dark blue
+base11 = "#f48fb1"  -- red
+base12 = "#53e2ae"  -- orange
+base13 = "#f1fa8c"  -- yellow
+base14 = "#53e2ae"  -- green
+base15 = "#bd99ff"  -- violet
 
 fontsize :: String
 fontsize = "12"
@@ -31,5 +31,4 @@ sansserif' :: String
 sansserif' = "Fira Sans-" ++ fontsize
 
 monospace :: String
-monospace = "xft:Fira Mono:size=" ++ fontsize
-
+monospace = "xft:Iosevka Nerd Font:size=" ++ fontsize

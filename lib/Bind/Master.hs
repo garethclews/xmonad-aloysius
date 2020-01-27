@@ -54,9 +54,9 @@ defaultKeys c =
          )
 
   -- window manipulation
-       , ("<S> w g", gotoMenuArgs $ dmenuTheme base12 "Go to window:  ")
+       , ("<S> w g", gotoMenuArgs $ dmenuTheme base10 "Go to window:  ")
        , ( "<S> w b"
-         , bringMenuArgs $ dmenuTheme base12 "Bring window:  "
+         , bringMenuArgs $ dmenuTheme base15 "Bring window:  "
          )
        -- , ("<S> w ?", layoutMenu)
        , ("<S> w h", sendMessage Shrink)

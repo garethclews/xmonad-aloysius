@@ -11,6 +11,10 @@ audioSink =
   "pactl set-default-sink alsa_output.pci-0000_01_00.1.hdmi-stereo-extra2"
 
 
+gnomeSession :: String
+gnomeSession = "gnome-session --disable-acceleration-check -f &"
+
+
 panel :: String
 panel = "~/.scripts/polybar/launch"
 

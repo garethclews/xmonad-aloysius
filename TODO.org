@@ -7,11 +7,11 @@
 - [ ] add a dmenu prompt for quick selecing layout a la https://github.com/KnairdA/nixos_home/blob/master/gui/conf/xmonad.hs
 
 
-* TODO NON XMONAD SPECIFIC [0/3]
+* TODO NON XMONAD SPECIFIC [0/1]
 - [ ] general research into pulseaudio configuration
 
 
-* STRT ACTIVE [1/1]
+* STRT ACTIVE [0/2]
 - [ ] use urgencyhook to either change the colour of the workspace in polybar
 - [-] continue to improve the build script [3/4]
   - [ ] incorporate all of the moving parts (scripts, overlays etc.)
