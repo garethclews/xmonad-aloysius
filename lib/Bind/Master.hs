@@ -59,13 +59,13 @@ defaultKeys c =
          , bringMenuArgs $ dmenuTheme base15 "Bring window:  "
          )
        -- , ("<S> w ?", layoutMenu)
-       , ("<S> w h", sendMessage Shrink)
-       , ("<S> w l", sendMessage Expand)
-       , ("<S> w .", sendMessage $ IncMasterN 1)
-       , ("<S> w ,", sendMessage $ IncMasterN (-1))
-       , ("<S> w m", windows W.focusMaster)
-       , ("<S> w h", windows $ W.swapUp . W.focusUp)
-       , ("<S> w l", windows $ W.swapDown . W.focusDown)
+       , ("<S> w h"      , sendMessage Shrink)
+       , ("<S> w l"      , sendMessage Expand)
+       , ("<S> w ."      , sendMessage $ IncMasterN 1)
+       , ("<S> w ,"      , sendMessage $ IncMasterN (-1))
+       , ("<S> w m"      , windows W.focusMaster)
+       , ("<S> w <Left>" , windows $ W.swapUp . W.focusUp)
+       , ("<S> w <Right>", windows $ W.swapDown . W.focusDown)
        , ( "<S> w t"
          , sinkAll
          ) -- maybe: withFocused $ windows . W.sink

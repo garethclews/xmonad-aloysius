@@ -6,7 +6,7 @@ module Theme.ChosenTheme where
 -- > Change this to your colour preference of choice
 --   NOTE: the polybar colour and screen lock are handled elsewhere
 --         as is Xresources
-import qualified Theme.Nord as T
+import qualified Theme.Horizon as T
 -- available themes:
 -- Laserwave
 -- Nord

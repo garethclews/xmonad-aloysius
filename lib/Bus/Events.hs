@@ -24,13 +24,18 @@ sort' :: Ord a => [[a]] -> [[a]]
 sort' = sortBy (compare `on` (!! 0))
 
 
+mkLayoutStr :: String -> String -> String -> String
+mkLayoutStr colour logo rep =
+  concat ["%{T2}%{F", colour, "} ", logo, "%{T-}%{F", basefg, "} ", rep]
+
+
 layoutParse :: String -> String
-layoutParse s | s == "Three Columns"    = "%{T2}+|+%{T-} TCM "
-              | s == "Binary Partition" = "%{T2}||+%{T-} BSP "
-              | s == "Tall"             = "%{T2}|||%{T-} Tall"
-              | s == "Tabbed"           = "%{T2}___%{T-} Tab "
-              | s == "Float"            = "%{T2}+++%{T-} FLT "
-              | s == "Fullscreen"       = "%{T2}| |%{T-} Full"
+layoutParse s | s == "Three Columns"    = mkLayoutStr base13 "+|+" "TCM "
+              | s == "Binary Partition" = mkLayoutStr base13 "||+" "BSP "
+              | s == "Tall"             = mkLayoutStr base13 "|||" "Tall"
+              | s == "Tabbed"           = mkLayoutStr base13 "___" "Tab "
+              | s == "Float"            = mkLayoutStr base13 "+++" "FLT "
+              | s == "Fullscreen"       = mkLayoutStr base13 "| |" "Full"
               | otherwise               = s -- fallback for changes in C.Layout
 
 
@@ -38,11 +43,15 @@ write :: (String, String) -> X ()
 write (x, y) = io $ appendFile x y
 
 
-fmt :: String -> String -> String
-fmt currWs ws
-  | currWs == ws = concat
-    [" [%{F", base06, "}%{T1}", ws, "%{T-}%{F" ++ base02 ++ "}] "]
-  | otherwise = "  " ++ ws ++ "  "
+-- @deprecated
+-- fmt :: String -> String -> String
+-- fmt currWs ws
+--   | currWs == ws = concat
+--     [" [%{F", base06, "}%{T1}", ws, "%{T-}%{F" ++ base02 ++ "}] "]
+--   | otherwise = "  " ++ ws ++ "  "
+fmt :: String -> String
+fmt = mkLayoutStr base11 "\xf041"  -- \xf015: house
+
 
 
 -- Hook ------------------------------------------------------------------------
@@ -53,8 +62,8 @@ logHook' = do
   -- workspaces
   let currWs = W.currentTag winset
   -- blocking named scratchpad appearing
-  let wss    = filter (/= "NSP") $ W.tag <$> W.workspaces winset
-  let wsStr = "%{F" ++ base02 ++ "}" ++ (fmt currWs =<< sort' wss)
+  -- let wss = filter (/= "NSP") $ W.tag <$> W.workspaces winset
+  let wsStr  = fmt currWs
   -- annoyingly for some themes it changes the colour of the initial string
   -- write another function which takes a workspace string and another
   -- string containing the desktop of the window seeking focus and then adjusts

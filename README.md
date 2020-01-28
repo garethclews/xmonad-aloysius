@@ -59,6 +59,13 @@ and kitty).
 |--------------------|
 | Screenshot missing |
 
+| Horizon            |
+|--------------------|
+| Screenshot missing |
+
+| Nature             |
+|--------------------|
+| Screenshot Missing |
 
 XMonad-Aloysius includes a means by which you can specify which theme you want
 through the build script. Please note that specifying the theme automatically
@@ -68,7 +75,7 @@ To switch all of your xmonad features (dmenu, dzen, containers etc.) to your
 choice of theme then its as easy as
 
 ``` sh
-./build -t [nord|laserwave|dracula|ephemeral|lovelace]
+./build -t [nord|laserwave|dracula|ephemeral|lovelace|horizon|nature]
 ```
 
 

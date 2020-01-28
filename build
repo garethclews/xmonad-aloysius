@@ -106,11 +106,8 @@ themeCompile () {
   echo "  Setting new theme: $theme[@]"
 
   case $theme[@] in
-    nord)      setTheme $theme[@];;
-    laserwave) setTheme $theme[@];;
-    ephemeral) setTheme $theme[@];;
-    dracula)   setTheme $theme[@];;
-    lovelace)  setTheme $theme[@];;
+    nord | laserwave | ephemeral | horizon | dracula | lovelace | nature )
+      setTheme $theme[@];;
     *)
       echo "   You have incorrectly specified a theme, please see the help"
       ;;
