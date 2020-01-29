@@ -6,34 +6,34 @@ ____             _    _                 _
 /_/_/        /_/   \_\_|\___/ \__, |___/_|\__,_|___/
                               |___/
 
----------------------------------------------------------------------------
--- https://gitlab.com/karetsu/xmonad-aloysius                            --
--- X. >= 0.15                                                            --
---                                                                       --
--- For pending changes see the todo                                      --
----------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+-- https://gitlab.com/karetsu/xmonad-aloysius                                  --
+-- X. >= 0.15                                                                  --
+--                                                                             --
+-- For pending changes see the todo                                            --
+---------------------------------------------------------------------------------
 -}
 
 -- Imports ----------------------------------------------------------------------
-import           XMonad
+import XMonad
 
-import           XMonad.Actions.DynamicProjects
+import XMonad.Actions.DynamicProjects
 
-import           XMonad.Hooks.EwmhDesktops
-import           XMonad.Hooks.ManageDocks
-import           XMonad.Hooks.UrgencyHook
+import XMonad.Hooks.EwmhDesktops
+import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.UrgencyHook
 
-import           XMonad.Util.Replace
-import           XMonad.Util.Run
+import XMonad.Util.Replace
+import XMonad.Util.Run
 
 -- Personal imports (./lib/)
-import           Bind.Master
-import           Bus.Events
-import           Bus.Hooks
-import           Config.Options
-import           Config.Projects
-import           Container.Layout
-import           Container.Navigation
+import Bind.Master
+import Bus.Events
+import Bus.Hooks
+import Config.Options
+import Config.Projects
+import Container.Layout
+import Container.Navigation
 
 
 -- Configuration ----------------------------------------------------------------
