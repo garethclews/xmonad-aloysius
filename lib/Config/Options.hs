@@ -8,7 +8,6 @@ import           XMonad
 
 import           XMonad.Hooks.EwmhDesktops
 import           XMonad.Hooks.SetWMName
-import           XMonad.Hooks.UrgencyHook
 
 import           XMonad.Layout.Tabbed
 

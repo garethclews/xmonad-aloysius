@@ -6,10 +6,12 @@ A multi-themed XMonad configuration by Aloysius.
 ## Details
 
 This XMonad configuration is my attempt at making it feel more like a desktop
-environment featuring a lot more mod-cons than you typically find in a tiling
-WM. You will also need my polybar configuration, available in the wiki, as well
-as all of the supporting scripts available
+environment. This means a lot more mod-cons than you typically find in a tiling
+WM. You will also need my polybar configuration, available in my nix-overlay, as
+well as all of the supporting scripts available
 [here](https://gitlab.com/karetsu/scripts).
+
+
 
 My personal setup looks like:
 
@@ -19,6 +21,7 @@ My personal setup looks like:
 - **Launcher**: dmenu2
 - **Editor**:   [doom emacs](https://github.com/hlissner/doom-emacs)
 - **Browser**:  firefox
+
 
 See below for how to change these for your preferred options. If the build
 instructions do not seem to work on your preference of OS then please raise an
@@ -37,7 +40,13 @@ issue. As the build uses a nix-shell then it should "just work".
 Please note that the theming mechanisms currently sit across three or so
 different repositories and it is not yet integrated. There's some manual labour
 to co-ordinate the themes (across xmonad, those things managed by home-manager
-and kitty).
+and kitty). All themes are available if you use all three of my repos.
+
+The default theme is *horizon*.
+
+| Horizon                                        |
+|------------------------------------------------|
+| ![Screenshot](https://i.imgur.com/qwEXq3J.png) |
 
 | Nord                                           |
 |------------------------------------------------|
@@ -59,13 +68,10 @@ and kitty).
 |--------------------|
 | Screenshot missing |
 
-| Horizon            |
-|--------------------|
-| Screenshot missing |
-
-| Nature             |
+| Nature (WIP)       |
 |--------------------|
 | Screenshot Missing |
+
 
 XMonad-Aloysius includes a means by which you can specify which theme you want
 through the build script. Please note that specifying the theme automatically
@@ -75,12 +81,13 @@ To switch all of your xmonad features (dmenu, dzen, containers etc.) to your
 choice of theme then its as easy as
 
 ``` sh
-./build -t [nord|laserwave|dracula|ephemeral|lovelace|horizon|nature]
+./build -t [horizon|nord|laserwave|dracula|ephemeral|lovelace|nature]
 ```
 
 
-We currently have five themes available across XMonad
+Please see the following links for the influences behind the themes
 
+* [horizon](https://horizontheme.netlify.com/)
 * [Nord](https://www.nordtheme.com/)
 * [Laserwave](https://github.com/Jaredk3nt/laserwave)
 * [Dracula](https://draculatheme.com)

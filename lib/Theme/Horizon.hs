@@ -25,10 +25,10 @@ fontsize :: String
 fontsize = "12"
 
 sansserif :: String
-sansserif = "xft:Fira Sans:size=" ++ fontsize
+sansserif = "xft:Overpass:size=" ++ fontsize
 
 sansserif' :: String
-sansserif' = "Fira Sans-" ++ fontsize
+sansserif' = "Overpass-" ++ fontsize
 
 monospace :: String
 monospace = "xft:Iosevka Nerd Font:size=" ++ fontsize
