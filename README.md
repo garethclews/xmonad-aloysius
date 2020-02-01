@@ -2,6 +2,18 @@
 
 A multi-themed XMonad configuration by Aloysius.
 
+## Contents
+
+* [Previews](#latest-previews)
+* [Themes](#themes)
+* [Quick-start](#quick-start)
+* [Features](#features)
+* [Dependencies](#dependencies)
+* [Default applications](#default-applications)
+* [Installation instructions](#installation-instructions)
+* [Key bindings](#key-bindings)
+
+
 
 ## Details
 
