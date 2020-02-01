@@ -30,9 +30,20 @@ issue. As the build uses a nix-shell then it should "just work".
 
 ## Latest Previews
 
-| Floating desktop                               | Named scratchpad popup                         | Lock screen                                                                     |
-| ---                                            | ---                                            | ------------------------------------------------------------------------------- |
-| ![Screenshot](https://i.imgur.com/eRHOmQT.png) | ![Screenshot](https://i.imgur.com/OC36W58.png) | ![Screenshot](https://i.imgur.com/MVvi8RU.png)                                  |
+| Floating desktop                               |
+| ---                                            |
+| ![Screenshot](https://i.imgur.com/G8Vugwl.png) |
+
+
+| Named scratchpad popup                         |
+| ---                                            |
+| ![Screenshot](https://i.imgur.com/uMwEhp9.png) |
+
+| Lock screen                                    |
+| ------------------------------------------     |
+| ![Screenshot](https://i.imgur.com/KRfUcjI.png) |
+
+
 
 
 ## Themes
