@@ -3,7 +3,7 @@
 module Theme.Horizon where
 
 --basebg = "#232530"
-basebg = "#1a1c23"
+basebg = "#1c1e26"
 basefg = "#c7c9cb"
 base00 = "#16161c"  -- darkest black
 base01 = "#1a1c23"  -- dark black

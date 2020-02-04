@@ -1,35 +1,31 @@
 #+TITLE: XMonad-Aloysius
 
-* TODO GENERAL [1/6]
+* TODO GENERAL [0/2]
 - [ ] work through https://hackage.haskell.org/package/xmonad-contrib-0.15/docs/XMonad-Doc-Extending.html
-- [ ] make window decoration clickable on floating workspace
-- [ ] change the colour of the windowTitleAddons (possible?)
 - [ ] add a dmenu prompt for quick selecing layout a la https://github.com/KnairdA/nixos_home/blob/master/gui/conf/xmonad.hs
 
 
 * TODO NON XMONAD SPECIFIC [0/1]
-- [ ] general research into pulseaudio configuration
 
 
 * STRT ACTIVE [0/2]
 - [ ] use urgencyhook to either change the colour of the workspace in polybar
-- [-] continue to improve the build script [3/4]
-  - [ ] incorporate all of the moving parts (scripts, overlays etc.)
-  - [X] build in a theme selector which edits ChosenTheme.hs and overlay content
-  - [X] hide the nix-shell pre-run stuff
-  - [X] fix the age finding lines, currently does not work
+- [-] make window decoration clickable on floating workspace
+  - [ ] change the colour of the windowTitleAddons (decorationWithImageButtons)
+  - [-] enable decorationCatchClicksHook
+  - [ ] add the buttons
+  - [ ] catch the clicks
 
 
-* WAIT DEFER [1/6]
+* WAIT DEFER [0/3]
 - [ ] https://github.com/pjones/xmonadrc has some dynamic project helper functions
 - [ ] Design a sound scheme
-- [ ] Develop additional colour schemes
 - [ ] update git prompt to show ahead/behind status
-- [ ] lightdm switch to greeter should release the pulseaudio sink
 
 
-* DONE [19/19]
+* DONE [24/24]
 - [X] tidy up gaps with polybar
+- [X] lightdm switch to greeter should release the pulseaudio sink
 - [X] pimped polybar with current layout descriptor (pprint)
 - [X] make fullscreen logout
 - [X] swapped out rofi for X.U.Dmenu
@@ -50,13 +46,20 @@
 - [X] investigate dmenu patches to move to dmenu (4.9) rather than the old dmenu2
 - [X] abstract themes out of haskell so that integration with other apps is easier
 - [X] consider window decorations for float workspace
+- [X] continue to improve the build script [4/4]
+  - [X] incorporate all of the moving parts (scripts, overlays etc.)
+  - [X] build in a theme selector which edits ChosenTheme.hs and overlay content
+  - [X] hide the nix-shell pre-run stuff
+  - [X] fix the age finding lines, currently does not work
+- [X] Develop additional colour schemes
 
-* KILL TESTED/REJECTED/WONTFIX [6/6]
-  - [X] X.U.Themes - see if nord and dracula can be added -- going to just keep my themes in my format, if anybody else ever wants to use it then maybe revisit but just for me there's little to no point
-  - [X] XMonad.Hooks.DynamicBars  -- sticking with one bar
-  - [X] rejected betterlockscreen (https://github.com/pavanjadhaw/betterlockscreen), delay for lock is liveable
-  - [X] look into using glances to generate JSON for outputting somehow - lost interest
-  - [X] screen locking: being in a script is actually ok, need to tidy the script
-  - [X] clickable layout selector - faster to mash M-<Space>
-  - [X] adding a 'system tray' based on notifications from DBus -- you can get this via polybar but its ugly and I really don't need one as much as I thought
-  - [X] M-S-` for an alternative scratchpad with custom command (ghcid)?
+* KILL TESTED/REJECTED/WONTFIX [9/9]
+- [X] X.U.Themes - see if nord and dracula can be added -- going to just keep my themes in my format, if anybody else ever wants to use it then maybe revisit but just for me there's little to no point
+- [X] XMonad.Hooks.DynamicBars  -- sticking with one bar
+- [X] rejected betterlockscreen (https://github.com/pavanjadhaw/betterlockscreen), delay for lock is liveable
+- [X] look into using glances to generate JSON for outputting somehow - lost interest
+- [X] screen locking: being in a script is actually ok, need to tidy the script
+- [X] clickable layout selector - faster to mash M-<Space>
+- [X] adding a 'system tray' based on notifications from DBus -- you can get this via polybar but its ugly and I really don't need one as much as I thought
+- [X] M-S-` for an alternative scratchpad with custom command (ghcid)?
+- [X] general research into pulseaudio configuration

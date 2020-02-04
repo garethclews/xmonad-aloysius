@@ -122,17 +122,32 @@ tabTheme = def { activeColor         = base00
                }
 
 
-decoTheme = def { activeColor         = base00
+decoTheme = def { activeColor         = basebg
                 , activeBorderColor   = basebg
-                , activeTextColor     = base06
+                , activeTextColor     = basefg
                 , inactiveColor       = basebg
                 , inactiveBorderColor = basebg
-                , inactiveTextColor   = base03
+                , inactiveTextColor   = basebg
                 , urgentColor         = basebg
                 , urgentBorderColor   = basebg
                 , urgentTextColor     = base12
                 , fontName            = monospace
                 , windowTitleAddons   = [("\xf004", AlignRightOffset 24)]
-                , decoHeight          = 40
-                , decoWidth           = 2560
+                , decoHeight          = 52
+ --               , decoWidth           = 2560
                 }
+
+emptyTheme = def { decoHeight = 0, decoWidth = 0 }
+
+sideDecoTheme = def { activeColor         = basebg
+                    , activeBorderColor   = basebg
+                    , activeTextColor     = basefg
+                    , inactiveColor       = basebg
+                    , inactiveBorderColor = basebg
+                    , inactiveTextColor   = basebg
+                    , urgentColor         = basebg
+                    , urgentBorderColor   = basebg
+                    , urgentTextColor     = base12
+                    , fontName            = monospace
+                    , decoWidth           = 52
+                    }

@@ -15,25 +15,25 @@ ____             _    _                 _
 -}
 
 -- Imports ----------------------------------------------------------------------
-import XMonad
+import           XMonad
 
-import XMonad.Actions.DynamicProjects
+import           XMonad.Actions.DynamicProjects
 
-import XMonad.Hooks.EwmhDesktops
-import XMonad.Hooks.ManageDocks
-import XMonad.Hooks.UrgencyHook
+import           XMonad.Hooks.EwmhDesktops
+import           XMonad.Hooks.ManageDocks
+import           XMonad.Hooks.UrgencyHook
 
-import XMonad.Util.Replace
-import XMonad.Util.Run
+import           XMonad.Util.Replace
+import           XMonad.Util.Run
 
 -- Personal imports (./lib/)
-import Bind.Master
-import Bus.Events
-import Bus.Hooks
-import Config.Options
-import Config.Projects
-import Container.Layout
-import Container.Navigation
+import           Bind.Master
+import           Bus.Events
+import           Bus.Hooks
+import           Config.Options
+import           Config.Projects
+import           Container.Layout
+import           Container.Navigation
 
 
 -- Configuration ----------------------------------------------------------------
