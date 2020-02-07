@@ -50,6 +50,7 @@ data Gaps' = Gaps'
   , x' :: Integer
   }
 
+
 newtype SideDecoration a = SideDecoration Direction2D
   deriving (Show, Read)
 
@@ -67,8 +68,8 @@ instance Eq a => DecorationStyle SideDecoration a where
       SideDecoration D -> Rectangle _x (_y + fi (h - dh)) w dh
       SideDecoration L -> Rectangle _x _y dw h
     | otherwise = Nothing
-  decorationCatchClicksHook _ _ _ _ = return True
-
+  -- decorationCatchClicksHook _ _ _ _ = return True --
+  -- This one needs to allow movement of the window as well...
 
 -- Settings ---------------------------------------------------------------------
 
@@ -101,7 +102,7 @@ bsp =
   named "Binary Partition"
     $ IfMax 1 full
     $ gapses
-    . windowSwitcherDecorationWithImageButtons shrinkText decoTheme
+    . windowSwitcherDecoration shrinkText decoTheme
     $ draggingVisualizer
     . spacingses
     $ emptyBSP
@@ -134,7 +135,7 @@ layout =
   avoidStruts
     .   smartBorders
     .   onWorkspace wsScratch flt
-    $   bsp
+    $   tcm
     ||| tall
-    ||| tcm
+    ||| bsp
     ||| tabs

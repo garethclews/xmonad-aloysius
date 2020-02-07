@@ -28,8 +28,9 @@ import           XMonad.Util.Run
 
 -- Personal imports (./lib/)
 import           Bind.Master
-import           Bus.Events
-import           Bus.Hooks
+import           Bus.EventHook
+import           Bus.LogHook
+import           Bus.ManageHook
 import           Config.Options
 import           Config.Projects
 import           Container.Layout
@@ -56,11 +57,12 @@ defaults = def {
 
   -- hooks, layouts
                , layoutHook         = layout
-               , manageHook         = hooks
-               , handleEventHook    = events options
-               , logHook            = logHook'
+               , manageHook         = manager
+               , handleEventHook    = eventer
+               , logHook            = logHooker
                , startupHook        = starts options
                }
+
 
 
 -- Main -------------------------------------------------------------------------
@@ -69,8 +71,13 @@ main = do
   replace
 
   -- pipes
-  safeSpawn "mkfifo"
-            ["/tmp/xmonad-wspace", "/tmp/xmonad-layout", "/tmp/caffeine"]
+  safeSpawn
+    "mkfifo"
+    [ "/tmp/xmonad-wspace"
+    , "/tmp/xmonad-layout"
+    , "/tmp/xmonad-events"
+    , "/tmp/caffeine"
+    ]
 
   -- set up our ewmh-based desktop
   xmonad

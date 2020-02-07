@@ -1,12 +1,12 @@
 -- | XMonad-Aloysius eventLog for polybar
 -- | From: https://github.com/polybar/polybar/wiki/User-contributed-module
 
-module Bus.Events where
+module Bus.LogHook
+  ( logHooker
+  )
+where
 
 import           Control.Monad                  ( forM_ )
-
-import           Data.Function                  ( on )
-import           Data.List                      ( sortBy )
 
 import           XMonad
 import qualified XMonad.StackSet               as W
@@ -19,11 +19,17 @@ import           Theme.ChosenTheme
   -- %{T-} resets it back to font-0
   -- this module then depends on +THEME+
 
+
+-- have a look at https://hackage.haskell.org/package/xmonad-contrib-0.16/docs/XMonad-Util-Loggers.html
+-- to see if we can use this for our own logging info
+
+
+
+-- could this also support a pop up panel?
+-- https://hackage.haskell.org/package/xmonad-contrib-0.16/docs/XMonad-Util-Loggers-NamedScratchpad.html
+
+
 -- Supporting functions --------------------------------------------------------
-sort' :: Ord a => [[a]] -> [[a]]
-sort' = sortBy (compare `on` (!! 0))
-
-
 mkLayoutStr :: String -> String -> String -> String
 mkLayoutStr colour logo rep =
   concat ["%{T2}%{F", colour, "} ", logo, "%{T-}%{F", basefg, "} ", rep]
@@ -43,20 +49,14 @@ write :: (String, String) -> X ()
 write (x, y) = io $ appendFile x y
 
 
--- @deprecated
--- fmt :: String -> String -> String
--- fmt currWs ws
---   | currWs == ws = concat
---     [" [%{F", base06, "}%{T1}", ws, "%{T-}%{F" ++ base02 ++ "}] "]
---   | otherwise = "  " ++ ws ++ "  "
 fmt :: String -> String
-fmt = mkLayoutStr base11 "\xf041"  -- \xf015: house
-
+fmt = mkLayoutStr base11 "\xf041"  -- map location marker
 
 
 -- Hook ------------------------------------------------------------------------
-logHook' :: X ()
-logHook' = do
+logHooker :: X ()
+logHooker = do
+  -- FIXME: can this be less onerous?
   winset <- gets windowset
 
   -- workspaces

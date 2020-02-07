@@ -9,7 +9,7 @@ import           XMonad
 import           XMonad.Hooks.EwmhDesktops
 import           XMonad.Hooks.SetWMName
 
-import           XMonad.Layout.Tabbed
+import           XMonad.Layout.Decoration
 
 import           XMonad.Util.Font
 import           XMonad.Util.SpawnOnce
@@ -39,9 +39,9 @@ data Options = Options
   , ffm        :: Bool
   , mask       :: KeyMask
   , spaces     :: [String]
-  , events     :: Event  -> X All
   , starts     :: X ()
   }
+
 
 options :: Options
 options = Options
@@ -49,11 +49,10 @@ options = Options
   , ffm    = True
   , mask   = mod4Mask
   , spaces = wsList
-  , events = ewmhDesktopsEventHook
-  , starts = ewmhDesktopsStartup
-             >> setWMName "XMonad"
-             >> spawnOnce gnomeSession
+  , starts = setWMName "XMonad"
+             >> spawnOnce touchEvents
              >> spawnOnce audioSink
+             >> spawnOnce gnomeSession
              >> spawnOnce panel
              >> spawnOnce numlock
              >> spawnOnce wallpaper
@@ -108,11 +107,12 @@ dmenuTheme colour s =
   ]
 
 
+tabTheme :: Theme
 tabTheme = def { activeColor         = base00
                , activeBorderColor   = base00
                , activeTextColor     = base06
-               , inactiveColor       = basebg
-               , inactiveBorderColor = basebg
+               , inactiveColor       = base03
+               , inactiveBorderColor = base03
                , inactiveTextColor   = base03
                , urgentColor         = basebg
                , urgentBorderColor   = basebg
@@ -122,6 +122,7 @@ tabTheme = def { activeColor         = base00
                }
 
 
+decoTheme :: Theme
 decoTheme = def { activeColor         = basebg
                 , activeBorderColor   = basebg
                 , activeTextColor     = basefg
@@ -134,11 +135,14 @@ decoTheme = def { activeColor         = basebg
                 , fontName            = monospace
                 , windowTitleAddons   = [("\xf004", AlignRightOffset 24)]
                 , decoHeight          = 52
- --               , decoWidth           = 2560
                 }
 
+
+emptyTheme :: Theme
 emptyTheme = def { decoHeight = 0, decoWidth = 0 }
 
+
+sideDecoTheme :: Theme
 sideDecoTheme = def { activeColor         = basebg
                     , activeBorderColor   = basebg
                     , activeTextColor     = basefg
@@ -148,6 +152,6 @@ sideDecoTheme = def { activeColor         = basebg
                     , urgentColor         = basebg
                     , urgentBorderColor   = basebg
                     , urgentTextColor     = base12
-                    , fontName            = monospace
+                    , fontName            = sansserif
                     , decoWidth           = 52
                     }

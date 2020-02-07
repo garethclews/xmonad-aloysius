@@ -33,42 +33,54 @@ import           Theme.ChosenTheme
 
 -- Keymaps ----------------------------------------------------------------------
 
+-- TODO: investigate minimize:
+-- https://hackage.haskell.org/package/xmonad-contrib-0.16/docs/XMonad-Actions-Minimize.html
+-- not interested in maximise
+
+-- see about windowmenu
+-- https://hackage.haskell.org/package/xmonad-contrib-0.16/docs/XMonad-Actions-WindowMenu.html
+
+
+
+
 -- @start keys
 defaultKeys :: XConfig l -> M.Map (KeyMask, KeySym) (X ())
 defaultKeys c =
   mkKeymap c
     $  [ -- GENERAL --
-         ("<S> <Return>"          , spawn (term options))
-       , ("<S> <Space>"           , sendMessage NextLayout)
-       , ("<S> <Tab>"             , windows W.focusDown)
-       , ("<S> S-<Tab>"           , windows W.focusUp)
-       , ("<S> p"                 , spawn appLauncher)
-       , ("<S> `"                 , scratchpadSpawnActionCustom scratch)
+         ("<S> <Return>", spawn (term options))
+       , ("<S> <Space>" , sendMessage NextLayout)
+       , ("<S> <Tab>"   , windows W.focusDown)
+       , ("<S> S-<Tab>" , windows W.focusUp)
+       , ("<S> p"       , spawn appLauncher)
+       , ( "<S> `"      , scratchpadSpawnActionCustom scratch)
          -- APPLICATIONS --
-       , ("<S> a q"               , kill1)
-       , ("<S> a f"               , spawn browser)
-       , ("<S> a e"               , spawn code)
+       , ("<S> a q", kill1)
+       , ("<S> a f", spawn browser)
+       , ( "<S> a e", spawn code)
          -- WINDOWS --
        , ("<S> w g", gotoMenuArgs $ dmenuTheme base10 "Go to window:  ")
        , ("<S> w b", bringMenuArgs $ dmenuTheme base15 "Bring window:  ")
-       , ("<S> w h"               , sendMessage Shrink)
-       , ("<S> w l"               , sendMessage Expand)
-       , ("<S> w ."               , sendMessage $ IncMasterN 1)
-       , ("<S> w ,"               , sendMessage $ IncMasterN (-1))
-       , ("<S> w m"               , windows W.focusMaster)
-       , ("<S> w <Left>"          , windows $ W.swapUp . W.focusUp)
-       , ("<S> w <Right>"         , windows $ W.swapDown . W.focusDown)
-       , ("<S> w s"               , withFocused $ windows . W.sink)
-       , ("<S> w S"               , sinkAll)
-       , ("<S> w f"               , sendMessage AvoidFloatToggle)
-       , ("<S> w t"               , sendMessage ToggleStruts)
+       , ("<S> w h"      , sendMessage Shrink)
+       , ("<S> w l"      , sendMessage Expand)
+       , ("<S> w ."      , sendMessage $ IncMasterN 1)
+       , ("<S> w ,"      , sendMessage $ IncMasterN (-1))
+       , ("<S> w m"      , windows W.focusMaster)
+       , ("<S> w <Left>" , windows $ W.swapUp . W.focusUp)
+       , ("<S> w <Right>", windows $ W.swapDown . W.focusDown)
+       , ("<S> w s"      , withFocused $ windows . W.sink)
+       , ("<S> w S"      , sinkAll)
+       , ("<S> w f"      , sendMessage AvoidFloatToggle)
+       , ( "<S> w t"     , sendMessage ToggleStruts)
          -- SESSION --
-       , ("<S> q l"               , spawn screensaver)
+       , ("<S> q l", spawn screensaver)
        , ("<S> q r", broadcastMessage ReleaseResources >> restart "xmonad" True)
-       , ("<S> q q"               , io exitSuccess)
-       , ("<S> q m"               , unGrab >> powerMenu)
+       , ("<S> q q", io exitSuccess)
+       , ( "<S> q m", unGrab >> powerMenu)
          -- SEARCHING --
-       , ("<S> / /"               , xmonadPromptC actions promptConfig)
+       , ( "<S> / /", xmonadPromptC actions promptConfig)
+       -- TODO: replace this ^, with X.A.Commands
+       -- https://hackage.haskell.org/package/xmonad-contrib-0.16/docs/XMonad-Actions-Commands.html
          -- MEDIA --
        , ("<XF86AudioPlay>"       , spawn "playerctl play-pause")
        , ("<XF86AudioStop>"       , spawn "playerctl stop")
@@ -76,7 +88,7 @@ defaultKeys c =
        , ("<XF86AudioPrev>"       , spawn "playerctl previous")
        , ("<XF86AudioLowerVolume>", spawn "pactl set-sink-volume 0 -5%")
        , ("<XF86AudioRaiseVolume>", spawn "pactl set-sink-volume 0 +5%")
-       , ("<XF86AudioMute>", spawn "pactl set-sink-mute 0 toggle")
+       , ("<XF86AudioMute>"       , spawn "pactl set-sink-mute 0 toggle")
        ]
     ++
          -- SEARCHES --

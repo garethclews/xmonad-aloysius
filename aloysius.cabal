@@ -24,8 +24,9 @@ executable xmonad
                      , App.Scratchpad
                      , Bind.Master
                      , Bind.Util
-                     , Bus.Events
-                     , Bus.Hooks
+                     , Bus.EventHook
+                     , Bus.ManageHook
+                     , Bus.LogHook
                      , Config.Options
                      , Config.Projects
                      , Container.Layout

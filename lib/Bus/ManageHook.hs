@@ -1,6 +1,9 @@
 -- | ManageHooks for xmonad-aloysius
 
-module Bus.Hooks where
+module Bus.ManageHook
+  ( manager
+  )
+where
 
 import           XMonad
 
@@ -23,8 +26,12 @@ import           App.Scratchpad
 -- To match on the WM_NAME, you can use 'title' in the same way that
 -- 'className' and 'resource' are used below.
 --
-hooks :: ManageHook
-hooks =
+
+-- look to incorporate this:
+-- https://hackage.haskell.org/package/xmonad-contrib-0.16/docs/XMonad-Hooks-FadeWindows.html
+
+manager :: ManageHook
+manager =
   composeOne
       [ className =? "Places" -?> doFloat
       , isDialog -?> doCenterFloat
