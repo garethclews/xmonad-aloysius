@@ -14,6 +14,21 @@ A multi-themed XMonad configuration by Aloysius.
 * [Key bindings](#key-bindings)
 
 
+## Newest addition
+
+If anybody is tracking what the changes I'm making are this section is where you
+want to head.
+
+**1.1.1.0**
+I little bit of hard work goes a long way with a complete overhaul of the hooks.
+I have added yet another FIFO for keyboard events. We now have
+`/tmp/xmonad-events` which provides you with a green dot for when you are in
+'XMonad is capturing your keyboard input' mode and a neutral background colour
+otherwise.
+
+Eventually I'll hit an IO issue with all these file writes but until then I have
+other fish to fry!
+
 
 ## Details
 
