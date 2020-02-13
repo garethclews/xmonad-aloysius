@@ -100,34 +100,34 @@ full = named "Fullscreen" $ noBorders (fullscreenFull Full)
 
 bsp =
   named "Binary Partition"
-    $ IfMax 1 full
-    $ gapses
+    . IfMax 1 full
+    . gapses
     . windowSwitcherDecoration shrinkText decoTheme
-    $ draggingVisualizer
+    . draggingVisualizer
     . spacingses
     $ emptyBSP
 
 tall =
   named "Tall"
-    $ IfMax 1 full
-    $ gapses
+    . IfMax 1 full
+    . gapses
     . windowSwitcherDecoration shrinkText decoTheme
-    $ draggingVisualizer
+    . draggingVisualizer
     . spacingses
     $ ResizableTall 1 (2 / 100) (1 / 2) []
 
 tcm =
   named "Three Columns"
-    $ IfMax 1 full
-    $ gapses
+    . IfMax 1 full
+    . gapses
+    . draggingVisualizer
     . windowSwitcherDecoration shrinkText decoTheme
-    $ draggingVisualizer
     . spacingses
     $ ThreeColMid 1 (1 / 10) (1 / 2)
 
 tabs = named "Tabbed" $ tabbedBottom shrinkText tabTheme
 
-flt = named "Float" $ sidedeco $ simpleFloat' shrinkText emptyTheme
+flt = named "Float" . sidedeco $ simpleFloat' shrinkText emptyTheme
 
 
 -- layout --
