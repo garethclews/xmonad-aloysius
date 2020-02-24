@@ -113,7 +113,7 @@ tabTheme = def { activeColor         = base00
                , activeTextColor     = base06
                , inactiveColor       = base03
                , inactiveBorderColor = base03
-               , inactiveTextColor   = base03
+               , inactiveTextColor   = base00
                , urgentColor         = basebg
                , urgentBorderColor   = basebg
                , urgentTextColor     = base12

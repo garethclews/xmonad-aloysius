@@ -10,6 +10,7 @@ import           Control.Monad                  ( forM_ )
 
 import           XMonad
 import qualified XMonad.StackSet               as W
+import           XMonad.Util.NamedWindows
 
 import           Theme.ChosenTheme
 
@@ -18,12 +19,6 @@ import           Theme.ChosenTheme
   -- %{T3} changes font to bold in polybar
   -- %{T-} resets it back to font-0
   -- this module then depends on +THEME+
-
-
--- have a look at https://hackage.haskell.org/package/xmonad-contrib-0.16/docs/XMonad-Util-Loggers.html
--- to see if we can use this for our own logging info
-
-
 
 -- could this also support a pop up panel?
 -- https://hackage.haskell.org/package/xmonad-contrib-0.16/docs/XMonad-Util-Loggers-NamedScratchpad.html
@@ -59,24 +54,29 @@ logHooker = do
   -- FIXME: can this be less onerous?
   winset <- gets windowset
 
-  -- workspaces
+  -- ^ workspaces list
   let currWs = W.currentTag winset
-  -- blocking named scratchpad appearing
-  -- let wss = filter (/= "NSP") $ W.tag <$> W.workspaces winset
-  let wsStr  = fmt currWs
-  -- annoyingly for some themes it changes the colour of the initial string
-  -- write another function which takes a workspace string and another
-  -- string containing the desktop of the window seeking focus and then adjusts
-  -- that string with the urgent notice and then a removal function as well
 
-  -- layout
+  -- ^ output string based on workspaces list
+  let wsStr  = fmt currWs
+
+  -- ^ focussed window
+  fcStr <- maybe (return "") (fmap show . getName) . W.peek $ winset
+
+  -- ^ current layout
   let ltStr =
         layoutParse . description . W.layout . W.workspace . W.current $ winset
+
+  -- ^ atoms will be the content for the system tray function
+  let atoms = ""
 
   -- pushing logs to pipes, note all files are FIFO specials
   -- done this way to 'future-proof' against any stupid ideas I have
   forM_
     [ ("/tmp/xmonad-wspace", wsStr ++ "\n")
     , ("/tmp/xmonad-layout", ltStr ++ "\n")
+    , ("/tmp/xmonad-curwin", fcStr ++ "\n")
+    , ("/tmp/xmonad-states", atoms ++ "\n")
     ]
     write
+

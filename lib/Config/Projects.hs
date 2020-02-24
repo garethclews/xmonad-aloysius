@@ -19,7 +19,7 @@ wsKeybase = "7"
 wsScratch = "8" -- https://fontawesome.com/icons/globe-europe?style=solid
 
 wsList =
-  [wsScratch, wsTerm, wsWeb, wsCode, wsMusic, wsPlain, wsMail, wsKeybase]
+  [wsPlain, wsTerm, wsCode, wsWeb, wsMusic, wsMail, wsKeybase, wsScratch]
 
 projects :: [Project]
 projects =

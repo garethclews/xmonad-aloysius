@@ -25,21 +25,22 @@ executable xmonad
                      , Bind.Master
                      , Bind.Util
                      , Bus.EventHook
-                     , Bus.ManageHook
                      , Bus.LogHook
+                     , Bus.ManageHook
                      , Config.Options
                      , Config.Projects
+                     , Container.IfMax
                      , Container.Layout
                      , Container.Navigation
                      , Data.Commands
                      , Theme.ChosenTheme
                      , Theme.Dracula
                      , Theme.Ephemeral
-                     , Theme.Nord
+                     , Theme.Horizon
                      , Theme.Laserwave
                      , Theme.Lovelace
                      , Theme.Nature
-                     , Theme.Horizon
+                     , Theme.Nord
   -- other-extensions:
   build-depends:       Cabal
                      , X11

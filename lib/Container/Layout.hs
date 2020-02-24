@@ -13,7 +13,7 @@ import           XMonad.Layout.Decoration
 import           XMonad.Layout.DraggingVisualizer
 import           XMonad.Layout.Fullscreen
 import           XMonad.Layout.Gaps
-import           XMonad.Layout.IfMax
+-- import           XMonad.Layout.IfMax
 import           XMonad.Layout.LayoutModifier   ( ModifiedLayout )
 import           XMonad.Layout.Named
 import           XMonad.Layout.NoBorders
@@ -29,6 +29,7 @@ import           XMonad.StackSet               as W
 
 import           Config.Projects
 import           Config.Options
+-- import           Container.IfMax
 ------------------------------------------------------------------------
 --
 -- Layouts:
@@ -100,7 +101,7 @@ full = named "Fullscreen" $ noBorders (fullscreenFull Full)
 
 bsp =
   named "Binary Partition"
-    . IfMax 1 full
+    -- . IfMax 1 full
     . gapses
     . windowSwitcherDecoration shrinkText decoTheme
     . draggingVisualizer
@@ -109,7 +110,7 @@ bsp =
 
 tall =
   named "Tall"
-    . IfMax 1 full
+    -- . IfMax 1 full
     . gapses
     . windowSwitcherDecoration shrinkText decoTheme
     . draggingVisualizer
@@ -118,10 +119,10 @@ tall =
 
 tcm =
   named "Three Columns"
-    . IfMax 1 full
+    -- . IfMax 1 full
     . gapses
-    . draggingVisualizer
     . windowSwitcherDecoration shrinkText decoTheme
+    . draggingVisualizer
     . spacingses
     $ ThreeColMid 1 (1 / 10) (1 / 2)
 
@@ -135,7 +136,7 @@ layout =
   avoidStruts
     .   smartBorders
     .   onWorkspace wsScratch flt
-    $   tcm
+    $   bsp
+    ||| tcm
     ||| tall
-    ||| bsp
     ||| tabs

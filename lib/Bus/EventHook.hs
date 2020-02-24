@@ -26,7 +26,7 @@ handle KeyEvent { ev_event_type = t, ev_state = _, ev_keycode = _ }
 handle ClientMessageEvent { ev_window = w, ev_message_type = t, ev_data = d } =
   withWindowSet $ \s -> do
     let ws = W.workspaces s
-    io $ appendFile "/tmp/xmonad-stack" (show d ++ "\n")
+    io $ appendFile "/dev/null" (show d ++ "\n")
     return ()
 
 handle _ = return ()
