@@ -34,22 +34,17 @@ manager :: ManageHook
 manager =
   composeOne
       [ className =? "Places" -?> doFloat
-      -- ^ dealing with splashes and other popups
-      , isInProperty "_NET_WM_WINDOW_TYPE" splash -?> doCenterFloat
       , isDialog -?> doCenterFloat
-      , isDialog <&&> className =? "Firefox" -?> doCenterFloat
       , isRole =? "GtkFileChooserDialog" -?> doCenterFloat
-      -- ^ general end matter
+      , isInProperty "_NET_WM_WINDOW_TYPE" splash -?> doCenterFloat
       , transience
       , pure True -?> insertPosition End Newer
       ]
     <+> manageDocks
     <+> manageScratchpad
-  where isRole = stringProperty "WM_WINDOW_ROLE"
-
-splash :: String
-splash = "_NET_WM_WINDOW_TYPE_SPLASH"
-
+ where
+  isRole = stringProperty "WM_WINDOW_ROLE"
+  splash = "_NET_WM_WINDOW_TYPE_SPLASH"
 
 -- ok so its in here that we will manage our extra stuff like email notifications and whatever :)
 {-

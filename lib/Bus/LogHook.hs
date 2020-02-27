@@ -67,16 +67,11 @@ logHooker = do
   let ltStr =
         layoutParse . description . W.layout . W.workspace . W.current $ winset
 
-  -- ^ atoms will be the content for the system tray function
-  let atoms = ""
-
   -- pushing logs to pipes, note all files are FIFO specials
   -- done this way to 'future-proof' against any stupid ideas I have
   forM_
     [ ("/tmp/xmonad-wspace", wsStr ++ "\n")
     , ("/tmp/xmonad-layout", ltStr ++ "\n")
     , ("/tmp/xmonad-curwin", fcStr ++ "\n")
-    , ("/tmp/xmonad-states", atoms ++ "\n")
     ]
     write
-

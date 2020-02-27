@@ -29,7 +29,7 @@ import           XMonad.StackSet               as W
 
 import           Config.Projects
 import           Config.Options
--- import           Container.IfMax
+import           Container.IfMax
 ------------------------------------------------------------------------
 --
 -- Layouts:
@@ -101,7 +101,7 @@ full = named "Fullscreen" $ noBorders (fullscreenFull Full)
 
 bsp =
   named "Binary Partition"
-    -- . IfMax 1 full
+    . IfMax 1 full
     . gapses
     . windowSwitcherDecoration shrinkText decoTheme
     . draggingVisualizer
@@ -110,7 +110,7 @@ bsp =
 
 tall =
   named "Tall"
-    -- . IfMax 1 full
+    . IfMax 1 full
     . gapses
     . windowSwitcherDecoration shrinkText decoTheme
     . draggingVisualizer
@@ -119,7 +119,7 @@ tall =
 
 tcm =
   named "Three Columns"
-    -- . IfMax 1 full
+    . IfMax 1 full
     . gapses
     . windowSwitcherDecoration shrinkText decoTheme
     . draggingVisualizer
@@ -138,5 +138,5 @@ layout =
     .   onWorkspace wsScratch flt
     $   bsp
     ||| tcm
-    ||| tall
+    ||| full
     ||| tabs

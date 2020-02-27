@@ -9,17 +9,24 @@ import           App.Alias
 
 -- Projects ---------------------------------------------------------------------
 -- Workspace names, using symbols so like an alias
-wsPlain = "1" -- https://fontawesome.com/icons/circle?style=solid
-wsTerm = "2"
-wsCode = "3" -- https://fontawesome.com/icons/envelope?style=solid
-wsWeb = "4" -- https://fontawesome.com/icons/code?style=solid
-wsMusic = "5" -- https://fontawesome.com/icons/music?style=solid
-wsMail = "6" -- https://fontawesome.com/icons/terminal?style=solid
-wsKeybase = "7"
-wsScratch = "8" -- https://fontawesome.com/icons/globe-europe?style=solid
+wsPlain :: String
+wsTerm :: String
+wsCode :: String
+wsWeb :: String
+wsMusic :: String
+wsMail :: String
+wsScratch :: String
 
-wsList =
-  [wsPlain, wsTerm, wsCode, wsWeb, wsMusic, wsMail, wsKeybase, wsScratch]
+wsPlain = "1"
+wsTerm = "2"
+wsCode = "3"
+wsWeb = "4"
+wsMusic = "5"
+wsMail = "6"
+wsScratch = "7"
+
+wsList :: [String]
+wsList = [wsPlain, wsTerm, wsCode, wsWeb, wsMusic, wsMail, wsScratch]
 
 projects :: [Project]
 projects =
@@ -46,10 +53,6 @@ projects =
   , Project { projectName      = wsMail
             , projectDirectory = "~/"
             , projectStartHook = Just $ spawn mail
-            }
-  , Project { projectName      = wsKeybase
-            , projectDirectory = "~/"
-            , projectStartHook = Just $ spawn keybase
             }
   , Project { projectName      = wsScratch
             , projectDirectory = "~/"

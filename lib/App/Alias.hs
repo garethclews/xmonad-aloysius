@@ -34,6 +34,9 @@ numlock = "numlockx"
 screensaver :: String
 screensaver = "~/.scripts/lock"
 
+tray :: String
+tray = "~/.scripts/tray"
+
 suspend :: String
 suspend = "~/.scripts/suspend"
 

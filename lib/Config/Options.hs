@@ -61,6 +61,7 @@ options = Options
              >> spawnOnce lang
              >> spawnOnce energyStar
              >> spawnOnce xresource
+             >> spawnOnce tray
   }
 
 

@@ -47,34 +47,46 @@ import           Theme.ChosenTheme
 defaultKeys :: XConfig l -> M.Map (KeyMask, KeySym) (X ())
 defaultKeys c =
   mkKeymap c
-    $  [ ("<S> <Return>"  , spawn (term options))   -- general binds
-       , ("<S> <Space>"   , sendMessage NextLayout)
-       , ("<S> <Tab>"     , windows W.focusDown)
-       , ("<S> S-<Tab>"   , windows W.focusUp)
-       , ("<S> p"         , spawn appLauncher)
-       , ("<S> `"         , scratchpadSpawnActionCustom scratch)
-       , ("<S> a q"       , kill1)  -- application launchers
-       , ("<S> a f"       , spawn browser)
-       , ("<S> a e"       , spawn code)
-       , ("<S> w <Down>"  , sinkAll)  -- window manipulation
-       , ("<S> w g"       , gotoMenuArgs  $ dmenuTheme base10 "Go to window:  ")
-       , ("<S> w b"       , bringMenuArgs $ dmenuTheme base15 "Bring window:  ")
-       , ("<S> w h"       , sendMessage Shrink)
-       , ("<S> w l"       , sendMessage Expand)
-       , ("<S> w ."       , sendMessage $ IncMasterN 1)
-       , ("<S> w ,"       , sendMessage $ IncMasterN (-1))
-       , ("<S> w m"       , windows W.focusMaster)
-       , ("<S> w <Left>"  , windows $ W.swapUp . W.focusUp)
-       , ("<S> w <Right>" , windows $ W.swapDown . W.focusDown)
-       , ("<S> w s"       , withFocused $ windows . W.sink)
-       , ("<S> w f"       , sendMessage AvoidFloatToggle)
-       , ("<S> w t"       , sendMessage ToggleStruts)
-       , ("<S> q l"       , spawn screensaver)  -- session
-       , ("<S> q r"       , broadcastMessage ReleaseResources >> restart "xmonad" True)
-       , ("<S> q q"       , io exitSuccess)
-       , ("<S> q m"       , unGrab >> powerMenu)
-       , ( "<S> / /"      , xmonadPromptC actions promptConfig)  -- searches
-       , ("<XF86AudioPlay>"       , spawn "playerctl play-pause")  -- media keys
+    $  [ ( "<S> <Return>"
+         , spawn (term options)
+         )   -- general binds
+       , ("<S> <Space>", sendMessage NextLayout)
+       , ("<S> <Tab>"  , windows W.focusDown)
+       , ("<S> S-<Tab>", windows W.focusUp)
+       , ("<S> p"      , spawn appLauncher)
+       , ("<S> `"      , scratchpadSpawnActionCustom scratch)
+       , ( "<S> a q"
+         , kill1
+         )  -- application launchers
+       , ("<S> a f", spawn browser)
+       , ("<S> a e", spawn code)
+       , ( "<S> w <Down>"
+         , sinkAll
+         )  -- window manipulation
+       , ("<S> w g", gotoMenuArgs $ dmenuTheme base10 "Go to window:  ")
+       , ("<S> w b", bringMenuArgs $ dmenuTheme base15 "Bring window:  ")
+       , ("<S> w h"      , sendMessage Shrink)
+       , ("<S> w l"      , sendMessage Expand)
+       , ("<S> w ."      , sendMessage $ IncMasterN 1)
+       , ("<S> w ,"      , sendMessage $ IncMasterN (-1))
+       , ("<S> w m"      , windows W.focusMaster)
+       , ("<S> w <Left>" , windows $ W.swapUp . W.focusUp)
+       , ("<S> w <Right>", windows $ W.swapDown . W.focusDown)
+       , ("<S> w s"      , withFocused $ windows . W.sink)
+       , ("<S> w f"      , sendMessage AvoidFloatToggle)
+       , ("<S> w t", sendMessage ToggleStruts >> spawn "polybar-msg cmd toggle")
+       , ( "<S> q l"
+         , spawn screensaver
+         )  -- session
+       , ("<S> q r", broadcastMessage ReleaseResources >> restart "xmonad" True)
+       , ("<S> q q", io exitSuccess)
+       , ("<S> q m", unGrab >> powerMenu)
+       , ( "<S> / /"
+         , xmonadPromptC actions promptConfig
+         )  -- searches
+       , ( "<XF86AudioPlay>"
+         , spawn "playerctl play-pause"
+         )  -- media keys
        , ("<XF86AudioStop>"       , spawn "playerctl stop")
        , ("<XF86AudioNext>"       , spawn "playerctl next")
        , ("<XF86AudioPrev>"       , spawn "playerctl previous")
@@ -82,13 +94,11 @@ defaultKeys c =
        , ("<XF86AudioRaiseVolume>", spawn "pactl set-sink-volume 0 +5%")
        , ("<XF86AudioMute>"       , spawn "pactl set-sink-mute 0 toggle")
        ]
-    ++
-       [ ("<S> / s " ++ k, S.selectSearch f) | (k, f) <- searchList ]  -- search options
+    ++ [ ("<S> / s " ++ k, S.selectSearch f) | (k, f) <- searchList ]  -- search options
     ++ [ ("<S> / p " ++ k, S.promptSearch promptConfig f)
        | (k, f) <- searchList
        ]
-    ++
-       [ (m ++ k, windows $ f w)  -- navigation
+    ++ [ (m ++ k, windows $ f w)  -- navigation
        | (w, k) <- zip (XMonad.workspaces c) (spaces options)
        , (m, f) <- [("<S> ", W.greedyView), ("<S> S-", W.shift)]
        ]

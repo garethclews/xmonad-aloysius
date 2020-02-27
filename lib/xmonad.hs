@@ -76,7 +76,8 @@ main = do
     , "/tmp/xmonad-layout"
     , "/tmp/xmonad-events"
     , "/tmp/xmonad-curwin"
-    , "/tmp/xmonad-states"
+    , "/tmp/xmonad-discord"
+    , "/tmp/xmonad-mail"
     , "/tmp/caffeine"
     ]
 
