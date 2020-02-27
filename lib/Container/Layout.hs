@@ -132,11 +132,4 @@ flt = named "Float" . sidedeco $ simpleFloat' shrinkText emptyTheme
 
 
 -- layout --
-layout =
-  avoidStruts
-    .   smartBorders
-    .   onWorkspace wsScratch flt
-    $   bsp
-    ||| tcm
-    ||| full
-    ||| tabs
+layout = avoidStruts . smartBorders . onWorkspace wsScratch flt $ bsp ||| tabs

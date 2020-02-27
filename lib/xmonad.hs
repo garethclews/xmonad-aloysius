@@ -84,7 +84,7 @@ main = do
   -- compose all the functionality
   xmonad
     . docks
-    . ewmh
+    -- . ewmh
     . navigate
     . dynamicProjects projects
     . withUrgencyHook NoUrgencyHook

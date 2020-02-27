@@ -26,7 +26,7 @@ wsMail = "6"
 wsScratch = "7"
 
 wsList :: [String]
-wsList = [wsPlain, wsTerm, wsCode, wsWeb, wsMusic, wsMail, wsScratch]
+wsList = [wsScratch, wsPlain, wsTerm, wsCode, wsWeb, wsMusic, wsMail]
 
 projects :: [Project]
 projects =
