@@ -41,7 +41,7 @@ suspend :: String
 suspend = "~/.scripts/suspend"
 
 energyStar :: String
-energyStar = "echo '%{F#eceff4}\xf111%{F-}\n' > /tmp/caffeine"
+energyStar = "echo '%{F#eceff4}\xf111%{F-}\n' > /tmp/xmonad-caffeine"
 
 xresource :: String
 xresource =

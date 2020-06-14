@@ -9,7 +9,6 @@ where
 
 import           Data.Monoid
 import           XMonad
-import qualified XMonad.StackSet               as W
 import           Theme.ChosenTheme
 
 

@@ -75,16 +75,14 @@ main = do
     [ "/tmp/xmonad-wspace"
     , "/tmp/xmonad-layout"
     , "/tmp/xmonad-events"
-    , "/tmp/xmonad-curwin"
-    , "/tmp/xmonad-discord"
-    , "/tmp/xmonad-mail"
-    , "/tmp/caffeine"
+    , "/tmp/xmonad-states"
+    , "/tmp/xmonad-caffeine"
     ]
 
   -- compose all the functionality
   xmonad
     . docks
-    -- . ewmh
+    . ewmh
     . navigate
     . dynamicProjects projects
     . withUrgencyHook NoUrgencyHook

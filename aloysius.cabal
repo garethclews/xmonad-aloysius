@@ -44,10 +44,10 @@ executable xmonad
   -- other-extensions:
   build-depends:       Cabal
                      , X11
-                     , base ^>=4.12.0.0
+                     , base ^>=4.13.0.0
                      , containers ^>=0.6.0.1
                      , xmonad ^>=0.15
-                     , xmonad-contrib ^>=0.15
+                     , xmonad-contrib ^>=0.16
                      , xmonad-extras ^>=0.15
   hs-source-dirs:      lib
   default-language:    Haskell2010

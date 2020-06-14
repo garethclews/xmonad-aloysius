@@ -61,7 +61,7 @@ logHooker = do
   let wsStr  = fmt currWs
 
   -- ^ focussed window
-  fcStr <- maybe (return "") (fmap show . getName) . W.peek $ winset
+  -- fcStr <- maybe (return "") (fmap show . getName) . W.peek $ winset
 
   -- ^ current layout
   let ltStr =
@@ -72,6 +72,6 @@ logHooker = do
   forM_
     [ ("/tmp/xmonad-wspace", wsStr ++ "\n")
     , ("/tmp/xmonad-layout", ltStr ++ "\n")
-    , ("/tmp/xmonad-curwin", fcStr ++ "\n")
+    -- , ("/tmp/xmonad-curwin", fcStr ++ "\n")
     ]
     write
