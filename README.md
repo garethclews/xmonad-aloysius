@@ -2,6 +2,21 @@
 
 A multi-themed XMonad configuration by Aloysius.
 
+
+## WARNING
+
+I have renamed the default branch, please update your local as follows
+
+``` sh
+$ git checkout master
+$ git branch -m master main
+$ git fetch
+$ git branch --unset-upstream
+$ git branch -u origin/main
+$ git symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/main
+```
+
+
 ## Contents
 
 * [Previews](#latest-previews)
