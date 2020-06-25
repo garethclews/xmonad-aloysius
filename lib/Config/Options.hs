@@ -2,15 +2,11 @@
 
 module Config.Options where
 
-import           Data.Monoid
 
 import           XMonad
 
-import           XMonad.Hooks.EwmhDesktops
 import           XMonad.Hooks.SetWMName
-
 import           XMonad.Layout.Decoration
-
 import           XMonad.Util.Font
 import           XMonad.Util.SpawnOnce
 
@@ -52,11 +48,9 @@ options = Options
   , starts = setWMName "XMonad"
              >> spawnOnce touchEvents
              >> spawnOnce audioSink
-             >> spawnOnce gnomeSession
+             >> spawnOnce settingsd
              >> spawnOnce panel
-             >> spawnOnce numlock
              >> spawnOnce wallpaper
-             >> spawnOnce compositor
              >> spawnOnce cursor
              >> spawnOnce lang
              >> spawnOnce energyStar
@@ -109,11 +103,11 @@ dmenuTheme colour s =
 
 
 tabTheme :: Theme
-tabTheme = def { activeColor         = base00
-               , activeBorderColor   = base00
-               , activeTextColor     = base06
-               , inactiveColor       = base03
-               , inactiveBorderColor = base03
+tabTheme = def { activeColor         = base03
+               , activeBorderColor   = base03
+               , activeTextColor     = basefg
+               , inactiveColor       = base02
+               , inactiveBorderColor = base01
                , inactiveTextColor   = base00
                , urgentColor         = basebg
                , urgentBorderColor   = basebg
@@ -124,19 +118,23 @@ tabTheme = def { activeColor         = base00
 
 
 decoTheme :: Theme
-decoTheme = def { activeColor         = basebg
-                , activeBorderColor   = basebg
-                , activeTextColor     = basefg
-                , inactiveColor       = basebg
-                , inactiveBorderColor = basebg
-                , inactiveTextColor   = basebg
-                , urgentColor         = basebg
-                , urgentBorderColor   = basebg
-                , urgentTextColor     = base12
-                , fontName            = monospace
-                , windowTitleAddons   = [("\xf004", AlignRightOffset 24)]
-                , decoHeight          = 52
-                }
+decoTheme = def
+  { activeColor         = basebg
+  , activeBorderColor   = basebg
+  , activeTextColor     = basefg
+  , inactiveColor       = basebg
+  , inactiveBorderColor = basebg
+  , inactiveTextColor   = basebg
+  , urgentColor         = basebg
+  , urgentBorderColor   = basebg
+  , urgentTextColor     = base12
+  , fontName            = monospace
+  , windowTitleAddons   = [ ("\xf00d", AlignRightOffset 24)
+                          , ("\xf111", AlignRightOffset 54)
+                          , ("\xf004", AlignRightOffset 84)
+                          ]
+  , decoHeight          = 52
+  }
 
 
 emptyTheme :: Theme

@@ -5,11 +5,16 @@ module Bus.ManageHook
   )
 where
 
+
+import           Data.Ratio                     ( (%) )
+
 import           XMonad
 
 import           XMonad.Hooks.InsertPosition
 import           XMonad.Hooks.ManageDocks
 import           XMonad.Hooks.ManageHelpers
+
+import qualified XMonad.StackSet               as W
 
 import           App.Scratchpad
 -- Window rules:
@@ -54,11 +59,14 @@ manager :: ManageHook
 manager =
   composeOne
       [ className =? "Places" -?> doFloat
+      , className =? "mpv" -?> doRectFloat
+        (W.RationalRect (1 % 4) (1 % 4) (1 % 2) (1 % 2))
+      , className =? "Firefox" <&&> resource =? "Toolkit" -?> doFloat
       , isDialog -?> doCenterFloat
-      , isDialog <&&> className =? "Firefox" -?> doCenterFloat
       , isRole =? "GtkFileChooserDialog" -?> doCenterFloat
       , isInProperty "_NET_WM_WINDOW_TYPE" "_NET_WM_WINDOW_TYPE_SPLASH"
         -?> doCenterFloat
+      , isInProperty "WM_NAME(STRING)" "gruffalo" -?> doFloat
       , transience
       , pure True -?> insertPosition End Newer
       ]

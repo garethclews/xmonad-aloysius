@@ -11,6 +11,8 @@ import           XMonad.Actions.WithAll
 import           XMonad.Hooks.ManageDocks       ( ToggleStruts(..) )
 
 import           XMonad.Layout.AvoidFloats
+import           XMonad.Layout.LayoutCombinators
+                                                ( JumpToLayout(..) )
 
 import           XMonad.Prompt.XMonad
 
@@ -77,6 +79,11 @@ defaultKeys c =
        , ("<S> w t", sendMessage ToggleStruts >> spawn "polybar-msg cmd toggle")
        , ( "<S> q l"
          , spawn screensaver
+         )  -- layout manipulation
+       , ("<S> l 1", sendMessage $ JumpToLayout "Fullscreen")
+       , ("<S> l 2", sendMessage $ JumpToLayout "Tall")
+       , ( "<S> l 3"
+         , sendMessage $ JumpToLayout "Tabbed"
          )  -- session
        , ("<S> q r", broadcastMessage ReleaseResources >> restart "xmonad" True)
        , ("<S> q q", io exitSuccess)

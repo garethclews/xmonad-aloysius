@@ -5,16 +5,24 @@ module Container.Layout where
 
 
 -- Imports ----------------------------------------------------------------------
-import           XMonad
+import           Control.Monad                  ( unless )
+import           Foreign.C.Types                ( CInt )
+
+import           XMonad                  hiding ( (|||) )
+
+import           XMonad.Actions.CopyWindow
+
 import           XMonad.Hooks.ManageDocks
 
 import           XMonad.Layout.BinarySpacePartition
 import           XMonad.Layout.Decoration
+import           XMonad.Layout.DecorationAddons
 import           XMonad.Layout.DraggingVisualizer
 import           XMonad.Layout.Fullscreen
 import           XMonad.Layout.Gaps
 -- import           XMonad.Layout.IfMax
-import           XMonad.Layout.LayoutModifier   ( ModifiedLayout )
+import           XMonad.Layout.LayoutCombinators
+                                                ( (|||) )
 import           XMonad.Layout.Named
 import           XMonad.Layout.NoBorders
 import           XMonad.Layout.PerWorkspace
@@ -26,10 +34,13 @@ import           XMonad.Layout.ThreeColumns
 import           XMonad.Layout.WindowSwitcherDecoration
 
 import           XMonad.StackSet               as W
+                                         hiding ( focus )
 
 import           Config.Projects
 import           Config.Options
 import           Container.IfMax
+
+
 ------------------------------------------------------------------------
 --
 -- Layouts:
@@ -43,7 +54,7 @@ import           Container.IfMax
 -- which denotes layout choice.
 --
 
--- Declarations
+-- Types ------------------------------------------------------------------------
 data Gaps' = Gaps'
   { u  :: Int
   , d  :: Int
@@ -52,9 +63,15 @@ data Gaps' = Gaps'
   }
 
 
+data ADecoration a = AD Bool deriving (Read, Show)
+
 newtype SideDecoration a = SideDecoration Direction2D
   deriving (Show, Read)
 
+
+-- Instances --------------------------------------------------------------------
+
+-- | side decorations
 instance Eq a => DecorationStyle SideDecoration a where
   describeDeco _ = "Side handles"
   shrink b (Rectangle _ _ dw dh) (Rectangle _x _y w h)
@@ -70,9 +87,24 @@ instance Eq a => DecorationStyle SideDecoration a where
       SideDecoration L -> Rectangle _x _y dw h
     | otherwise = Nothing
   -- decorationCatchClicksHook _ _ _ _ = return True --
-  -- This one needs to allow movement of the window as well...
 
--- Settings ---------------------------------------------------------------------
+
+-- | clickable bar
+
+instance Eq a => DecorationStyle ADecoration a where
+  describeDeco _ = "AloyDecoration"
+  decorationCatchClicksHook _ mainw dFL dFR = clickHandler mainw dFL dFR
+  decorationWhileDraggingHook _ ex ey (mainw, r) xx yy =
+    handleTiledDraggingInProgress ex ey (mainw, r) xx yy
+  decorationAfterDraggingHook _ (mainw, _) decoWin = do
+    focus mainw
+    hasCrossed <- handleScreenCrossing mainw decoWin
+    unless hasCrossed $ do
+      sendMessage $ DraggingStopped
+      performWindowSwitching mainw
+
+
+-- Functions --------------------------------------------------------------------
 
 gs :: Gaps'
 gs = Gaps' { u = 20, d = 20, x = 20, x' = 20 }
@@ -94,7 +126,6 @@ sidedeco
   => l a
   -> ModifiedLayout (Decoration SideDecoration DefaultShrinker) l a
 sidedeco = decoration shrinkText sideDecoTheme (SideDecoration L)
-
 
 -- customised layouts
 full = named "Fullscreen" $ noBorders (fullscreenFull Full)
@@ -121,7 +152,7 @@ tcm =
   named "Three Columns"
     . IfMax 1 full
     . gapses
-    . windowSwitcherDecoration shrinkText decoTheme
+    . aDecoration shrinkText decoTheme
     . draggingVisualizer
     . spacingses
     $ ThreeColMid 1 (1 / 10) (1 / 2)
@@ -140,3 +171,80 @@ layout =
     ||| tcm
     ||| full
     ||| tabs
+
+
+-- Instance support -------------------------------------------------------------
+buttonOffset :: Int
+buttonOffset = 24
+
+buttonSize :: Int
+buttonSize = 24 :: Int
+
+
+-- button location constraints
+-- | right button
+rightMin = buttonOffset + buttonSize
+rightMax = buttonOffset
+
+-- | middle button
+midMin = buttonOffset + 2 * buttonSize
+midMax = rightMin
+
+-- left button
+leftMin = buttonOffset + 3 * buttonSize
+leftMax = midMin
+
+
+-- click handler
+clickHandler :: Window -> Int -> Int -> X Bool
+clickHandler mainw _ distFromRight = do
+  let action = if (distFromRight >= leftMin && distFromRight <= leftMax)
+        then focus mainw >> windows copyToAll >> return True
+        else if (distFromRight >= midMin && distFromRight <= midMax)
+          then focus mainw >> return True
+          else if (distFromRight >= rightMin && distFromRight <= rightMax)
+            then focus mainw >> kill >> return True
+            else return False
+  action
+
+
+-- | dragging windows
+handleTiledDraggingInProgress
+  :: CInt -> CInt -> (Window, Rectangle) -> Position -> Position -> X ()
+handleTiledDraggingInProgress ex ey (mainw, r) x y = do
+  let rect = Rectangle (x - (fi ex - rect_x r))
+                       (y - (fi ey - rect_y r))
+                       (rect_width r)
+                       (rect_height r)
+  sendMessage $ DraggingWindow mainw rect
+
+
+-- switching window positions by dragging
+performWindowSwitching :: Window -> X ()
+performWindowSwitching win = withDisplay $ \dd -> do
+  root                          <- asks theRoot
+  (_, _, selWin, _, _, _, _, _) <- io $ queryPointer dd root
+  ws                            <- gets windowset
+  let allWindows' = W.index ws
+  -- do a little double check to be sure
+  if (win `elem` allWindows') && (selWin `elem` allWindows')
+    then do
+      let allWindowsSwitched = map (switchEntries win selWin) allWindows'
+      let (ls, t : rs)       = break (win ==) allWindowsSwitched
+      let newStack           = W.Stack t (reverse ls) rs
+      windows $ W.modify' $ \_ -> newStack
+    else return ()
+ where
+  switchEntries a b x | x == a    = b
+                      | x == b    = a
+                      | otherwise = x
+
+
+-- decoration enabler
+aDecoration
+  :: (Eq a, Shrinker s)
+  => s
+  -> Theme
+  -> l a
+  -> ModifiedLayout (Decoration ADecoration s) l a
+aDecoration s c = decoration s c $ AD False
