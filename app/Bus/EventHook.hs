@@ -1,5 +1,6 @@
--- | XMonad-Aloysius eventLog for polybar
--- | From: https://github.com/polybar/polybar/wiki/User-contributed-module
+-- | XMonad-Aloysius event hook management
+--
+-- I'm only currently interested in key press events marking keyboard capture
 
 module Bus.EventHook
   ( eventer
@@ -20,8 +21,8 @@ handle :: Event -> X ()
 handle KeyEvent { ev_event_type = t, ev_state = _, ev_keycode = _ }
   | t == 2    = io $ appendFile "/tmp/xmonad-events" fullDot
   | otherwise = io $ appendFile "/tmp/xmonad-events" voidDot
-handle _ = return ()
 
+handle _ = return ()
 
 -- pretty content ---------------------------------------------------------------
 fullDot :: String

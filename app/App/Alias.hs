@@ -10,8 +10,8 @@ audioSink :: String
 audioSink =
   "pactl set-default-sink alsa_output.pci-0000_01_00.1.hdmi-stereo-extra2"
 
-gnomeSession :: String
-gnomeSession = "gnome-session --disable-acceleration-check -f &"
+settingsd :: String
+settingsd = "xsettingsd &"
 
 panel :: String
 panel = "~/.scripts/polybar/launch"
@@ -19,26 +19,23 @@ panel = "~/.scripts/polybar/launch"
 wallpaper :: String
 wallpaper = "~/.fehbg"
 
-compositor :: String
-compositor = "systemctl --user start compton"
-
 cursor :: String
 cursor = "xsetroot -cursor_name left_ptr &"
 
 lang :: String
 lang = "export LANG=en_GB.UTF-8"
 
-numlock :: String
-numlock = "numlockx"
-
 screensaver :: String
 screensaver = "~/.scripts/lock"
+
+tray :: String
+tray = "~/.scripts/tray"
 
 suspend :: String
 suspend = "~/.scripts/suspend"
 
 energyStar :: String
-energyStar = "echo '%{F#eceff4}\xf0eb%{F-}\n' > /tmp/caffeine"
+energyStar = "echo '%{F#eceff4}\xf111%{F-}\n' > /tmp/xmonad-caffeine"
 
 xresource :: String
 xresource =
@@ -61,9 +58,6 @@ code = "emacs"
 
 browser :: String
 browser = "firefox"
-
-keybase :: String
-keybase = "keybase-gui"
 
 touchEvents :: String
 touchEvents = "echo \"\xf111\" > /tmp/xmonad-events"

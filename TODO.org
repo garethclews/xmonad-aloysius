@@ -1,27 +1,24 @@
 #+TITLE: XMonad-Aloysius
 
-* TODO GENERAL [0/2]
-- [ ] work through https://hackage.haskell.org/package/xmonad-contrib-0.15/docs/XMonad-Doc-Extending.html
-- [ ] add a dmenu prompt for quick selecing layout a la https://github.com/KnairdA/nixos_home/blob/master/gui/conf/xmonad.hs
+* TODO GENERAL [0/0]
 
 
 * TODO NON XMONAD SPECIFIC [0/0]
 
 
 * STRT ACTIVE [0/2]
-- [ ] use urgencyhook to either change the colour of the workspace in polybar
 - [-] make window decoration clickable on floating workspace
   - [ ] change the colour of the windowTitleAddons (decorationWithImageButtons)
   - [-] enable decorationCatchClicksHook
   - [ ] add the buttons
   - [ ] catch the clicks
+- [-] add a dmenu prompt for quick selecing layout a la https://github.com/KnairdA/nixos_home/blob/master/gui/conf/xmonad.hs
 
 
 * WAIT DEFER [0/3]
 - [ ] https://github.com/pjones/xmonadrc has some dynamic project helper functions
 - [ ] Design a sound scheme
 - [ ] update git prompt to show ahead/behind status
-
 
 * DONE [24/24]
 - [X] tidy up gaps with polybar
@@ -63,3 +60,5 @@
 - [X] adding a 'system tray' based on notifications from DBus -- you can get this via polybar but its ugly and I really don't need one as much as I thought
 - [X] M-S-` for an alternative scratchpad with custom command (ghcid)?
 - [X] general research into pulseaudio configuration
+- [X] work through https://hackage.haskell.org/package/xmonad-contrib-0.15/docs/XMonad-Doc-Extending.html
+- [X] use urgencyhook to either change the colour of the workspace in polybar -- not done, only showing active workspace now anyway so would not make sense to colourise it based on notifications on the active workspace

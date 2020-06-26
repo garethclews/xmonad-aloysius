@@ -1,5 +1,6 @@
-# [Call Me Al](https://www.youtube.com/watch?v=uq-gYOrU8bA)
+<span style="text-align:center;"><img src="./assets/birdcap.png" /></span>
 
+# [Call Me Al](https://www.youtube.com/watch?v=uq-gYOrU8bA)
 
 
 A multi-themed XMonad configuration by Aloysius.
@@ -18,7 +19,6 @@ $ git branch -u origin/main
 $ git symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/main
 ```
 
-
 ## Contents
 
 * [Previews](#latest-previews)
@@ -30,6 +30,18 @@ $ git symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/main
 * [Installation instructions](#installation-instructions)
 * [Key bindings](#key-bindings)
 
+
+## Newest addition
+
+Say hello to clickable window decorations!
+
+Heart is currently disabled until I can get copyToAll to work correctly. Dot makes full screen and toggles struts (movie mode!) and cross kills the window.
+
+
+## Next tasks
+
+- [ ] Move a the non-critical parts of this README into the wiki
+- [ ] Sort out the screenshots for the missing themes
 
 
 ## Details

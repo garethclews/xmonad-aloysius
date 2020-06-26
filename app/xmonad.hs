@@ -64,7 +64,6 @@ defaults = def {
                }
 
 
-
 -- Main -------------------------------------------------------------------------
 main :: IO ()
 main = do
@@ -76,10 +75,11 @@ main = do
     [ "/tmp/xmonad-wspace"
     , "/tmp/xmonad-layout"
     , "/tmp/xmonad-events"
-    , "/tmp/caffeine"
+    , "/tmp/xmonad-states"
+    , "/tmp/xmonad-caffeine"
     ]
 
-  -- set up our ewmh-based desktop
+  -- compose all the functionality
   xmonad
     . docks
     . ewmh

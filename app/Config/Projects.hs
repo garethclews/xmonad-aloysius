@@ -9,21 +9,31 @@ import           App.Alias
 
 -- Projects ---------------------------------------------------------------------
 -- Workspace names, using symbols so like an alias
-wsPlain = "1" -- https://fontawesome.com/icons/circle?style=solid
-wsTerm = "2"
-wsCode = "3" -- https://fontawesome.com/icons/envelope?style=solid
-wsWeb = "4" -- https://fontawesome.com/icons/code?style=solid
-wsMusic = "5" -- https://fontawesome.com/icons/music?style=solid
-wsMail = "6" -- https://fontawesome.com/icons/terminal?style=solid
-wsKeybase = "7"
-wsScratch = "8" -- https://fontawesome.com/icons/globe-europe?style=solid
+wsGruffalo :: String
+wsPlain :: String
+wsTerm :: String
+wsCode :: String
+wsWeb :: String
+wsMusic :: String
+wsMail :: String
+wsScratch :: String
 
+wsGruffalo = "1"
+wsTerm = "2"
+wsCode = "3"
+wsWeb = "4"
+wsMusic = "5"
+wsMail = "6"
+wsPlain = "7"
+wsScratch = "8"
+
+wsList :: [String]
 wsList =
-  [wsScratch, wsTerm, wsWeb, wsCode, wsMusic, wsPlain, wsMail, wsKeybase]
+  [wsGruffalo, wsTerm, wsCode, wsWeb, wsMusic, wsMail, wsPlain, wsScratch]
 
 projects :: [Project]
 projects =
-  [ Project { projectName      = wsPlain
+  [ Project { projectName      = wsGruffalo
             , projectDirectory = "~/"
             , projectStartHook = Just $ return ()
             }
@@ -47,9 +57,9 @@ projects =
             , projectDirectory = "~/"
             , projectStartHook = Just $ spawn mail
             }
-  , Project { projectName      = wsKeybase
+  , Project { projectName      = wsPlain
             , projectDirectory = "~/"
-            , projectStartHook = Just $ spawn keybase
+            , projectStartHook = Just $ return ()
             }
   , Project { projectName      = wsScratch
             , projectDirectory = "~/"

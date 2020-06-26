@@ -11,6 +11,8 @@ import           XMonad.Actions.WithAll
 import           XMonad.Hooks.ManageDocks       ( ToggleStruts(..) )
 
 import           XMonad.Layout.AvoidFloats
+import           XMonad.Layout.LayoutCombinators
+                                                ( JumpToLayout(..) )
 
 import           XMonad.Prompt.XMonad
 
@@ -47,18 +49,22 @@ import           Theme.ChosenTheme
 defaultKeys :: XConfig l -> M.Map (KeyMask, KeySym) (X ())
 defaultKeys c =
   mkKeymap c
-    $  [ -- GENERAL --
-         ("<S> <Return>", spawn (term options))
-       , ("<S> <Space>" , sendMessage NextLayout)
-       , ("<S> <Tab>"   , windows W.focusDown)
-       , ("<S> S-<Tab>" , windows W.focusUp)
-       , ("<S> p"       , spawn appLauncher)
-       , ( "<S> `"      , scratchpadSpawnActionCustom scratch)
-         -- APPLICATIONS --
-       , ("<S> a q", kill1)
-       , ("<S> a f", spawn browser)
-       , ( "<S> a e", spawn code)
-         -- WINDOWS --
+    $  [ ( "<S> <Return>"
+         , spawn (term options)
+         )   -- general binds
+       , ("<S> <Space>", sendMessage NextLayout)
+       , ("<S> <Tab>"  , windows W.focusDown)
+       , ("<S> S-<Tab>", windows W.focusUp)
+       , ("<S> p"      , spawn appLauncher)
+       , ("<S> `"      , scratchpadSpawnActionCustom scratch)
+       , ( "<S> a q"
+         , kill1
+         )  -- application launchers
+       , ("<S> a w", spawn browser)
+       , ("<S> a e", spawn code)
+       , ( "<S> w <Down>"
+         , sinkAll
+         )  -- window manipulation
        , ("<S> w g", gotoMenuArgs $ dmenuTheme base10 "Go to window:  ")
        , ("<S> w b", bringMenuArgs $ dmenuTheme base15 "Bring window:  ")
        , ("<S> w h"      , sendMessage Shrink)
@@ -69,20 +75,25 @@ defaultKeys c =
        , ("<S> w <Left>" , windows $ W.swapUp . W.focusUp)
        , ("<S> w <Right>", windows $ W.swapDown . W.focusDown)
        , ("<S> w s"      , withFocused $ windows . W.sink)
-       , ("<S> w S"      , sinkAll)
        , ("<S> w f"      , sendMessage AvoidFloatToggle)
-       , ( "<S> w t"     , sendMessage ToggleStruts)
-         -- SESSION --
-       , ("<S> q l", spawn screensaver)
+       , ("<S> w t", sendMessage ToggleStruts >> spawn "polybar-msg cmd toggle")
+       , ( "<S> q l"
+         , spawn screensaver
+         )  -- layout manipulation
+       , ("<S> l 1", sendMessage $ JumpToLayout "Fullscreen")
+       , ("<S> l 2", sendMessage $ JumpToLayout "Tall")
+       , ( "<S> l 3"
+         , sendMessage $ JumpToLayout "Tabbed"
+         )  -- session
        , ("<S> q r", broadcastMessage ReleaseResources >> restart "xmonad" True)
        , ("<S> q q", io exitSuccess)
-       , ( "<S> q m", unGrab >> powerMenu)
-         -- SEARCHING --
-       , ( "<S> / /", xmonadPromptC actions promptConfig)
-       -- TODO: replace this ^, with X.A.Commands
-       -- https://hackage.haskell.org/package/xmonad-contrib-0.16/docs/XMonad-Actions-Commands.html
-         -- MEDIA --
-       , ("<XF86AudioPlay>"       , spawn "playerctl play-pause")
+       , ("<S> q m", unGrab >> powerMenu)
+       , ( "<S> / /"
+         , xmonadPromptC actions promptConfig
+         )  -- searches
+       , ( "<XF86AudioPlay>"
+         , spawn "playerctl play-pause"
+         )  -- media keys
        , ("<XF86AudioStop>"       , spawn "playerctl stop")
        , ("<XF86AudioNext>"       , spawn "playerctl next")
        , ("<XF86AudioPrev>"       , spawn "playerctl previous")
@@ -90,15 +101,11 @@ defaultKeys c =
        , ("<XF86AudioRaiseVolume>", spawn "pactl set-sink-volume 0 +5%")
        , ("<XF86AudioMute>"       , spawn "pactl set-sink-mute 0 toggle")
        ]
-    ++
-         -- SEARCHES --
-       [ ("<S> / s " ++ k, S.selectSearch f) | (k, f) <- searchList ]
+    ++ [ ("<S> / s " ++ k, S.selectSearch f) | (k, f) <- searchList ]  -- search options
     ++ [ ("<S> / p " ++ k, S.promptSearch promptConfig f)
        | (k, f) <- searchList
        ]
-    ++
-         -- NAVIGATION
-       [ (m ++ k, windows $ f w)
+    ++ [ (m ++ k, windows $ f w)  -- navigation
        | (w, k) <- zip (XMonad.workspaces c) (spaces options)
        , (m, f) <- [("<S> ", W.greedyView), ("<S> S-", W.shift)]
        ]
