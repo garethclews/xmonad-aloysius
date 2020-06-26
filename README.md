@@ -1,4 +1,4 @@
-![Aloysius](./assets/birdcap.png)
+<span style="display: block;text-align:center;">![Aloysius](./assets/birdcap.png)</span>
 
 # [Call Me Al](https://www.youtube.com/watch?v=uq-gYOrU8bA)
 
