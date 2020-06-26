@@ -1,4 +1,4 @@
-<span style="text-align:center;"><img sr="./assets/birdcap.png" /></span>
+<span style="text-align:center;"><img src="./assets/birdcap.png" /></span>
 
 # [Call Me Al](https://www.youtube.com/watch?v=uq-gYOrU8bA)
 
