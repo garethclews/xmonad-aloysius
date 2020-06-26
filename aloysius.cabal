@@ -4,7 +4,7 @@ cabal-version:         3.0
 -- http://haskell.org/cabal/users-guide/
 
 name:                  aloysius
-version:               1.1.1.0
+version:               1.1.1.1
 synopsis:              xmonad config
 -- description:
 homepage:              https://gitlab.com/karetsu/xmonad-aloysius
@@ -49,5 +49,5 @@ executable xmonad
                      , xmonad ^>=0.15
                      , xmonad-contrib ^>=0.16
                      , xmonad-extras ^>=0.15
-  hs-source-dirs:      lib
+  hs-source-dirs:      app
   default-language:    Haskell2010
