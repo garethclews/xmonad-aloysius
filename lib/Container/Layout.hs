@@ -22,7 +22,9 @@ import           XMonad.Layout.Fullscreen
 import           XMonad.Layout.Gaps
 -- import           XMonad.Layout.IfMax
 import           XMonad.Layout.LayoutCombinators
-                                                ( (|||) )
+                                                ( (|||)
+                                                , JumpToLayout(..)
+                                                )
 import           XMonad.Layout.Named
 import           XMonad.Layout.NoBorders
 import           XMonad.Layout.PerWorkspace
@@ -31,7 +33,6 @@ import           XMonad.Layout.SimpleFloat
 import           XMonad.Layout.Spacing
 import           XMonad.Layout.Tabbed
 import           XMonad.Layout.ThreeColumns
-import           XMonad.Layout.WindowSwitcherDecoration
 
 import           XMonad.StackSet               as W
                                          hiding ( focus )
@@ -89,8 +90,7 @@ instance Eq a => DecorationStyle SideDecoration a where
   -- decorationCatchClicksHook _ _ _ _ = return True --
 
 
--- | clickable bar
-
+-- | clickable bar default decoration :)
 instance Eq a => DecorationStyle ADecoration a where
   describeDeco _ = "AloyDecoration"
   decorationCatchClicksHook _ mainw dFL dFR = clickHandler mainw dFL dFR
@@ -134,7 +134,7 @@ bsp =
   named "Binary Partition"
     . IfMax 1 full
     . gapses
-    . windowSwitcherDecoration shrinkText decoTheme
+    . aDecoration shrinkText decoTheme
     . draggingVisualizer
     . spacingses
     $ emptyBSP
@@ -143,7 +143,7 @@ tall =
   named "Tall"
     . IfMax 1 full
     . gapses
-    . windowSwitcherDecoration shrinkText decoTheme
+    . aDecoration shrinkText decoTheme
     . draggingVisualizer
     . spacingses
     $ ResizableTall 1 (2 / 100) (1 / 2) []
@@ -182,28 +182,33 @@ buttonSize = 24 :: Int
 
 
 -- button location constraints
+-- TODO: abstract this out
 -- | right button
-rightMin = buttonOffset + buttonSize
-rightMax = buttonOffset
+rLE = buttonOffset + buttonSize
+rRE = buttonOffset
 
 -- | middle button
-midMin = buttonOffset + 2 * buttonSize
-midMax = rightMin
+mLE = buttonOffset + 2 * buttonSize
+mRE = rLE
 
 -- left button
-leftMin = buttonOffset + 3 * buttonSize
-leftMax = midMin
+lLE = buttonOffset + 3 * buttonSize
+lRE = mLE
 
 
 -- click handler
 clickHandler :: Window -> Int -> Int -> X Bool
-clickHandler mainw _ distFromRight = do
-  let action = if (distFromRight >= leftMin && distFromRight <= leftMax)
-        then focus mainw >> windows copyToAll >> return True
-        else if (distFromRight >= midMin && distFromRight <= midMax)
-          then focus mainw >> return True
-          else if (distFromRight >= rightMin && distFromRight <= rightMax)
-            then focus mainw >> kill >> return True
+clickHandler mainw _ dR = do
+  let action = if (dR >= rRE && dR <= rLE)
+        then focus mainw >> kill >> return True
+        else if (dR >= mRE && dR <= mLE)
+          then
+            (sendMessage $ JumpToLayout "Fullscreen")
+            >> sendMessage ToggleStruts
+            >> spawn "polybar-msg cmd toggle"
+            >> return True
+          else if (dR >= lRE && dR <= lLE)
+            then focus mainw >> windows copyToAll >> return True
             else return False
   action
 
@@ -235,9 +240,9 @@ performWindowSwitching win = withDisplay $ \dd -> do
       windows $ W.modify' $ \_ -> newStack
     else return ()
  where
-  switchEntries a b x | x == a    = b
-                      | x == b    = a
-                      | otherwise = x
+  switchEntries a b xx | xx == a   = b
+                       | xx == b   = a
+                       | otherwise = xx
 
 
 -- decoration enabler

@@ -60,7 +60,7 @@ defaultKeys c =
        , ( "<S> a q"
          , kill1
          )  -- application launchers
-       , ("<S> a f", spawn browser)
+       , ("<S> a w", spawn browser)
        , ("<S> a e", spawn code)
        , ( "<S> w <Down>"
          , sinkAll
