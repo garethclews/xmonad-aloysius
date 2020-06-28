@@ -47,6 +47,7 @@ options = Options
   , spaces = wsList
   , starts = setWMName "XMonad"
              >> spawnOnce touchEvents
+             >> spawnOnce polkit
              >> spawnOnce audioSink
              >> spawnOnce settingsd
              >> spawnOnce panel

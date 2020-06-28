@@ -10,7 +10,7 @@ import           Foreign.C.Types                ( CInt )
 
 import           XMonad                  hiding ( (|||) )
 
-import           XMonad.Actions.CopyWindow
+import           XMonad.Actions.FindEmptyWorkspace
 
 import           XMonad.Hooks.ManageDocks
 
@@ -167,6 +167,7 @@ layout =
   avoidStruts
     .   smartBorders
     .   onWorkspace wsScratch flt
+    .   onWorkspace wsMusic   flt
     $   tall
     ||| tcm
     ||| full
@@ -208,9 +209,7 @@ clickHandler mainw _ dR = do
             >> spawn "polybar-msg cmd toggle"
             >> return True
           else if (dR >= lRE && dR <= lLE)
-            then focus mainw
-                 -- >> windows copyToAll
-                             >> return True
+            then focus mainw >> tagToEmptyWorkspace >> return True
             else return False
   action
 

@@ -51,7 +51,7 @@ mail :: String
 mail = "geary"
 
 music :: String
-music = "spotify"
+music = "appimage-run ~/.scripts/plexamp"
 
 code :: String
 code = "emacs"

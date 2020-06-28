@@ -171,3 +171,13 @@ mouseBindings' XConfig { XMonad.modMask = modm } = M.fromList
     -- you may also bind events to the mouse scroll wheel (button4 and button5)
     -- and middle click (button3)
   ]
+
+
+
+-- Support functions ------------------------------------------------------------
+-- showKeybindings :: [((KeyMask, KeySym), NamedAction)] -> NamedAction
+-- showKeybindings x = addName "Show Keybindings" $ io $ do
+--   h <- spawnPipe "zenity --text-info --font=terminus"
+--   hPutStr h (unlines $ showKm x)
+--   hClose h
+--   return ()
