@@ -1,5 +1,3 @@
-<span style="text-align:center;"><img src="./assets/birdcap.png" /></span>
-
 # [Call Me Al](https://www.youtube.com/watch?v=uq-gYOrU8bA)
 
 
@@ -73,16 +71,16 @@ issue. As the build uses a nix-shell then it should "just work".
 
 | Floating desktop                               |
 | ---                                            |
-| ![Screenshot](https://i.imgur.com/G8Vugwl.png) |
+| ![Screenshot](https://i.imgur.com/hAgszc3.png) |
 
 
 | Named scratchpad popup                         |
 | ---                                            |
-| ![Screenshot](https://i.imgur.com/uMwEhp9.png) |
+| ![Screenshot](https://i.imgur.com/jJcEoeQ.png) |
 
 | Lock screen                                    |
 | ------------------------------------------     |
-| ![Screenshot](https://i.imgur.com/KRfUcjI.png) |
+| ![Screenshot](https://i.imgur.com/KVXTttS.png) |
 
 
 
@@ -95,35 +93,12 @@ to co-ordinate the themes (across xmonad, those things managed by home-manager
 and kitty). All themes are available if you use all three of my repos.
 
 The default theme is *horizon*.
+Note: all other screenshots are coming to the wiki soon.
+
 
 | Horizon                                        |
 |------------------------------------------------|
-| ![Screenshot](https://i.imgur.com/qwEXq3J.png) |
-
-| Nord                                           |
-|------------------------------------------------|
-| ![Screenshot](https://i.imgur.com/eRHOmQT.png) |
-
-| Laserwave                                      |
-|------------------------------------------------|
-| ![Screenshot](https://i.imgur.com/FWXxd19.png) |
-
-| Ephemeral                                      |
-|------------------------------------------------|
-| ![Screenshot](https://i.imgur.com/Ek4TTFy.png) |
-
-| Dracula            |
-|--------------------|
-| Screenshot missing |
-
-| Lovelace           |
-|--------------------|
-| Screenshot missing |
-
-| Nature (WIP)       |
-|--------------------|
-| Screenshot Missing |
-
+| ![Screenshot](https://i.imgur.com/tWquwTj.png) |
 
 XMonad-Aloysius includes a means by which you can specify which theme you want
 through the build script. Please note that specifying the theme automatically
@@ -202,7 +177,7 @@ plus whatever follows it
 | Bring window                        | As above, but this time brings a window to your current workspace                                                   | <kbd>M</kbd> <kbd>w</kbd> <kbd>b</kbd>                                   |
 | Search selected                     | Launch a web search for the currently selected text*                                                                | <kbd>M</kbd> <kbd>/</kbd> <kbd>s</kbd> \<search option\>                 |
 | Search prompt                       | Launch a dmenu prompt to launch a web search*                                                                       | <kbd>M</kbd> <kbd>/</kbd> <kbd>p</kbd> \<search option\>                 |
-| Toggling DPMS                       | Polybar clickable icon to toggle `xset +-dpms` and `xset s on/off`                                                  | click on lightbulb                                                       |
+| Toggling DPMS                       | Polybar clickable icon to toggle `xset +-dpms` and `xset s on/off`                                                  | click on dot in right 'tray' of polybar                                  |
 | Lock screen                         | Provided by i3lock-color & used in lock and suspend                                                                 | <kbd>M</kbd> <kbd>q</kbd> <kbd>l</kbd> or lock in polybar                |
 | Dedicated floating window workspace | A workspace where all windows float (workspace 8 by default)                                                        | <kbd>M</kbd> <kbd>8</kbd>                                                |
 | Navigation2D                        | Swap windows on workspaces, go to windows and go to screens with keyboard shortcuts                                 | <kbd>M</kbd> { ,<kbd>S-</kbd>,<kbd>C-</kbd>} \<arrow keys\>              |
@@ -233,7 +208,7 @@ can update.
 | `gnome-session`  | Enables keyring and appearance                                         | Loading all gnome session preferences (gtk appearance etc.)                              |
 | `xset`           | User preference utility for X                                          | Enabling/Disabling DPMS and screensaver                                                  |
 | `feh`            | Image viewer and wallpaper setter                                      | Wallpaper                                                                                |
-| `polybar`        | Status bar                                                             | Workspace info, layout info, launchers, DPMS toggling, spotify info, time, volume, power |
+| `polybar`        | Status bar                                                             | Workspace info, layout info, launchers, DPMS toggling, mpris2 info, time, volume, power  |
 | `compton`        | Compositor                                                             | Shadows and glitz                                                                        |
 | `i3lock-color`   | Screen locking                                                         | self-explanatory                                                                         |
 | `dunst`          | Notification daemon                                                    | self-explanatory                                                                         |
@@ -265,7 +240,7 @@ This setup is pretty opinionated. I have some explicit applications named in
 | Terminal | `kitty`   |
 | Browser  | `firefox` |
 | Mail     | `geary`   |
-| Music    | `spotify` |
+| Music    | `plexamp` |
 | IDE      | `emacs`   |
 
 If you prefer other apps then edit the variables in this file. At some point you

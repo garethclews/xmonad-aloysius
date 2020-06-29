@@ -54,7 +54,6 @@ import           App.Scratchpad
 
 
 
-
 manager :: ManageHook
 manager =
   composeOne
@@ -66,7 +65,6 @@ manager =
       , isRole =? "GtkFileChooserDialog" -?> doCenterFloat
       , isInProperty "_NET_WM_WINDOW_TYPE" "_NET_WM_WINDOW_TYPE_SPLASH"
         -?> doCenterFloat
-      , isInProperty "WM_NAME(STRING)" "gruffalo" -?> doFloat
       , transience
       , pure True -?> insertPosition End Newer
       ]

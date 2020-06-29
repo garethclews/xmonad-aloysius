@@ -5,7 +5,7 @@ module Bind.Master where
 import           System.Exit
 
 import           XMonad
-import           XMonad.Actions.CopyWindow      ( kill1 )
+import           XMonad.Actions.CopyWindow
 import           XMonad.Actions.WindowBringer
 import           XMonad.Actions.WithAll
 import           XMonad.Hooks.ManageDocks       ( ToggleStruts(..) )
@@ -77,6 +77,8 @@ defaultKeys c =
        , ("<S> w s"      , withFocused $ windows . W.sink)
        , ("<S> w f"      , sendMessage AvoidFloatToggle)
        , ("<S> w t", sendMessage ToggleStruts >> spawn "polybar-msg cmd toggle")
+       , ("<S> w c"      , windows copyToAll)
+       , ("<S> w k"      , killAllOtherCopies)
        , ( "<S> q l"
          , spawn screensaver
          )  -- layout manipulation
@@ -171,3 +173,13 @@ mouseBindings' XConfig { XMonad.modMask = modm } = M.fromList
     -- you may also bind events to the mouse scroll wheel (button4 and button5)
     -- and middle click (button3)
   ]
+
+
+
+-- Support functions ------------------------------------------------------------
+-- showKeybindings :: [((KeyMask, KeySym), NamedAction)] -> NamedAction
+-- showKeybindings x = addName "Show Keybindings" $ io $ do
+--   h <- spawnPipe "zenity --text-info --font=terminus"
+--   hPutStr h (unlines $ showKm x)
+--   hClose h
+--   return ()
