@@ -1,5 +1,3 @@
-<span style="text-align:center;"><img src="./assets/birdcap.png" /></span>
-
 # [Call Me Al](https://www.youtube.com/watch?v=uq-gYOrU8bA)
 
 A multi-themed XMonad configuration by Aloysius.

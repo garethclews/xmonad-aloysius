@@ -20,7 +20,6 @@ import           XMonad.Layout.DecorationAddons
 import           XMonad.Layout.DraggingVisualizer
 import           XMonad.Layout.Fullscreen
 import           XMonad.Layout.Gaps
--- import           XMonad.Layout.IfMax
 import           XMonad.Layout.LayoutCombinators
                                                 ( (|||)
                                                 , JumpToLayout(..)
@@ -160,6 +159,8 @@ tcm =
 tabs = named "Tabbed" $ tabbedBottom shrinkText tabTheme
 
 flt = named "Float" . sidedeco $ simpleFloat' shrinkText emptyTheme
+
+
 
 
 -- layout --

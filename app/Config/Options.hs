@@ -47,7 +47,6 @@ options = Options
   , spaces = wsList
   , starts = setWMName "XMonad"
              >> spawnOnce touchEvents
-             >> spawnOnce polkit
              >> spawnOnce audioSink
              >> spawnOnce settingsd
              >> spawnOnce panel
@@ -131,8 +130,8 @@ decoTheme = def
   , urgentTextColor     = base12
   , fontName            = monospace
   , windowTitleAddons   = [ ("\xf00d", AlignRightOffset 24)
-                          , ("\xf111", AlignRightOffset 54)
-                          , ("\xf004", AlignRightOffset 84)
+                          , ("\xf005", AlignRightOffset 54)
+                          , ("\xf068", AlignRightOffset 84)
                           ]
   , decoHeight          = 52
   }

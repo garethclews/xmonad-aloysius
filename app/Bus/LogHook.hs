@@ -10,7 +10,6 @@ import           Control.Monad                  ( forM_ )
 
 import           XMonad
 import qualified XMonad.StackSet               as W
-import           XMonad.Util.NamedWindows
 
 import           Theme.ChosenTheme
 
@@ -67,11 +66,22 @@ logHooker = do
   let ltStr =
         layoutParse . description . W.layout . W.workspace . W.current $ winset
 
+
+  let snStr = case countWindows winset of
+        0 -> "\xf004"  -- 
+        _ -> concat ["%{F", base03, "}\xf004%{F-}"]
+
   -- pushing logs to pipes, note all files are FIFO specials
   -- done this way to 'future-proof' against any stupid ideas I have
   forM_
     [ ("/tmp/xmonad-wspace", wsStr ++ "\n")
     , ("/tmp/xmonad-layout", ltStr ++ "\n")
-    -- , ("/tmp/xmonad-curwin", fcStr ++ "\n")
+    , ("/tmp/xmonad-curwin", snStr ++ "\n")
     ]
     write
+
+
+countWindows :: W.StackSet i l a s sd -> Int
+countWindows wins = case W.stack . W.workspace . W.current $ wins of
+  Nothing -> 1
+  Just s  -> length $ W.up s ++ W.down s
