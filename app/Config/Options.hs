@@ -129,9 +129,9 @@ decoTheme = def
   , urgentBorderColor   = basebg
   , urgentTextColor     = base12
   , fontName            = monospace
-  , windowTitleAddons   = [ ("\xf00d", AlignRightOffset 24)
+  , windowTitleAddons   = [ ("\xf068", AlignRightOffset 24)
                           , ("\xf005", AlignRightOffset 54)
-                          , ("\xf068", AlignRightOffset 84)
+                          , ("\xf004", AlignRightOffset 84)
                           ]
   , decoHeight          = 52
   }
