@@ -29,6 +29,12 @@ mkLayoutStr colour logo rep =
   concat ["%{T2}%{F", colour, "} ", logo, "%{T-}%{F", basefg, "} ", rep]
 
 
+countWindows :: W.StackSet i l a s sd -> Int
+countWindows wins = case W.stack . W.workspace . W.current $ wins of
+  Nothing -> (-1)
+  Just s  -> length $ W.up s ++ W.down s
+
+
 layoutParse :: String -> String
 layoutParse s | s == "Three Columns"    = mkLayoutStr base13 "+|+" "TCM "
               | s == "Binary Partition" = mkLayoutStr base13 "||+" "BSP "
@@ -53,35 +59,54 @@ logHooker = do
   -- FIXME: can this be less onerous?
   winset <- gets windowset
 
-  -- ^ workspaces list
-  let currWs = W.currentTag winset
+-- ^ workspaces list
+  let
+    currWs = W.currentTag winset
 
-  -- ^ output string based on workspaces list
-  let wsStr  = fmt currWs
+-- ^ output string based on workspaces list
+    wsStr  = fmt currWs
 
-  -- ^ focussed window
-  -- fcStr <- maybe (return "") (fmap show . getName) . W.peek $ winset
+-- ^ current layout
+    ltStr =
+      layoutParse . description . W.layout . W.workspace . W.current $ winset
 
-  -- ^ current layout
-  let ltStr =
-        layoutParse . description . W.layout . W.workspace . W.current $ winset
+-- ^ strings for window operations
+    copyStr = case countWindows winset of
+      (-1) -> noneCommand
+      _    -> copyCommand
 
+    fullStr = case countWindows winset of
+      (-1) -> noneCommand
+      _    -> fullCommand
 
-  let snStr = case countWindows winset of
-        0 -> "\xf004"  -- 
-        _ -> concat ["%{F", base03, "}\xf004%{F-}"]
+    killStr = case countWindows winset of
+      (-1) -> noneCommand
+      _    -> killCommand
 
-  -- pushing logs to pipes, note all files are FIFO specials
-  -- done this way to 'future-proof' against any stupid ideas I have
+-- pushing logs to pipes, note all files are FIFO specials
+-- done this way to 'future-proof' against any stupid ideas I have
   forM_
     [ ("/tmp/xmonad-wspace", wsStr ++ "\n")
     , ("/tmp/xmonad-layout", ltStr ++ "\n")
-    , ("/tmp/xmonad-curwin", snStr ++ "\n")
+    , ("/tmp/xmonad-copy"  , copyStr ++ "\n")
+    , ("/tmp/xmonad-full"  , fullStr ++ "\n")
+    , ("/tmp/xmonad-kill"  , killStr ++ "\n")
     ]
     write
 
 
-countWindows :: W.StackSet i l a s sd -> Int
-countWindows wins = case W.stack . W.workspace . W.current $ wins of
-  Nothing -> 1
-  Just s  -> length $ W.up s ++ W.down s
+-- Strings ----------------------------------------------------------------------
+killCommand :: String
+killCommand =
+  concat ["%{A1:xdotool key Super a q:}%{F", basebg, "}\xf192%{F-}%{A}"]
+
+copyCommand :: String
+copyCommand =
+  concat ["%{A1:xdotool key Super w c:}%{F", basebg, "}\xf004%{F-}%{A}"]
+
+fullCommand :: String
+fullCommand = concat
+  ["%{A1:xdotool key Super l 1 Super w c:}%{F", basebg, "}\xf005%{F-}%{A}"]
+
+noneCommand :: String
+noneCommand = concat ["%{F", base11, "}\xf004%{F-}"]

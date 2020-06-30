@@ -76,7 +76,9 @@ main = do
     , "/tmp/xmonad-layout"
     , "/tmp/xmonad-events"
     , "/tmp/xmonad-states"
-    , "/tmp/xmonad-curwin"
+    , "/tmp/xmonad-copy"
+    , "/tmp/xmonad-full"
+    , "/tmp/xmonad-kill"
     , "/tmp/xmonad-caffeine"
     ]
 
