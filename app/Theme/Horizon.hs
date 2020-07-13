@@ -26,10 +26,13 @@ fontsize :: String
 fontsize = "12"
 
 sansserif :: String
-sansserif = "xft:Overpass:size=" ++ fontsize
+sansserif = "xft:Rounded Mplus 1c Medium:style=Regular:size=" ++ fontsize
 
 sansserif' :: String
-sansserif' = "Overpass-" ++ fontsize
+sansserif' = "Rounded Mplus 1c Medium-" ++ fontsize
 
 monospace :: String
-monospace = "xft:Iosevka Nerd Font:size=" ++ fontsize
+monospace = "xft:mplus Nerd Font Mono:size=" ++ fontsize
+
+altsans :: String
+altsans = "xft:mplus Nerd Font:style=Medium:size=" ++ fontsize

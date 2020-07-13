@@ -5,16 +5,20 @@ module Container.Layout where
 
 
 -- Imports ----------------------------------------------------------------------
-import           Control.Monad                  ( unless )
+import           Control.Monad                  ( unless
+                                                , when
+                                                )
 import           Foreign.C.Types                ( CInt )
 
 import           XMonad                  hiding ( (|||) )
 
 import           XMonad.Actions.FindEmptyWorkspace
+import           XMonad.Actions.MouseResize     ( MouseResize(..) )
 
 import           XMonad.Hooks.ManageDocks
 
 import           XMonad.Layout.BinarySpacePartition
+import           XMonad.Layout.BorderResize
 import           XMonad.Layout.Decoration
 import           XMonad.Layout.DecorationAddons
 import           XMonad.Layout.DraggingVisualizer
@@ -27,11 +31,14 @@ import           XMonad.Layout.LayoutCombinators
 import           XMonad.Layout.Named
 import           XMonad.Layout.NoBorders
 import           XMonad.Layout.PerWorkspace
+import           XMonad.Layout.Renamed          ( Rename(..) )
 import           XMonad.Layout.ResizableTile
 import           XMonad.Layout.SimpleFloat
+import           XMonad.Layout.Simplest         ( Simplest(..) )
 import           XMonad.Layout.Spacing
 import           XMonad.Layout.Tabbed
 import           XMonad.Layout.ThreeColumns
+import           XMonad.Layout.WindowArranger   ( WindowArranger )
 
 import           XMonad.StackSet               as W
                                          hiding ( focus )
@@ -39,6 +46,8 @@ import           XMonad.StackSet               as W
 import           Config.Projects
 import           Config.Options
 import           Container.IfMax
+-- my version of X.L.IfMax without the annoying bug and a little code
+-- refactoring to appease the hlint gods
 
 
 ------------------------------------------------------------------------
@@ -63,10 +72,31 @@ data Gaps' = Gaps'
   }
 
 
-data ADecoration a = AD Bool deriving (Read, Show)
+newtype ADecoration a = AD Bool deriving (Read, Show)
 
 newtype SideDecoration a = SideDecoration Direction2D
   deriving (Show, Read)
+
+-- type to wrap the actual layout within all the mess I have created
+type ALayoutIfFull a
+  = ModifiedLayout
+      Rename
+      ( IfMax
+          ( ModifiedLayout
+              Rename
+              (ModifiedLayout WithBorder (ModifiedLayout FullscreenFull Full))
+          )
+          ( ModifiedLayout
+              Gaps
+              ( ModifiedLayout
+                  (Decoration ADecoration DefaultShrinker)
+                  (ModifiedLayout DraggingVisualizer (ModifiedLayout Spacing a))
+              )
+          )
+      )
+      Window
+
+type ADecorated = Decoration ADecoration DefaultShrinker
 
 
 -- Instances --------------------------------------------------------------------
@@ -99,7 +129,7 @@ instance Eq a => DecorationStyle ADecoration a where
     focus mainw
     hasCrossed <- handleScreenCrossing mainw decoWin
     unless hasCrossed $ do
-      sendMessage $ DraggingStopped
+      sendMessage DraggingStopped
       performWindowSwitching mainw
 
 
@@ -127,17 +157,16 @@ sidedeco
 sidedeco = decoration shrinkText sideDecoTheme (SideDecoration L)
 
 -- customised layouts
+-- these type signatures though...
+full
+  :: ModifiedLayout
+       Rename
+       (ModifiedLayout WithBorder (ModifiedLayout FullscreenFull Full))
+       Window
 full = named "Fullscreen" $ noBorders (fullscreenFull Full)
 
-bsp =
-  named "Binary Partition"
-    . IfMax 1 full
-    . gapses
-    . aDecoration shrinkText decoTheme
-    . draggingVisualizer
-    . spacingses
-    $ emptyBSP
 
+tall :: ALayoutIfFull ResizableTall
 tall =
   named "Tall"
     . IfMax 1 full
@@ -147,6 +176,20 @@ tall =
     . spacingses
     $ ResizableTall 1 (2 / 100) (1 / 2) []
 
+
+
+bsp :: ALayoutIfFull BinarySpacePartition
+bsp =
+  named "Binary"
+    . IfMax 1 full
+    . gapses
+    . aDecoration shrinkText decoTheme
+    . draggingVisualizer
+    . spacingses
+    $ emptyBSP
+
+
+tcm :: ALayoutIfFull ThreeCol
 tcm =
   named "Three Columns"
     . IfMax 1 full
@@ -156,20 +199,39 @@ tcm =
     . spacingses
     $ ThreeColMid 1 (1 / 10) (1 / 2)
 
+tabs
+  :: ModifiedLayout
+       Rename
+       (ModifiedLayout (Decoration TabbedDecoration DefaultShrinker) Simplest)
+       Window
 tabs = named "Tabbed" $ tabbedBottom shrinkText tabTheme
 
+
+flt
+  :: ModifiedLayout
+       Rename
+       ( ModifiedLayout
+           (Decoration SideDecoration DefaultShrinker)
+           ( ModifiedLayout
+               (Decoration SimpleDecoration DefaultShrinker)
+               ( ModifiedLayout
+                   MouseResize
+                   (ModifiedLayout WindowArranger SimpleFloat)
+               )
+           )
+       )
+       Window
 flt = named "Float" . sidedeco $ simpleFloat' shrinkText emptyTheme
-
-
 
 
 -- layout --
 layout =
-  avoidStruts
+  borderResize
+    .   avoidStruts
     .   smartBorders
     .   onWorkspace wsScratch flt
-    .   onWorkspace wsMusic   flt
-    $   tall
+    -- .   onWorkspace wsMusic   flt
+    $   bsp
     ||| tcm
     ||| full
     ||| tabs
@@ -186,14 +248,20 @@ buttonSize = 24 :: Int
 -- button location constraints
 -- TODO: abstract this out
 -- | right button
+rLE :: Int
+rRE :: Int
 rLE = buttonOffset + buttonSize
 rRE = buttonOffset
 
 -- | middle button
+mLE :: Int
+mRE :: Int
 mLE = buttonOffset + 2 * buttonSize
 mRE = rLE
 
 -- left button
+lLE :: Int
+lRE :: Int
 lLE = buttonOffset + 3 * buttonSize
 lRE = mLE
 
@@ -201,26 +269,27 @@ lRE = mLE
 -- click handler
 clickHandler :: Window -> Int -> Int -> X Bool
 clickHandler mainw _ dR = do
-  let action = if (dR >= rRE && dR <= rLE)
-        then focus mainw >> kill >> return True
-        else if (dR >= mRE && dR <= mLE)
-          then
-            (sendMessage $ JumpToLayout "Fullscreen")
-            >> sendMessage ToggleStruts
-            >> spawn "polybar-msg cmd toggle"
-            >> return True
-          else if (dR >= lRE && dR <= lLE)
-            then focus mainw >> tagToEmptyWorkspace >> return True
-            else return False
+  let action
+        | dR >= rRE && dR <= rLE
+        = focus mainw >> kill >> return True
+        | dR >= mRE && dR <= mLE
+        = sendMessage (JumpToLayout "Fullscreen")
+          >> sendMessage ToggleStruts
+          >> spawn "polybar-msg cmd toggle"
+          >> return True
+        | dR >= lRE && dR <= lLE
+        = focus mainw >> tagToEmptyWorkspace >> return True
+        | otherwise
+        = return False
   action
 
 
 -- | dragging windows
 handleTiledDraggingInProgress
   :: CInt -> CInt -> (Window, Rectangle) -> Position -> Position -> X ()
-handleTiledDraggingInProgress ex ey (mainw, r) x y = do
-  let rect = Rectangle (x - (fi ex - rect_x r))
-                       (y - (fi ey - rect_y r))
+handleTiledDraggingInProgress ex ey (mainw, r) xx yy = do
+  let rect = Rectangle (xx - (fi ex - rect_x r))
+                       (yy - (fi ey - rect_y r))
                        (rect_width r)
                        (rect_height r)
   sendMessage $ DraggingWindow mainw rect
@@ -234,13 +303,11 @@ performWindowSwitching win = withDisplay $ \dd -> do
   ws                            <- gets windowset
   let allWindows' = W.index ws
   -- do a little double check to be sure
-  if (win `elem` allWindows') && (selWin `elem` allWindows')
-    then do
-      let allWindowsSwitched = map (switchEntries win selWin) allWindows'
-      let (ls, t : rs)       = break (win ==) allWindowsSwitched
-      let newStack           = W.Stack t (reverse ls) rs
-      windows $ W.modify' $ \_ -> newStack
-    else return ()
+  when ((win `elem` allWindows') && (selWin `elem` allWindows')) $ do
+    let allWindowsSwitched = map (switchEntries win selWin) allWindows'
+        (ls, t : rs)       = break (win ==) allWindowsSwitched
+        newStack           = W.Stack t (reverse ls) rs
+    windows $ W.modify' $ const newStack
  where
   switchEntries a b xx | xx == a   = b
                        | xx == b   = a

@@ -13,10 +13,13 @@ import           Theme.ChosenTheme
 
 
 -- Definitions ------------------------------------------------------------------
+
+
+
 powerMenu :: X ()
 powerMenu =
   dzenConfig
-      (   font "Iosevka Nerd Font:style=Regular:size=12"
+      (   font sansserif
       -- >=> xScreen 0
       >=> x 2352
       >=> y 0
@@ -26,7 +29,7 @@ powerMenu =
             [ "-h"
             , "52"
             , "-w"
-            , "208"
+            , "212"
             , "-l"
             , "3"
             , "-m"
@@ -44,29 +47,20 @@ powerMenu =
       )
     $  "^fg("
     ++ base12
-    ++ ")\xf0e7^fg()   Power Menu   ^fg("
+    ++ ")-^fg()   Power Menu   ^fg("
     ++ base12
-    ++ ")\xf0e7^fg()\n"
+    ++ ")-^fg()\n"
     ++ "    ^fg("
     ++ base14
     ++ ")^ca(1, "
     ++ suspend
-    ++ ")\xf04c^fg()   Suspend    "
-    ++ "^fg("
-    ++ base02
-    ++ ")(s)^fg()^ca()\n"
+    ++ ")+^fg()   Suspend^ca()\n"
     ++ "    ^fg("
-    ++ base08
-    ++ ")^ca(1, systemctl reboot)\xf021^fg()   Reboot     "
-    ++ "^fg("
-    ++ base02
-    ++ ")(r)^fg()^ca()\n"
+    ++ base10
+    ++ ")^ca(1, systemctl reboot)+^fg()   Reboot^ca()\n"
     ++ "    ^fg("
     ++ base11
-    ++ ")^ca(1, systemctl poweroff)\xf011^fg()   Power off  "
-    ++ "^fg("
-    ++ base02
-    ++ ")(p)^fg()^ca()"
+    ++ ")^ca(1, systemctl poweroff)+^fg()   Power off  ^ca()"
 
 
 appLauncher :: String

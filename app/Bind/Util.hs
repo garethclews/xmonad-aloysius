@@ -91,7 +91,7 @@ import           Text.ParserCombinators.ReadP
 -- whichever), or add your own @myModMask = mod1Mask@ line.
 additionalKeys :: XConfig a -> [((KeyMask, KeySym), X ())] -> XConfig a
 additionalKeys conf keyList =
-  conf { keys = \cnf -> M.union (M.fromList keyList) (keys conf cnf) }
+  conf { keys = M.union (M.fromList keyList) . keys conf }
 
 -- | Like 'additionalKeys', except using short @String@ key
 --   descriptors like @\"M-m\"@ instead of @(modMask, xK_m)@, as
@@ -135,8 +135,7 @@ removeKeysP conf keyList = conf
 additionalMouseBindings
   :: XConfig a -> [((ButtonMask, Button), Window -> X ())] -> XConfig a
 additionalMouseBindings conf mouseBindingsList = conf
-  { mouseBindings =
-    \cnf -> M.union (M.fromList mouseBindingsList) (mouseBindings conf cnf)
+  { mouseBindings = M.union (M.fromList mouseBindingsList) . mouseBindings conf
   }
 
 -- | Like 'removeKeys', but for mouse bindings.

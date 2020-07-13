@@ -6,7 +6,7 @@ module Theme.ChosenTheme where
 -- > Change this to your colour preference of choice
 --   NOTE: the polybar colour and screen lock are handled elsewhere
 --         as is Xresources
-import qualified Theme.Horizon as T
+import qualified Theme.Horizon                 as T
 -- available themes:
 -- Laserwave
 -- Nord
@@ -43,3 +43,6 @@ sansserif' = T.sansserif'
 
 monospace :: String
 monospace = T.monospace
+
+altsans :: String
+altsans = T.altsans

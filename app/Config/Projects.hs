@@ -35,7 +35,7 @@ projects :: [Project]
 projects =
   [ Project { projectName      = wsGruffalo
             , projectDirectory = "~/"
-            , projectStartHook = Just $ return ()
+            , projectStartHook = Just $ return () -- bar
             }
   , Project { projectName      = wsTerm
             , projectDirectory = "~/"

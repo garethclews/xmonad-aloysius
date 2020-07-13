@@ -47,7 +47,6 @@ options = Options
   , spaces = wsList
   , starts = setWMName "XMonad"
              >> spawnOnce touchEvents
-             >> spawnOnce audioSink
              >> spawnOnce settingsd
              >> spawnOnce panel
              >> spawnOnce wallpaper
@@ -55,7 +54,6 @@ options = Options
              >> spawnOnce lang
              >> spawnOnce energyStar
              >> spawnOnce xresource
-             >> spawnOnce tray
   }
 
 
@@ -112,7 +110,7 @@ tabTheme = def { activeColor         = base03
                , urgentColor         = basebg
                , urgentBorderColor   = basebg
                , urgentTextColor     = base12
-               , fontName            = sansserif
+               , fontName            = monospace
                , decoHeight          = 52
                }
 
@@ -128,7 +126,7 @@ decoTheme = def
   , urgentColor         = basebg
   , urgentBorderColor   = basebg
   , urgentTextColor     = base12
-  , fontName            = monospace
+  , fontName            = altsans
   , windowTitleAddons   = [ ("\xf192", AlignRightOffset 24)
                           , ("\xf005", AlignRightOffset 54)
                           , ("\xf004", AlignRightOffset 84)

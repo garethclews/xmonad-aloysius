@@ -1,28 +1,11 @@
 {-# LANGUAGE FlexibleInstances, MultiParamTypeClasses, FlexibleContexts, PatternGuards #-}
------------------------------------------------------------------------------
--- |
--- Module      :  XMonad.Layout.IfMax
--- Copyright   :  (c) 2013 Ilya Portnov
--- License     :  BSD3-style (see LICENSE)
---
--- Maintainer  :  Ilya Portnov <portnov84@rambler.ru>
--- Stability   :  unstable
--- Portability :  unportable
---
--- Provides IfMax layout, which will run one layout if there are maximum N
--- windows on workspace, and another layout, when number of windows is greater
--- than N.
---
------------------------------------------------------------------------------
+-- for documentation see X.L.IfMax
 module Container.IfMax
-  ( -- * Usage
-    -- $usage
-    IfMax(..)
+  ( IfMax(..)
   , ifMax
   )
 where
 
-import           Control.Applicative            ( (<$>) )
 import           Control.Arrow
 import qualified Data.List                     as L
 import qualified Data.Map                      as M
@@ -31,27 +14,11 @@ import           Data.Maybe
 import           XMonad
 import qualified XMonad.StackSet               as W
 
--- $usage
--- IfMax layout will run one layout if number of windows on workspace is as
--- maximum N, and else will run another layout.
---
--- You can use this module by adding folowing in your @xmonad.hs@:
---
--- > import XMonad.Layout.IfMax
---
--- Then add layouts to your layoutHook:
---
--- > myLayoutHook = IfMax 2 Full (Tall ...) ||| ...
---
--- In this example, if there are 1 or 2 windows, Full layout will be used;
--- otherwise, Tall layout will be used.
---
 
 data IfMax l1 l2 w = IfMax Int (l1 w) (l2 w)
   deriving (Read, Show)
 
 instance (LayoutClass l1 Window, LayoutClass l2 Window) => LayoutClass (IfMax l1 l2) Window where
-
   runLayout (W.Workspace wname (IfMax n l1 l2) s) rect = withWindowSet
     $ \ws -> arrange (W.integrate' s) (M.keys . W.floating $ ws)
    where
@@ -108,4 +75,4 @@ ifMax
   -> l1 w           -- ^ First layout
   -> l2 w           -- ^ Second layout
   -> IfMax l1 l2 w
-ifMax n l1 l2 = IfMax n l1 l2
+ifMax = IfMax

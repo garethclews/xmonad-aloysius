@@ -1,26 +1,31 @@
 #+TITLE: XMonad-Aloysius
 
 * TODO GENERAL [0/0]
+- [ ] look into using run or raise instead of spawn when entering workspaces
+- [ ] non-rectangle decorations
+- [ ] colourise buttons?
+- [ ] use wmCLASS for decoration title or truncate wmTITLE for the windows instead of just letting them roam free (looking at you, Firefox)
 
 
 * TODO NON XMONAD SPECIFIC [0/0]
+- [ ] build a gtk side panel app
+- [ ] build threepenny home page
 
 
 * STRT ACTIVE [0/2]
 - [-] make window decoration clickable on floating workspace
   - [ ] change the colour of the windowTitleAddons (decorationWithImageButtons)
-  - [-] enable decorationCatchClicksHook
-  - [ ] add the buttons
-  - [ ] catch the clicks
+  - [X] enable decorationCatchClicksHook
+  - [X] add the buttons
+  - [X] catch the clicks
 - [-] add a dmenu prompt for quick selecing layout a la https://github.com/KnairdA/nixos_home/blob/master/gui/conf/xmonad.hs
 
 
-* WAIT DEFER [0/3]
+* WAIT DEFER [1/2]
 - [ ] https://github.com/pjones/xmonadrc has some dynamic project helper functions
-- [ ] Design a sound scheme
-- [ ] update git prompt to show ahead/behind status
 
 * DONE [24/24]
+- [X] Design a sound scheme  -- have this set in gnome and used xsettingsd
 - [X] tidy up gaps with polybar
 - [X] lightdm switch to greeter should release the pulseaudio sink
 - [X] pimped polybar with current layout descriptor (pprint)
@@ -50,6 +55,7 @@
   - [X] fix the age finding lines, currently does not work
 - [X] Develop additional colour schemes
 
+
 * KILL TESTED/REJECTED/WONTFIX [9/9]
 - [X] X.U.Themes - see if nord and dracula can be added -- going to just keep my themes in my format, if anybody else ever wants to use it then maybe revisit but just for me there's little to no point
 - [X] XMonad.Hooks.DynamicBars  -- sticking with one bar
@@ -61,4 +67,5 @@
 - [X] M-S-` for an alternative scratchpad with custom command (ghcid)?
 - [X] general research into pulseaudio configuration
 - [X] work through https://hackage.haskell.org/package/xmonad-contrib-0.15/docs/XMonad-Doc-Extending.html
+- [X] update git prompt to show ahead/behind status - lost interest in making it more confusing
 - [X] use urgencyhook to either change the colour of the workspace in polybar -- not done, only showing active workspace now anyway so would not make sense to colourise it based on notifications on the active workspace

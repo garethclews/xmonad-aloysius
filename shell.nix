@@ -1,7 +1,6 @@
 { nixpkgs ? import <nixpkgs> { }, compiler ? "default" }:
 
 let
-
   inherit (nixpkgs) pkgs;
 
   pkg = pkgs.haskellPackages.callCabal2nix "aloysius" (builtins.path {
@@ -10,4 +9,4 @@ let
   });
 
   drv = pkgs.haskellPackages.callPackage pkg { };
-  in if pkgs.lib.inNixShell then drv.env else drv
+in if pkgs.lib.inNixShell then drv.env else drv

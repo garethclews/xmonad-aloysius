@@ -6,10 +6,6 @@
 module App.Alias where
 
 
-audioSink :: String
-audioSink =
-  "pactl set-default-sink alsa_output.pci-0000_01_00.1.hdmi-stereo-extra2"
-
 settingsd :: String
 settingsd = "xsettingsd &"
 
@@ -28,9 +24,6 @@ lang = "export LANG=en_GB.UTF-8"
 screensaver :: String
 screensaver = "~/.scripts/lock"
 
-tray :: String
-tray = "~/.scripts/tray"
-
 suspend :: String
 suspend = "~/.scripts/suspend"
 
@@ -42,16 +35,17 @@ xresource =
   "[[ -f ~/.Xresources ]] && nohup xrdb -merge -I$HOME ~/.Xresources >/dev/null"
 
 tty :: String
-tty = "kitty"
+tty = "kitty -1"
 
 scratch :: String
-scratch = "kitty --name=scratchpad"
+scratch = "kitty -1 --name=scratchpad"
 
 mail :: String
 mail = "geary"
 
 music :: String
-music = "appimage-run ~/.scripts/plexamp"
+-- music = "appimage-run ~/.scripts/plexamp"
+music = "spotify"
 
 code :: String
 code = "emacs"

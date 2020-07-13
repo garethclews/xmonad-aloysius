@@ -26,6 +26,10 @@ import           XMonad.Hooks.UrgencyHook
 import           XMonad.Util.Replace
 import           XMonad.Util.Run
 
+
+import           XMonad.Util.XUtils
+
+
 -- Personal imports (./lib/)
 import           Bind.Master
 import           Bus.EventHook
@@ -64,6 +68,18 @@ defaults = def {
                }
 
 
+-- Sandpit ----------------------------------------------------------------------
+newWin :: Rectangle -> X Window
+newWin r = do
+  let mask = Just $ exposureMask .|. buttonPressMask
+  w <- createNewWindow r mask "#000000" False
+  showWindow w
+  d <- asks display
+  liftIO $ lowerWindow d w
+  return w
+
+
+
 -- Main -------------------------------------------------------------------------
 main :: IO ()
 main = do
@@ -90,3 +106,4 @@ main = do
     . dynamicProjects projects
     . withUrgencyHook NoUrgencyHook
     $ defaults
+
