@@ -69,9 +69,9 @@ issue. As the build uses a nix-shell then it should "just work".
 
 ## Latest Previews
 
-| Floating desktop                               |
-| ---                                            |
-| ![Screenshot](https://i.imgur.com/hAgszc3.png) |
+| Main desktop                                 |
+| ---                                          |
+| ![Screenshot](https://imgur.com/mCqz67s.png) |
 
 
 | Named scratchpad popup                         |
