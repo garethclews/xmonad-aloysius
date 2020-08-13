@@ -17,8 +17,6 @@ import           XMonad.Actions.MouseResize     ( MouseResize(..) )
 
 import           XMonad.Hooks.ManageDocks
 
-import           XMonad.Layout.BinarySpacePartition
-import           XMonad.Layout.BorderResize
 import           XMonad.Layout.Decoration
 import           XMonad.Layout.DecorationAddons
 import           XMonad.Layout.DraggingVisualizer
@@ -177,18 +175,6 @@ tall =
     $ ResizableTall 1 (2 / 100) (1 / 2) []
 
 
-
-bsp :: ALayoutIfFull BinarySpacePartition
-bsp =
-  named "Binary"
-    . IfMax 1 full
-    . gapses
-    . aDecoration shrinkText decoTheme
-    . draggingVisualizer
-    . spacingses
-    $ emptyBSP
-
-
 tcm :: ALayoutIfFull ThreeCol
 tcm =
   named "Three Columns"
@@ -226,12 +212,10 @@ flt = named "Float" . sidedeco $ simpleFloat' shrinkText emptyTheme
 
 -- layout --
 layout =
-  borderResize
-    .   avoidStruts
+  avoidStruts
     .   smartBorders
     .   onWorkspace wsScratch flt
-    -- .   onWorkspace wsMusic   flt
-    $   bsp
+    $   tall
     ||| tcm
     ||| full
     ||| tabs

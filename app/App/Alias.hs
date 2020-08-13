@@ -38,7 +38,7 @@ tty :: String
 tty = "kitty -1"
 
 scratch :: String
-scratch = "kitty -1 --name=scratchpad"
+scratch = "kitty --name=scratchpad"
 
 mail :: String
 mail = "geary"

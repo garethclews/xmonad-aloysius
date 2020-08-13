@@ -88,13 +88,19 @@ logHooker = do
 
 -- Strings ----------------------------------------------------------------------
 killCommand :: String
-killCommand = "%{A1:xdotool key Super a q:}%{F#e9436f}\xf192%{F-}%{A}"
+-- killCommand = "%{A1:xdotool key Super a q:}%{F#e9436f}\xf192%{F-}%{A}"
+killCommand =
+  "%{A1:sleep 0.1; xdotool key Super a q:}%{F#e9436f}\xf111%{F-}%{A}"
 
 copyCommand :: String
-copyCommand = "%{A1:xdotool key Super w c:}%{F#f09383}\xf004%{F-}%{A}"
+-- copyCommand = "%{A1:xdotool key Super w c:}%{F#f09383}\xf004%{F-}%{A}"
+copyCommand =
+  "%{A1:sleep 0.2; xdotool key Super w c:}%{F#f09383}\xf111%{F-}%{A}"
 
 fullCommand :: String
-fullCommand = "%{A1:xdotool key Super l 1 Super w c:}%{F09f7a0}\xf005%{F-}%{A}"
+-- fullCommand = "%{A1:xdotool key Super l 1 Super w c:}%{F09f7a0}\xf005%{F-}%{A}"
+fullCommand =
+  "%{A1:polybar-msg cmd toggle; xdotool key Super l 1 Super w c:}%{F09f7a0}\xf111%{F-}%{A}"
 
 -- unused because not constant width icons
 -- noneCommand :: String
@@ -102,10 +108,13 @@ fullCommand = "%{A1:xdotool key Super l 1 Super w c:}%{F09f7a0}\xf005%{F-}%{A}"
 
 -- not all of these icons are the same width so using all three again
 killBlank :: String
-killBlank = concat ["%{F", basebg, "}\xf192%{F-}"]
+-- killBlank = concat ["%{F", basebg, "}\xf192%{F-}"]
+killBlank = concat ["%{F", basebg, "}\xf111%{F-}"]
 
 copyBlank :: String
-copyBlank = concat ["%{F", basebg, "}\xf004%{F-}"]
+-- copyBlank = concat ["%{F", basebg, "}\xf004%{F-}"]
+copyBlank = concat ["%{F", basebg, "}\xf111%{F-}"]
 
 fullBlank :: String
-fullBlank = concat ["%{F", basebg, "}\xf005%{F-}"]
+-- fullBlank = concat ["%{F", basebg, "}\xf005%{F-}"]
+fullBlank = concat ["%{F", basebg, "}\xf111%{F-}"]

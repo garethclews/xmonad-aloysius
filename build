@@ -50,7 +50,7 @@ compile () {
 
 
   printf "   Building\r"
-  nix-shell --command "cabal build" >> install.log
+  nix-shell --command "cabal build" >> install.log 2>&1
   echo "   Built    "
 
 

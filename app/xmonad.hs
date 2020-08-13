@@ -27,10 +27,7 @@ import           XMonad.Util.Replace
 import           XMonad.Util.Run
 
 
-import           XMonad.Util.XUtils
-
-
--- Personal imports (./lib/)
+-- Private imports
 import           Bind.Master
 import           Bus.EventHook
 import           Bus.LogHook

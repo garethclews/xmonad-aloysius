@@ -5,6 +5,7 @@
 - [ ] non-rectangle decorations
 - [ ] colourise buttons?
 - [ ] use wmCLASS for decoration title or truncate wmTITLE for the windows instead of just letting them roam free (looking at you, Firefox)
+- [ ] is it possible to write helper applications to e.g. just print out a list of all windows in the current stackset or do they all need to be inside xmonad.hs? the former would make shell scripts using fzf nice
 
 
 * TODO NON XMONAD SPECIFIC [0/0]

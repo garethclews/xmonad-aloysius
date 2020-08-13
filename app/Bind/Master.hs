@@ -10,7 +10,6 @@ import           XMonad.Actions.WindowBringer
 import           XMonad.Actions.WithAll
 import           XMonad.Hooks.ManageDocks       ( ToggleStruts(..) )
 
-import           XMonad.Layout.AvoidFloats
 import           XMonad.Layout.LayoutCombinators
                                                 ( JumpToLayout(..) )
 
@@ -50,7 +49,7 @@ defaultKeys :: XConfig l -> M.Map (KeyMask, KeySym) (X ())
 defaultKeys c =
   mkKeymap c
     $  [ ( "<S> <Return>"
-         , spawn (term options)
+         , spawn $ term options
          )   -- general binds
        , ("<S> <Space>", sendMessage NextLayout)
        , ("<S> <Tab>"  , windows W.focusDown)
@@ -75,7 +74,7 @@ defaultKeys c =
        , ("<S> w <Left>" , windows $ W.swapUp . W.focusUp)
        , ("<S> w <Right>", windows $ W.swapDown . W.focusDown)
        , ("<S> w s"      , withFocused $ windows . W.sink)
-       , ("<S> w f"      , sendMessage AvoidFloatToggle)
+       , ("<S> w f"      , sendMessage $ JumpToLayout "Float")
        , ("<S> w t", sendMessage ToggleStruts >> spawn "polybar-msg cmd toggle")
        , ("<S> w c"      , windows copyToAll)
        , ("<S> w k"      , killAllOtherCopies)
@@ -87,6 +86,7 @@ defaultKeys c =
        , ( "<S> l 3"
          , sendMessage $ JumpToLayout "Tabbed"
          )  -- session
+       , ("<S> q c", spawn "$HOME/.scripts/caffeine")
        , ("<S> q r", broadcastMessage ReleaseResources >> restart "xmonad" True)
        , ("<S> q q", io exitSuccess)
        , ("<S> q m", unGrab >> powerMenu)
