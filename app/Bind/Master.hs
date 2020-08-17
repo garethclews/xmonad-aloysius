@@ -58,12 +58,13 @@ defaultKeys c =
        , ("<S> `"      , scratchpadSpawnActionCustom scratch)
        , ( "<S> a q"
          , kill1
-         )  -- application launchers
+         )
+       -- application launchers
        , ("<S> a w", spawn browser)
-       , ("<S> a e", spawn code)
-       , ( "<S> w <Down>"
-         , sinkAll
-         )  -- window manipulation
+       , ( "<S> a e"
+         , spawn code
+         )
+        -- window manipulation
        , ("<S> w g", gotoMenuArgs $ dmenuTheme base10 "Go to window:  ")
        , ("<S> w b", bringMenuArgs $ dmenuTheme base15 "Bring window:  ")
        , ("<S> w h"      , sendMessage Shrink)
@@ -74,28 +75,32 @@ defaultKeys c =
        , ("<S> w <Left>" , windows $ W.swapUp . W.focusUp)
        , ("<S> w <Right>", windows $ W.swapDown . W.focusDown)
        , ("<S> w s"      , withFocused $ windows . W.sink)
-       , ("<S> w f"      , sendMessage $ JumpToLayout "Float")
        , ("<S> w t", sendMessage ToggleStruts >> spawn "polybar-msg cmd toggle")
        , ("<S> w c"      , windows copyToAll)
        , ("<S> w k"      , killAllOtherCopies)
+       , ("<S> w <Down>" , sinkAll)
        , ( "<S> q l"
          , spawn screensaver
-         )  -- layout manipulation
+         )
+       -- layout manipulation
        , ("<S> l 1", sendMessage $ JumpToLayout "Fullscreen")
        , ("<S> l 2", sendMessage $ JumpToLayout "Tall")
        , ( "<S> l 3"
          , sendMessage $ JumpToLayout "Tabbed"
-         )  -- session
+         )
+       -- session
        , ("<S> q c", spawn "$HOME/.scripts/caffeine")
        , ("<S> q r", broadcastMessage ReleaseResources >> restart "xmonad" True)
        , ("<S> q q", io exitSuccess)
        , ("<S> q m", unGrab >> powerMenu)
        , ( "<S> / /"
          , xmonadPromptC actions promptConfig
-         )  -- searches
+         )
+       -- searches
        , ( "<XF86AudioPlay>"
          , spawn "playerctl play-pause"
-         )  -- media keys
+         )
+       -- media keys
        , ("<XF86AudioStop>"       , spawn "playerctl stop")
        , ("<XF86AudioNext>"       , spawn "playerctl next")
        , ("<XF86AudioPrev>"       , spawn "playerctl previous")
@@ -118,7 +123,7 @@ actions :: [(String, X ())]
 actions =
   [ ("inc-win", sendMessage (IncMasterN 1))
   , ("dec-win", sendMessage (IncMasterN (-1)))
-  , ("struts" , sendMessage ToggleStruts)
+  , ("struts", sendMessage ToggleStruts >> spawn "polybar-msg cmd toggle")
   , ("lock"   , spawn screensaver)
   , ("kill"   , kill1)
   , ("mplay"  , spawn "playerctl play-pause")

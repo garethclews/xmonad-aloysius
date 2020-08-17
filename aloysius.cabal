@@ -21,7 +21,6 @@ executable xmonad
   main-is:             xmonad.hs
   ghc-options:        -threaded -rtsopts -with-rtsopts=-N
   other-modules:       App.Alias
-                     , App.Bar
                      , App.Launcher
                      , App.Scratchpad
                      , Bind.Master

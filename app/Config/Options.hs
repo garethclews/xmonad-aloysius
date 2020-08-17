@@ -47,13 +47,12 @@ options = Options
   , spaces = wsList
   , starts = setWMName "XMonad"
              >> spawnOnce touchEvents
-             >> spawnOnce settingsd
-             >> spawnOnce panel
              >> spawnOnce wallpaper
              >> spawnOnce cursor
+             >> spawnOnce panel
              >> spawnOnce lang
              >> spawnOnce energyStar
-             >> spawnOnce xresource
+             >> spawnOnce settingsd
   }
 
 
