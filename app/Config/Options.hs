@@ -115,23 +115,22 @@ tabTheme = def { activeColor         = base03
 
 
 decoTheme :: Theme
-decoTheme = def
-  { activeColor         = basebg
-  , activeBorderColor   = basebg
-  , activeTextColor     = basefg
-  , inactiveColor       = basebg
-  , inactiveBorderColor = basebg
-  , inactiveTextColor   = basebg
-  , urgentColor         = basebg
-  , urgentBorderColor   = basebg
-  , urgentTextColor     = base12
-  , fontName            = altsans
-  , windowTitleAddons   = [ ("\xf111", AlignRightOffset 24)
-                          , ("\xf111", AlignRightOffset 54)
-                          , ("\xf111", AlignRightOffset 84)
-                          ]
-  , decoHeight          = 52
-  }
+decoTheme = def { activeColor         = basebg
+                , activeBorderColor   = basebg
+                , activeTextColor     = basefg
+                , inactiveColor       = basebg
+                , inactiveBorderColor = basebg
+                , inactiveTextColor   = basebg
+                , urgentColor         = basebg
+                , urgentBorderColor   = basebg
+                , urgentTextColor     = base12
+                , fontName            = altsans
+  -- , windowTitleAddons   = [ ("\xf111", AlignRightOffset 24)
+  --                         , ("\xf111", AlignRightOffset 54)
+  --                         , ("\xf111", AlignRightOffset 84)
+  --                         ]
+                , decoHeight          = 52
+                }
 
 
 emptyTheme :: Theme
