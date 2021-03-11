@@ -7,17 +7,13 @@
 * TODO NON XMONAD SPECIFIC [0/0]
 
 
-* STRT ACTIVE [0/1]
-- [-] make window decoration clickable on floating workspace
-  - [ ] change the colour of the windowTitleAddons (decorationWithImageButtons)
-  - [X] enable decorationCatchClicksHook
-  - [ ] add the buttons
-  - [X] catch the clicks
+* STRT ACTIVE [0/0]
 
 
 * WAIT DEFER [0/1]
 - [ ] https://github.com/pjones/xmonadrc has some dynamic project helper functions
 
+ 
 * DONE [25/25]
 - [X] Design a sound scheme  -- have this set in gnome and used xsettingsd
 - [X] tidy up gaps with polybar
@@ -50,7 +46,8 @@
 - [X] Develop additional colour schemes
 
 
-* KILL TESTED/REJECTED/WONTFIX [17/17]
+
+* KILL TESTED/REJECTED/WONTFIX [18/18]
 - [X] X.U.Themes - see if nord and dracula can be added -- going to just keep my themes in my format, if anybody else ever wants to use it then maybe revisit but just for me there's little to no point
 - [X] XMonad.Hooks.DynamicBars  -- sticking with one bar
 - [X] rejected betterlockscreen (https://github.com/pavanjadhaw/betterlockscreen), delay for lock is liveable
@@ -68,3 +65,8 @@
 - [X] is it possible to write helper applications to e.g. just print out a list of all windows in the current stackset or do they all need to be inside xmonad.hs? the former would make shell scripts using fzf nice
 - [X] look into using run or raise instead of spawn when entering workspaces
 - [X] add a dmenu prompt for quick selecing layout a la https://github.com/KnairdA/nixos_home/blob/master/gui/conf/xmonad.hs
+- [X] make window decoration clickable on floating workspace
+  - [X] change the colour of the windowTitleAddons (decorationWithImageButtons)
+  - [X] enable decorationCatchClicksHook
+  - [X] add the buttons
+  - [X] catch the clicks

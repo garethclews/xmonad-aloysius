@@ -27,7 +27,7 @@ import           Theme.ChosenTheme
 -- Supporting functions --------------------------------------------------------
 mkLayoutStr :: String -> String -> String -> String
 mkLayoutStr colour logo rep =
-  concat ["%{T2}%{F", colour, "} ", logo, "%{T-}%{F", basefg, "} ", rep]
+  concat ["%{T2}%{F", colour, "} ", logo, "%{T-}%{F-} ", rep]
 
 
 countWindows :: W.StackSet i l a s sd -> Int
@@ -90,17 +90,17 @@ logHooker = do
 killCommand :: String
 -- killCommand = "%{A1:xdotool key Super a q:}%{F#e9436f}\xf192%{F-}%{A}"
 killCommand =
-  "%{A1:sleep 0.1; xdotool key Super a q:}%{F#e9436f}\xf111%{F-}%{A}"
+  "%{A1:sleep 0.1; xdotool key Escape Super a q:}%{F#e9436f}\xf111%{F-}%{A}"
 
 copyCommand :: String
 -- copyCommand = "%{A1:xdotool key Super w c:}%{F#f09383}\xf004%{F-}%{A}"
 copyCommand =
-  "%{A1:sleep 0.2; xdotool key Super w c:}%{F#f09383}\xf111%{F-}%{A}"
+  "%{A1:sleep 0.2; xdotool key Escape Super w c:}%{F#f09383}\xf111%{F-}%{A}"
 
 fullCommand :: String
 -- fullCommand = "%{A1:xdotool key Super l 1 Super w c:}%{F09f7a0}\xf005%{F-}%{A}"
 fullCommand =
-  "%{A1:polybar-msg cmd toggle; xdotool key Super l 1 Super w c:}%{F09f7a0}\xf111%{F-}%{A}"
+  "%{A1:polybar-msg cmd toggle; xdotool key Escape Super l 1 Super w c:}%{F09f7a0}\xf111%{F-}%{A}"
 
 -- unused because not constant width icons
 -- noneCommand :: String

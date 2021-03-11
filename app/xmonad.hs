@@ -26,7 +26,6 @@ import           XMonad.Hooks.UrgencyHook
 import           XMonad.Util.Replace
 import           XMonad.Util.Run
 
-
 -- Private imports
 import           Bind.Master
 import           Bus.EventHook
@@ -76,7 +75,6 @@ main = do
     [ "/tmp/xmonad-wspace"
     , "/tmp/xmonad-layout"
     , "/tmp/xmonad-events"
-    , "/tmp/xmonad-states"
     , "/tmp/xmonad-copy"
     , "/tmp/xmonad-full"
     , "/tmp/xmonad-kill"

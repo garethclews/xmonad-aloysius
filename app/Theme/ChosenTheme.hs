@@ -12,6 +12,7 @@ import qualified Theme.Horizon                 as T
 -- Nord
 -- Dracula
 -- Ephemeral
+-- FlatWhite
 
 basebg = T.basebg
 basefg = T.basefg

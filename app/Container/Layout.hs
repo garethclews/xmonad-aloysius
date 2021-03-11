@@ -114,7 +114,6 @@ instance Eq a => DecorationStyle SideDecoration a where
       SideDecoration D -> Rectangle _x (_y + fi (h - dh)) w dh
       SideDecoration L -> Rectangle _x _y dw h
     | otherwise = Nothing
-  -- decorationCatchClicksHook _ _ _ _ = return True --
 
 
 -- | clickable bar default decoration :)
