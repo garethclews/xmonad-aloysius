@@ -23,8 +23,8 @@ import           XMonad.Layout.DraggingVisualizer
 import           XMonad.Layout.Fullscreen
 import           XMonad.Layout.Gaps
 import           XMonad.Layout.LayoutCombinators
-                                                ( (|||)
-                                                , JumpToLayout(..)
+                                                ( JumpToLayout(..)
+                                                , (|||)
                                                 )
 import           XMonad.Layout.Named
 import           XMonad.Layout.NoBorders
@@ -41,8 +41,8 @@ import           XMonad.Layout.WindowArranger   ( WindowArranger )
 import           XMonad.StackSet               as W
                                          hiding ( focus )
 
-import           Config.Projects
 import           Config.Options
+import           Config.Projects
 import           Container.IfMax
 -- my version of X.L.IfMax without the annoying bug and a little code
 -- refactoring to appease the hlint gods
@@ -215,9 +215,8 @@ layout =
     .   smartBorders
     .   onWorkspace wsScratch flt
     $   tall
-    ||| tcm
-    ||| full
     ||| tabs
+    ||| full
 
 
 -- Instance support -------------------------------------------------------------
