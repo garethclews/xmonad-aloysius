@@ -4,23 +4,10 @@
 A multi-themed XMonad configuration by Aloysius.
 
 
-## WARNING
-
-I have renamed the default branch, please update your local as follows
-
-``` sh
-$ git checkout master
-$ git branch -m master main
-$ git fetch
-$ git branch --unset-upstream
-$ git branch -u origin/main
-$ git symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/main
-```
-
 ## Contents
 
+* Overview of recent updates and tasks
 * [Previews](#latest-previews)
-* [Themes](#themes)
 * [Quick-start](#quick-start)
 * [Features](#features)
 * [Dependencies](#dependencies)
@@ -32,8 +19,6 @@ $ git symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/main
 ## Newest addition
 
 Say hello to clickable window decorations!
-
-Heart is currently disabled until I can get copyToAll to work correctly. Dot makes full screen and toggles struts (movie mode!) and cross kills the window.
 
 
 ## Next tasks
@@ -84,42 +69,6 @@ issue. As the build uses a nix-shell then it should "just work".
 
 
 
-
-## Themes
-
-Please note that the theming mechanisms currently sit across three or so
-different repositories and it is not yet integrated. There's some manual labour
-to co-ordinate the themes (across xmonad, those things managed by home-manager
-and kitty). All themes are available if you use all three of my repos.
-
-The default theme is *horizon*.
-Note: all other screenshots are coming to the wiki soon.
-
-
-| Horizon                                        |
-|------------------------------------------------|
-| ![Screenshot](https://i.imgur.com/tWquwTj.png) |
-
-XMonad-Aloysius includes a means by which you can specify which theme you want
-through the build script. Please note that specifying the theme automatically
-produces a build call so you **do not need both** `-b` and `-t [themename]`.
-
-To switch all of your xmonad features (dmenu, dzen, containers etc.) to your
-choice of theme then its as easy as
-
-``` sh
-./build -t [horizon|nord|laserwave|dracula|ephemeral|lovelace|nature]
-```
-
-
-Please see the following links for the influences behind the themes
-
-* [horizon](https://horizontheme.netlify.com/)
-* [Nord](https://www.nordtheme.com/)
-* [Laserwave](https://github.com/Jaredk3nt/laserwave)
-* [Dracula](https://draculatheme.com)
-* [Ephemeral](https://github.com/elenapan/dotfiles)
-* [Lovelace](https://github.com/elenapan/dotfiles)
 
 
 ## Quick-start
