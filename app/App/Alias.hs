@@ -50,6 +50,10 @@ music = "spotify"
 code :: String
 code = "emacs"
 
+everywhere :: String
+everywhere = "emacsclient --eval \"(emacs-everywhere)\""
+
+
 browser :: String
 browser = "firefox"
 

@@ -4,7 +4,7 @@ let
   inherit (nixpkgs) pkgs;
 
   pkg = pkgs.haskellPackages.callCabal2nix "aloysius" (builtins.path {
-    path = "/home/aloysius/Projects/haskell/mine/xmonad";
+    path = "/home/aloysius/Projects/haskell/xmonad";
     name = "aloysius";
   });
 
