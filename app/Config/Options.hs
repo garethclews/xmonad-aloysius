@@ -31,11 +31,11 @@ data XMTheme = XMTheme
 
 -- preferences ------------------------------------------------------------------
 data Options = Options
-  { term       :: String
-  , ffm        :: Bool
-  , mask       :: KeyMask
-  , spaces     :: [String]
-  , starts     :: X ()
+  { term   :: String
+  , ffm    :: Bool
+  , mask   :: KeyMask
+  , spaces :: [String]
+  , starts :: X ()
   }
 
 

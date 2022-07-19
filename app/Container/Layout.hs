@@ -17,15 +17,13 @@ import           XMonad.Actions.MouseResize     ( MouseResize(..) )
 
 import           XMonad.Hooks.ManageDocks
 
+import           XMonad.Layout
 import           XMonad.Layout.Decoration
 import           XMonad.Layout.DecorationAddons
 import           XMonad.Layout.DraggingVisualizer
+-- import           XMonad.Layout.IfMax
 import           XMonad.Layout.Fullscreen
 import           XMonad.Layout.Gaps
-import           XMonad.Layout.LayoutCombinators
-                                                ( JumpToLayout(..)
-                                                , (|||)
-                                                )
 import           XMonad.Layout.Named
 import           XMonad.Layout.NoBorders
 import           XMonad.Layout.PerWorkspace

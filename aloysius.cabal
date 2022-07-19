@@ -45,12 +45,12 @@ executable xmonad
   -- other-extensions:
   build-depends:       Cabal
                      , X11
-                     , base ^>=4.14.1.0
-                     , containers ^>=0.6.0.1
-                     , xmonad ^>=0.15
-                     , xmonad-contrib ^>=0.16
-                     , xmonad-extras ^>=0.15
-                     , lens ^>=4.19.2
+                     , base
+                     , containers 
+                     , xmonad
+                     , xmonad-contrib
+                     , xmonad-extras
+                     , lens
                      , time
                      , text
                      , split
