@@ -1,8 +1,6 @@
 # [Call Me Al](https://www.youtube.com/watch?v=uq-gYOrU8bA)
 
 
-**DEPRECATED**: I have moved to wayland so not using this at all.
-
 A multi-themed XMonad configuration by Aloysius.
 
 
