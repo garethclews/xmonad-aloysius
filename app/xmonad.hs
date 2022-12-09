@@ -15,7 +15,6 @@ ____             _    _                 _
 
 -- Imports ----------------------------------------------------------------------
 import           XMonad
-
 import           XMonad.Actions.DynamicProjects
 
 import           XMonad.Hooks.EwmhDesktops

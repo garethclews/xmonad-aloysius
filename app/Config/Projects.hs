@@ -9,7 +9,7 @@ import           App.Alias
 
 -- Projects ---------------------------------------------------------------------
 -- Workspace names, using symbols so like an alias
-wsGruffalo :: String
+wsLanding :: String
 wsPlain :: String
 wsTerm :: String
 wsCode :: String
@@ -18,7 +18,7 @@ wsMusic :: String
 wsMail :: String
 wsScratch :: String
 
-wsGruffalo = "1"
+wsLanding = "1"
 wsTerm = "2"
 wsCode = "3"
 wsWeb = "4"
@@ -29,11 +29,11 @@ wsScratch = "8"
 
 wsList :: [String]
 wsList =
-  [wsGruffalo, wsTerm, wsCode, wsWeb, wsMusic, wsMail, wsPlain, wsScratch]
+  [wsLanding, wsTerm, wsCode, wsWeb, wsMusic, wsMail, wsPlain, wsScratch]
 
 projects :: [Project]
 projects =
-  [ Project { projectName      = wsGruffalo
+  [ Project { projectName      = wsLanding
             , projectDirectory = "~/"
             , projectStartHook = Just $ return () -- bar
             }
@@ -59,7 +59,7 @@ projects =
             }
   , Project { projectName      = wsPlain
             , projectDirectory = "~/"
-            , projectStartHook = Just $ return ()
+            , projectStartHook = Just $ spawn chat
             }
   , Project { projectName      = wsScratch
             , projectDirectory = "~/"

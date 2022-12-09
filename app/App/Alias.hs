@@ -10,7 +10,9 @@ settingsd :: String
 settingsd = "xsettingsd &"
 
 panel :: String
-panel = "~/.scripts/polybar/launch"
+-- panel = "~/.scripts/polybar/launch"
+panel = "polybar &"
+
 
 wallpaper :: String
 wallpaper = "~/.fehbg"
@@ -59,3 +61,6 @@ browser = "firefox"
 
 touchEvents :: String
 touchEvents = "echo \"\xf111\" > /tmp/xmonad-events"
+
+chat :: String
+chat = "signal-desktop & discord"
