@@ -19,7 +19,6 @@ import           XMonad.Actions.DynamicProjects
 
 import           XMonad.Hooks.EwmhDesktops
 import           XMonad.Hooks.ManageDocks
-import           XMonad.Hooks.UrgencyHook
 
 import           XMonad.Util.Replace
 import           XMonad.Util.Run
@@ -80,10 +79,4 @@ main = do
     ]
 
   -- compose all the functionality
-  xmonad
-    . docks
-    . ewmh
-    . navigate
-    . dynamicProjects projects
-    . withUrgencyHook NoUrgencyHook
-    $ defaults
+  xmonad . docks . ewmh . navigate . dynamicProjects projects $ defaults

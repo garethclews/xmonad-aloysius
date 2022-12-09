@@ -15,7 +15,6 @@ import           XMonad.Layout.LayoutCombinators
 
 import           XMonad.Prompt.XMonad
 
-import           XMonad.Util.Scratchpad
 import           XMonad.Util.Ungrab
 
 import qualified Data.Map                      as M
@@ -27,7 +26,7 @@ import qualified XMonad.StackSet               as W
 -- local
 import           App.Alias
 import           App.Launcher
-import           Bind.Util      -- replaces EZConfig, adds <S>
+import           Bind.Util       -- replaces EZConfig, adds <S>
 import           Config.Options
 import           Theme.ChosenTheme
 
@@ -53,7 +52,6 @@ defaultKeys c =
        , ("<S> <Tab>"             , windows W.focusDown)
        , ("<S> S-<Tab>"           , windows W.focusUp)
        , ("<S> p"                 , spawn appLauncher)
-       , ("<S> `"                 , scratchpadSpawnActionCustom scratch)
        , ("<S> a q"               , kill1)
        -- application launchers
        , ("<S> a w"               , spawn browser)
@@ -162,7 +160,6 @@ mouseBindings' XConfig { XMonad.modMask = modm } = M.fromList
     -- you may also bind events to the mouse scroll wheel (button4 and button5)
     -- and middle click (button3)
   ]
-
 
 
 -- Support functions ------------------------------------------------------------

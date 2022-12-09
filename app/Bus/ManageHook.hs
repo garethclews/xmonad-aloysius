@@ -2,9 +2,7 @@
 
 module Bus.ManageHook
   ( manager
-  )
-where
-
+  ) where
 
 import           Data.Ratio                     ( (%) )
 
@@ -16,7 +14,6 @@ import           XMonad.Hooks.ManageHelpers
 
 import qualified XMonad.StackSet               as W
 
-import           App.Scratchpad
 -- Window rules:
 
 -- Execute arbitrary actions and WindowSet manipulations when managing
@@ -51,9 +48,6 @@ import           App.Scratchpad
 --   isRole = stringProperty "WM_WINDOW_ROLE"
 --   splash = "_NET_WM_WINDOW_TYPE_SPLASH"
 
-
-
-
 manager :: ManageHook
 manager =
   composeOne
@@ -69,5 +63,4 @@ manager =
       , pure True -?> insertPosition End Newer
       ]
     <+> manageDocks
-    <+> manageScratchpad
   where isRole = stringProperty "WM_WINDOW_ROLE"
