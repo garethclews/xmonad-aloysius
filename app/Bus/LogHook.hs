@@ -3,11 +3,10 @@
 
 module Bus.LogHook
   ( logHooker
-  )
-where
+  ) where
 
-import           Control.Monad                  ( forM_ )
 import           Control.Lens
+import           Control.Monad                  ( forM_ )
 
 import           XMonad
 import qualified XMonad.StackSet               as W
@@ -109,12 +108,12 @@ fullCommand =
 -- not all of these icons are the same width so using all three again
 killBlank :: String
 -- killBlank = concat ["%{F", basebg, "}\xf192%{F-}"]
-killBlank = concat ["%{F", basebg, "}\xf111%{F-}"]
+killBlank = concat ["%{F", base03, "}\xf111%{F-}"]
 
 copyBlank :: String
 -- copyBlank = concat ["%{F", basebg, "}\xf004%{F-}"]
-copyBlank = concat ["%{F", basebg, "}\xf111%{F-}"]
+copyBlank = concat ["%{F", base03, "}\xf111%{F-}"]
 
 fullBlank :: String
 -- fullBlank = concat ["%{F", basebg, "}\xf005%{F-}"]
-fullBlank = concat ["%{F", basebg, "}\xf111%{F-}"]
+fullBlank = concat ["%{F", base03, "}\xf111%{F-}"]

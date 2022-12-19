@@ -19,6 +19,7 @@ import           XMonad.Actions.DynamicProjects
 
 import           XMonad.Hooks.EwmhDesktops
 import           XMonad.Hooks.ManageDocks
+import           XMonad.Hooks.Modal
 
 import           XMonad.Util.Replace
 import           XMonad.Util.Run

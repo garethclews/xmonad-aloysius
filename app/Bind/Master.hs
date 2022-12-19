@@ -4,14 +4,12 @@ module Bind.Master where
 
 import           System.Exit
 
+--import           XMonad.Hooks.Modal
 import           XMonad
 import           XMonad.Actions.CopyWindow
 import           XMonad.Actions.WindowBringer
 import           XMonad.Actions.WithAll
 import           XMonad.Hooks.ManageDocks       ( ToggleStruts(..) )
-
-import           XMonad.Layout.LayoutCombinators
-                                                ( JumpToLayout(..) )
 
 import           XMonad.Prompt.XMonad
 
@@ -22,11 +20,12 @@ import qualified XMonad.Actions.FlexibleManipulate
                                                as F
 import qualified XMonad.Actions.Search         as S
 import qualified XMonad.StackSet               as W
+import qualified XMonad.Util.ExtensibleState   as XS
 
 -- local
 import           App.Alias
 import           App.Launcher
-import           Bind.Util       -- replaces EZConfig, adds <S>
+import           Bind.Util                                 -- replaces EZConfig, adds <S>
 import           Config.Options
 import           Theme.ChosenTheme
 
@@ -39,9 +38,6 @@ import           Theme.ChosenTheme
 
 -- see about windowmenu
 -- https://hackage.haskell.org/package/xmonad-contrib-0.16/docs/XMonad-Actions-WindowMenu.html
-
-
-
 
 -- @start keys
 defaultKeys :: XConfig l -> M.Map (KeyMask, KeySym) (X ())
@@ -60,8 +56,6 @@ defaultKeys c =
         -- window manipulation
        , ("<S> w g", gotoMenuArgs $ dmenuTheme base10 "Go to window:  ")
        , ("<S> w b", bringMenuArgs $ dmenuTheme base15 "Bring window:  ")
-       , ("<S> w h"               , sendMessage Shrink)
-       , ("<S> w l"               , sendMessage Expand)
        , ("<S> w ."               , sendMessage $ IncMasterN 1)
        , ("<S> w ,"               , sendMessage $ IncMasterN (-1))
        , ("<S> w m"               , windows W.focusMaster)
@@ -71,7 +65,12 @@ defaultKeys c =
        , ("<S> w t", sendMessage ToggleStruts >> spawn "polybar-msg cmd toggle")
        , ("<S> w c"               , windows copyToAll)
        , ("<S> w k"               , killAllOtherCopies)
+       , ("<S> w l"               , sendMessage Expand)
+       , ("<S> w h"               , sendMessage Shrink)
        , ("<S> w <Down>"          , sinkAll)
+       -- TODO: make modal keybindings change the icon colour
+       -- , ("<S> s"                 , setMode "Sizing")
+       -- , ("<S> w f"               , setMode floatModeLabel)
        , ("<S> q l"               , spawn screensaver)
        -- layout manipulation
        , ("<S> l 1", sendMessage $ JumpToLayout "Fullscreen")
@@ -142,7 +141,6 @@ numPadKeys =
   , xK_KP_Page_Up   -- 7, 8, 9
   , xK_KP_Insert
   ]
-
 
 ------------------------------------------------------------------------
 

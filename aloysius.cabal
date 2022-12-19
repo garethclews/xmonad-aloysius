@@ -22,7 +22,6 @@ executable xmonad
   ghc-options:        -threaded -rtsopts -with-rtsopts=-N
   other-modules:       App.Alias
                      , App.Launcher
-                     , App.Scratchpad
                      , Bind.Master
                      , Bind.Util
                      , Bus.EventHook

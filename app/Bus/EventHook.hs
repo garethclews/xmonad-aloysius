@@ -4,12 +4,11 @@
 
 module Bus.EventHook
   ( eventer
-  )
-where
+  ) where
 
 import           Data.Monoid
-import           XMonad
 import           Theme.ChosenTheme
+import           XMonad
 
 
 -- event hook manager and the handler for specific events
@@ -26,7 +25,10 @@ handle _ = return ()
 
 -- pretty content ---------------------------------------------------------------
 fullDot :: String
-fullDot = "%{F" ++ base14 ++ "}\xf111%{F-}\n"
+fullDot = "%{F" ++ base15 ++ "}\xf111%{F-}\n"
+
+modeDot :: String
+modeDot = "${F" ++ base10 ++ "}\xf111%{F-}\n"
 
 voidDot :: String
 voidDot = "\xf111\n"

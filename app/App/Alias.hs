@@ -64,3 +64,6 @@ touchEvents = "echo \"\xf111\" > /tmp/xmonad-events"
 
 chat :: String
 chat = "signal-desktop & discord"
+
+widgetsd :: String
+widgetsd = "eww daemon"
