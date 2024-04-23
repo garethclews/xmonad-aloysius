@@ -14,8 +14,6 @@ import           Theme.ChosenTheme
 
 -- Definitions ------------------------------------------------------------------
 
-
-
 powerMenu :: X ()
 powerMenu =
   dzenConfig

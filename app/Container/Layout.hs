@@ -117,9 +117,8 @@ instance Eq a => DecorationStyle SideDecoration a where
 -- | clickable bar default decoration :)
 instance Eq a => DecorationStyle ADecoration a where
   describeDeco _ = "AloyDecoration"
-  decorationCatchClicksHook _ mainw dFL dFR = clickHandler mainw dFL dFR
-  decorationWhileDraggingHook _ ex ey (mainw, r) xx yy =
-    handleTiledDraggingInProgress ex ey (mainw, r) xx yy
+  decorationCatchClicksHook _  = clickHandler
+  decorationWhileDraggingHook _ = handleTiledDraggingInProgress
   decorationAfterDraggingHook _ (mainw, _) decoWin = do
     focus mainw
     hasCrossed <- handleScreenCrossing mainw decoWin
